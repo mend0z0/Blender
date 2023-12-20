@@ -466,7 +466,7 @@
       "step": "_HW_Blender.step",
       "vrml": ""
     },
-    "page_layout_descr_file": "ANSI B Landscape_PCBDoc_Mend0z0.kicad_wks"
+    "page_layout_descr_file": "ANSI C Landscape_PCBDoc_Mend0z0.kicad_wks"
   },
   "schematic": {
     "annotate_start_num": 0,
@@ -492,7 +492,7 @@
       "version": 1
     },
     "net_format_name": "",
-    "page_layout_descr_file": "ANSI B Landscape_SCHDoc_Mend0z0.kicad_wks",
+    "page_layout_descr_file": "ANSI C Landscape_SCHDoc_Mend0z0.kicad_wks",
     "plot_directory": "",
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
@@ -513,7 +513,7 @@
     ],
     [
       "78ba1f6d-8f50-41d9-86dd-d5a9dd888b91",
-      "MCU"
+      "MICROCONTROLLER"
     ],
     [
       "3325db43-7d11-4c0c-8df1-f35e436223dc",
@@ -521,7 +521,7 @@
     ],
     [
       "06e1b65e-4bfb-4c70-aee5-5eb34ad0275a",
-      "ISOLATED VGA INPUT"
+      "BUFFERED VGA INPUT"
     ],
     [
       "8fb44f2c-8f4d-4c18-aa8f-e8a2762f682f",
@@ -558,6 +558,14 @@
     [
       "f4246776-4f2e-468e-8689-6e62e9cabfca",
       "VIDEO_SIG_BUFF2"
+    ],
+    [
+      "a4ca0ad9-1787-4faf-ba1a-18826797994f",
+      "PWR SEQUENCE"
+    ],
+    [
+      "8a956063-58ca-497d-a89a-3a9f3e79b340",
+      "REVISION HISTORY"
     ]
   ],
   "text_variables": {}

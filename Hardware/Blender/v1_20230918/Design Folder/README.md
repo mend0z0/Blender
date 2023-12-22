@@ -15,6 +15,7 @@ A brief description of this todo list belongs to what project
     - Correcting the information for each page
     - Correcting the README and other .txt files for github
     - Drawing the block diagram for the hardware in draw.io
+    - Opening the STP in solid edge for the box desing!
     - 
 - #### Important (List the works that efficient and optimized functionality of project depends on these tasks):
     - 

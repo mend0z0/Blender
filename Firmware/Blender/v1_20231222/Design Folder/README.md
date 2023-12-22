@@ -7,13 +7,13 @@ A brief description of this todo list belongs to what project
 - #### MUST to DO (List the works that proper working of project depends on these tasks):
     - Drawing the block diagram in draw.io
     -	Opening a firmware project and structuring the files
-    -	Downloading the FreeRTOS and compiling it as a blinking LED
-    -	Writing driver for WS2812
     -	Writing driver for DMX
     -	Writing driver for OLED
-    -	Writing driver for VGA
     -	Writing driver for SPIDF
-    -	Writing a driver for Output audio
+    -	Writing driver for WS2812
+    -	Writing driver for VGA
+    -	Writing a driver for Output audio    
+    -	Downloading the FreeRTOS and compiling it as a blinking LED
     -	Writing a driver analyzer for SPIDF data
     -	Writing an application
     -

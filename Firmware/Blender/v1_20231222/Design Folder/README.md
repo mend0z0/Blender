@@ -13,7 +13,8 @@ A brief description of this todo list belongs to what project
     -	Writing driver for OLED
     -	Writing driver for VGA
     -	Writing driver for SPIDF
-    -	Writing a file analyzer for SPIDF data
+    -	Writing a driver for Output audio
+    -	Writing a driver analyzer for SPIDF data
     -	Writing an application
     -
     - 

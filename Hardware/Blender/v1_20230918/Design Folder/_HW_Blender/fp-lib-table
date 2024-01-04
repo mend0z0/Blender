@@ -1,4 +1,0 @@
-(fp_lib_table
-  (version 7)
-  (lib (name "_PCBLIB_Blender")(type "KiCad")(uri "${KIPRJMOD}/_PCBLIB_Blender.pretty")(options "")(descr ""))
-)

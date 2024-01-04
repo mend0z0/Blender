@@ -1,15 +1,7 @@
-# _SUB_Hardware_Project
+# Version History
 
-- What is this board? 
-- How will this board communicate?
-- Where would be located?
-## Features
+A brief description of this version history belongs to what project
 
-- __MCU :__ 
-- __Inputs :__ 
-- __Outputs :__ 
-- __Board Osc. Freq. :__ 
-- __Working Voltage :__
-- __Current Consumption :__
-- __Board Dimensions :__
+## Roadmap
 
+- __vX_YYYYMMDD :__ Describe what's this version and what's the difference between this and previous version.

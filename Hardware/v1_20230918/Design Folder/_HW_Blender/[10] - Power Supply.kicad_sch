@@ -21,7 +21,7 @@
   )
 
   (lib_symbols
-    (symbol "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603" (in_bom yes) (on_board yes)
+    (symbol "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603" (in_bom yes) (on_board yes)
       (property "Reference" "C" (at 2.54 3.81 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
@@ -67,7 +67,7 @@
       (property "ki_description" "10 µF ±10% 16V Ceramic Capacitor X5R 0603 (1608 Metric)" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (symbol "CAP_10uF_16V_X5R_C0603_0_0"
+      (symbol "CAP_CER_10uF_16V_X5R_C0603_0_0"
         (polyline
           (pts
             (xy 5.08 1.27)
@@ -85,7 +85,7 @@
           (fill (type none))
         )
       )
-      (symbol "CAP_10uF_16V_X5R_C0603_1_1"
+      (symbol "CAP_CER_10uF_16V_X5R_C0603_1_1"
         (pin passive line (at 0 0 0) (length 5.08)
           (name "" (effects (font (size 1.27 1.27))))
           (number "1" (effects (font (size 1.27 1.27))))
@@ -96,7 +96,7 @@
         )
       )
     )
-    (symbol "_SCHLIB_Blender:CAP_1uF_6V3_X5R_C0201" (in_bom yes) (on_board yes)
+    (symbol "_SCHLIB_Blender:CAP_CER_1uF_6V3_X5R_C0201" (in_bom yes) (on_board yes)
       (property "Reference" "C" (at 2.54 3.81 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
@@ -142,7 +142,7 @@
       (property "ki_description" "1 µF ±20% 6.3V Ceramic Capacitor X5R 0201 (0603 Metric)" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (symbol "CAP_1uF_6V3_X5R_C0201_0_0"
+      (symbol "CAP_CER_1uF_6V3_X5R_C0201_0_0"
         (polyline
           (pts
             (xy 5.08 1.27)
@@ -160,7 +160,7 @@
           (fill (type none))
         )
       )
-      (symbol "CAP_1uF_6V3_X5R_C0201_1_1"
+      (symbol "CAP_CER_1uF_6V3_X5R_C0201_1_1"
         (pin passive line (at 0 0 0) (length 5.08)
           (name "" (effects (font (size 1.27 1.27))))
           (number "1" (effects (font (size 1.27 1.27))))
@@ -171,7 +171,7 @@
         )
       )
     )
-    (symbol "_SCHLIB_Blender:CAP_680pF_50V_X7R_C0402" (in_bom yes) (on_board yes)
+    (symbol "_SCHLIB_Blender:CAP_CER_680pF_50V_X7R_C0402" (in_bom yes) (on_board yes)
       (property "Reference" "C" (at 2.54 3.81 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
@@ -217,7 +217,7 @@
       (property "ki_description" "680 pF ±10% 50V Ceramic Capacitor X7R 0402 (1005 Metric)" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (symbol "CAP_680pF_50V_X7R_C0402_0_0"
+      (symbol "CAP_CER_680pF_50V_X7R_C0402_0_0"
         (polyline
           (pts
             (xy 5.08 1.27)
@@ -235,7 +235,7 @@
           (fill (type none))
         )
       )
-      (symbol "CAP_680pF_50V_X7R_C0402_1_1"
+      (symbol "CAP_CER_680pF_50V_X7R_C0402_1_1"
         (pin passive line (at 0 0 0) (length 5.08)
           (name "" (effects (font (size 1.27 1.27))))
           (number "1" (effects (font (size 1.27 1.27))))
@@ -3074,7 +3074,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_680pF_50V_X7R_C0402") (at 306.07 120.65 180) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_680pF_50V_X7R_C0402") (at 306.07 120.65 180) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 0455e917-0602-4db6-b594-cca5708d6270)
     (property "Reference" "C1001" (at 308.61 119.38 0)
@@ -3162,7 +3162,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_1uF_6V3_X5R_C0201") (at 389.89 237.49 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_1uF_6V3_X5R_C0201") (at 389.89 237.49 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 0d281d7f-fa63-498a-aa27-8d434111e8dd)
     (property "Reference" "C1005" (at 392.43 238.76 90)
@@ -3574,7 +3574,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603") (at 91.44 228.6 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603") (at 91.44 228.6 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 3fe230c7-6891-482e-b408-a3ee456a4042)
     (property "Reference" "C1007" (at 93.98 229.87 90)
@@ -3753,7 +3753,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603") (at 393.7 171.45 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603") (at 393.7 171.45 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 4965afba-5498-4f7a-8cad-1fbfe40f4348)
     (property "Reference" "C1004" (at 396.24 172.72 90)
@@ -4049,7 +4049,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603") (at 317.5 170.18 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603") (at 317.5 170.18 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 6369d2c4-bcf9-4421-bb2d-be2c3556fd7b)
     (property "Reference" "C1003" (at 320.04 171.45 90)
@@ -4107,7 +4107,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_1uF_6V3_X5R_C0201") (at 439.42 237.49 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_1uF_6V3_X5R_C0201") (at 439.42 237.49 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 66d45f0c-c82e-4de5-be2e-40b1fd5b901b)
     (property "Reference" "C1006" (at 441.96 238.76 90)
@@ -4374,7 +4374,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603") (at 205.74 236.22 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603") (at 205.74 236.22 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 7c62b4fc-e565-4964-bed5-c320b267388a)
     (property "Reference" "C1008" (at 208.28 237.49 90)
@@ -4905,7 +4905,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603") (at 205.74 288.29 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603") (at 205.74 288.29 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid b7e4bd9d-4805-4e22-94ea-eae8c876805d)
     (property "Reference" "C1010" (at 208.28 289.56 90)
@@ -5173,7 +5173,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603") (at 204.47 170.18 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603") (at 204.47 170.18 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid c8abe677-4ca1-488c-8382-2d3771ac4588)
     (property "Reference" "C1002" (at 207.01 171.45 90)
@@ -5407,7 +5407,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603") (at 91.44 283.21 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603") (at 91.44 283.21 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid d8e92ba8-e2e0-467f-b69a-1c857d6d3d7a)
     (property "Reference" "C1009" (at 93.98 284.48 90)

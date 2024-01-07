@@ -21,7 +21,7 @@
   )
 
   (lib_symbols
-    (symbol "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603" (in_bom yes) (on_board yes)
+    (symbol "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603" (in_bom yes) (on_board yes)
       (property "Reference" "C" (at 2.54 3.81 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
@@ -67,7 +67,7 @@
       (property "ki_description" "10 µF ±10% 16V Ceramic Capacitor X5R 0603 (1608 Metric)" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (symbol "CAP_10uF_16V_X5R_C0603_0_0"
+      (symbol "CAP_CER_10uF_16V_X5R_C0603_0_0"
         (polyline
           (pts
             (xy 5.08 1.27)
@@ -85,7 +85,7 @@
           (fill (type none))
         )
       )
-      (symbol "CAP_10uF_16V_X5R_C0603_1_1"
+      (symbol "CAP_CER_10uF_16V_X5R_C0603_1_1"
         (pin passive line (at 0 0 0) (length 5.08)
           (name "" (effects (font (size 1.27 1.27))))
           (number "1" (effects (font (size 1.27 1.27))))
@@ -96,7 +96,7 @@
         )
       )
     )
-    (symbol "_SCHLIB_Blender:CAP_2u2F_6V3_X5R_C0201" (in_bom yes) (on_board yes)
+    (symbol "_SCHLIB_Blender:CAP_CER_2u2F_6V3_X5R_C0201" (in_bom yes) (on_board yes)
       (property "Reference" "C" (at 2.54 3.81 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
@@ -142,7 +142,7 @@
       (property "ki_description" "2.2 µF ±20% 6.3V Ceramic Capacitor X5R 0201 (0603 Metric)" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (symbol "CAP_2u2F_6V3_X5R_C0201_0_0"
+      (symbol "CAP_CER_2u2F_6V3_X5R_C0201_0_0"
         (polyline
           (pts
             (xy 5.08 1.27)
@@ -160,7 +160,7 @@
           (fill (type none))
         )
       )
-      (symbol "CAP_2u2F_6V3_X5R_C0201_1_1"
+      (symbol "CAP_CER_2u2F_6V3_X5R_C0201_1_1"
         (pin passive line (at 0 0 0) (length 5.08)
           (name "" (effects (font (size 1.27 1.27))))
           (number "1" (effects (font (size 1.27 1.27))))
@@ -800,7 +800,7 @@
       (property "Vendor" "Digikey" (at 2.54 25.4 0)
         (effects (font (size 1.27 1.27)) (justify left) hide)
       )
-      (property "Package" "8-SOIC (0.154\", 3.90mm Width)" (at 2.54 33.02 0)
+      (property "Package" "8-SOIC (3.90mm Width)" (at 2.54 33.02 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
       (property "SCH CHECK" "SCH (N/A)" (at 2.54 30.48 0)
@@ -2317,7 +2317,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_2u2F_6V3_X5R_C0201") (at 195.58 285.75 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_2u2F_6V3_X5R_C0201") (at 195.58 285.75 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 03b3e8e0-d81d-48da-b8a6-5dad798688fa)
     (property "Reference" "C609" (at 198.12 287.02 90)
@@ -2702,7 +2702,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_2u2F_6V3_X5R_C0201") (at 146.05 208.28 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_2u2F_6V3_X5R_C0201") (at 146.05 208.28 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 15457907-da05-49f2-af88-16b9d33efca6)
     (property "Reference" "C605" (at 148.59 209.55 90)
@@ -3052,7 +3052,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_2u2F_6V3_X5R_C0201") (at 129.54 336.55 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_2u2F_6V3_X5R_C0201") (at 129.54 336.55 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 294adb6c-b485-42da-a070-07dc7b08c9b2)
     (property "Reference" "C611" (at 132.08 337.82 90)
@@ -3224,13 +3224,13 @@
     (property "Link" "https://www.digikey.ca/en/products/detail/texas-instruments/ISO7720FDR/7173735" (at 231.14 295.91 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "SCH CHECK" "SCH (N/A)" (at 228.6 298.45 0)
+    (property "SCH CHECK" "SCH (N/A)" (at 228.6 300.99 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Part Number (Manufacturer)" "ISO7720FDR" (at 231.14 285.75 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "Package" "8-SOIC (0.154\", 3.90mm Width)" (at 228.6 300.99 0)
+    (property "Package" "8-SOIC (3.90mm Width)" (at 228.6 298.45 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Manufacturer" "Texas Instruments" (at 231.14 283.21 0)
@@ -3297,7 +3297,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_2u2F_6V3_X5R_C0201") (at 219.71 137.16 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_2u2F_6V3_X5R_C0201") (at 219.71 137.16 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 39407549-f73d-4f7e-b765-d2bc4be97afd)
     (property "Reference" "C601" (at 222.25 138.43 90)
@@ -3443,7 +3443,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_2u2F_6V3_X5R_C0201") (at 144.78 134.62 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_2u2F_6V3_X5R_C0201") (at 144.78 134.62 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 474798a5-a62c-4876-8c86-19d344ef70a5)
     (property "Reference" "C604" (at 147.32 135.89 90)
@@ -3705,7 +3705,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_2u2F_6V3_X5R_C0201") (at 220.98 208.28 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_2u2F_6V3_X5R_C0201") (at 220.98 208.28 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 591478a7-212e-40bd-a66e-4618f5d612bf)
     (property "Reference" "C606" (at 223.52 209.55 90)
@@ -4129,7 +4129,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_2u2F_6V3_X5R_C0201") (at 299.72 137.16 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_2u2F_6V3_X5R_C0201") (at 299.72 137.16 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 78bb2cc6-43db-49d5-a577-5d1883dac888)
     (property "Reference" "C602" (at 302.26 138.43 90)
@@ -4486,7 +4486,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603") (at 266.7 285.75 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603") (at 266.7 285.75 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 9ac08df2-ba95-49cb-ab42-033e9046701c)
     (property "Reference" "C610" (at 269.24 287.02 90)
@@ -4855,7 +4855,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_2u2F_6V3_X5R_C0201") (at 388.62 137.16 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_2u2F_6V3_X5R_C0201") (at 388.62 137.16 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid bfdb36cc-6894-4600-b061-0488de11771d)
     (property "Reference" "C603" (at 391.16 138.43 90)
@@ -5092,7 +5092,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_2u2F_6V3_X5R_C0201") (at 298.45 208.28 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_2u2F_6V3_X5R_C0201") (at 298.45 208.28 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid e236eec3-9075-4b49-82e9-1b02b3de7af6)
     (property "Reference" "C607" (at 300.99 209.55 90)
@@ -5503,7 +5503,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_2u2F_6V3_X5R_C0201") (at 379.73 208.28 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_2u2F_6V3_X5R_C0201") (at 379.73 208.28 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid fc0735af-ac25-4e2d-bbff-69917cdd3f84)
     (property "Reference" "C608" (at 382.27 209.55 90)

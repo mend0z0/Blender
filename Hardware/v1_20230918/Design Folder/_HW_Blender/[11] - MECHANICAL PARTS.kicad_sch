@@ -21,7 +21,7 @@
   )
 
   (lib_symbols
-    (symbol "_SCHLIB_Blender:CAP_1nF_500V_X7R_C0805" (in_bom yes) (on_board yes)
+    (symbol "_SCHLIB_Blender:CAP_CER_1nF_500V_X7R_C0805" (in_bom yes) (on_board yes)
       (property "Reference" "C" (at 2.54 3.81 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
@@ -67,7 +67,7 @@
       (property "ki_description" "1000 pF ±10% 500V Ceramic Capacitor X7R 0805 (2012 Metric)" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (symbol "CAP_1nF_500V_X7R_C0805_0_0"
+      (symbol "CAP_CER_1nF_500V_X7R_C0805_0_0"
         (polyline
           (pts
             (xy 5.08 1.27)
@@ -85,7 +85,7 @@
           (fill (type none))
         )
       )
-      (symbol "CAP_1nF_500V_X7R_C0805_1_1"
+      (symbol "CAP_CER_1nF_500V_X7R_C0805_1_1"
         (pin passive line (at 0 0 0) (length 5.08)
           (name "" (effects (font (size 1.27 1.27))))
           (number "1" (effects (font (size 1.27 1.27))))
@@ -574,7 +574,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_1nF_500V_X7R_C0805") (at 172.72 144.78 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_1nF_500V_X7R_C0805") (at 172.72 144.78 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 7b0bfeb0-9087-49a2-b348-36ce96c475e4)
     (property "Reference" "C1101" (at 175.26 146.05 90)

@@ -1,5 +1,5 @@
 (kicad_symbol_lib (version 20220914) (generator kicad_symbol_editor)
-  (symbol "CAP_1.8pF_50V_C0G_C0201" (in_bom yes) (on_board yes)
+  (symbol "CAP_CER_1.8pF_50V_C0G_C0201" (in_bom yes) (on_board yes)
     (property "Reference" "C" (at 2.54 3.81 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
@@ -45,7 +45,7 @@
     (property "ki_description" "1.8 pF ±0.25pF 50V Ceramic Capacitor C0G, NP0 0201 (0603 Metric)" (at 0 0 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (symbol "CAP_1.8pF_50V_C0G_C0201_0_0"
+    (symbol "CAP_CER_1.8pF_50V_C0G_C0201_0_0"
       (polyline
         (pts
           (xy 5.08 1.27)
@@ -63,7 +63,7 @@
         (fill (type none))
       )
     )
-    (symbol "CAP_1.8pF_50V_C0G_C0201_1_1"
+    (symbol "CAP_CER_1.8pF_50V_C0G_C0201_1_1"
       (pin passive line (at 0 0 0) (length 5.08)
         (name "" (effects (font (size 1.27 1.27))))
         (number "1" (effects (font (size 1.27 1.27))))
@@ -74,7 +74,7 @@
       )
     )
   )
-  (symbol "CAP_100nF_6V3_X7R_C0201" (in_bom yes) (on_board yes)
+  (symbol "CAP_CER_100nF_6V3_X7R_C0201" (in_bom yes) (on_board yes)
     (property "Reference" "C" (at 2.54 5.08 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
@@ -120,7 +120,7 @@
     (property "ki_description" "0.1 µF ±10% 6.3V Ceramic Capacitor X7R 0201 (0603 Metric)" (at 0 0 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (symbol "CAP_100nF_6V3_X7R_C0201_0_0"
+    (symbol "CAP_CER_100nF_6V3_X7R_C0201_0_0"
       (polyline
         (pts
           (xy 5.08 1.27)
@@ -138,7 +138,7 @@
         (fill (type none))
       )
     )
-    (symbol "CAP_100nF_6V3_X7R_C0201_1_1"
+    (symbol "CAP_CER_100nF_6V3_X7R_C0201_1_1"
       (pin passive line (at 0 0 0) (length 5.08)
         (name "" (effects (font (size 1.27 1.27))))
         (number "1" (effects (font (size 1.27 1.27))))
@@ -149,7 +149,7 @@
       )
     )
   )
-  (symbol "CAP_10nF_6V3_X7R_C0201" (in_bom yes) (on_board yes)
+  (symbol "CAP_CER_10nF_6V3_X7R_C0201" (in_bom yes) (on_board yes)
     (property "Reference" "C" (at 2.54 3.81 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
@@ -195,7 +195,7 @@
     (property "ki_description" "10000 pF ±10% 6.3V Ceramic Capacitor X7R 0201 (0603 Metric)" (at 0 0 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (symbol "CAP_10nF_6V3_X7R_C0201_0_0"
+    (symbol "CAP_CER_10nF_6V3_X7R_C0201_0_0"
       (polyline
         (pts
           (xy 5.08 1.27)
@@ -213,7 +213,7 @@
         (fill (type none))
       )
     )
-    (symbol "CAP_10nF_6V3_X7R_C0201_1_1"
+    (symbol "CAP_CER_10nF_6V3_X7R_C0201_1_1"
       (pin passive line (at 0 0 0) (length 5.08)
         (name "" (effects (font (size 1.27 1.27))))
         (number "1" (effects (font (size 1.27 1.27))))
@@ -224,7 +224,7 @@
       )
     )
   )
-  (symbol "CAP_10uF_16V_X5R_C0603" (in_bom yes) (on_board yes)
+  (symbol "CAP_CER_10uF_16V_X5R_C0603" (in_bom yes) (on_board yes)
     (property "Reference" "C" (at 2.54 3.81 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
@@ -270,7 +270,7 @@
     (property "ki_description" "10 µF ±10% 16V Ceramic Capacitor X5R 0603 (1608 Metric)" (at 0 0 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (symbol "CAP_10uF_16V_X5R_C0603_0_0"
+    (symbol "CAP_CER_10uF_16V_X5R_C0603_0_0"
       (polyline
         (pts
           (xy 5.08 1.27)
@@ -288,7 +288,7 @@
         (fill (type none))
       )
     )
-    (symbol "CAP_10uF_16V_X5R_C0603_1_1"
+    (symbol "CAP_CER_10uF_16V_X5R_C0603_1_1"
       (pin passive line (at 0 0 0) (length 5.08)
         (name "" (effects (font (size 1.27 1.27))))
         (number "1" (effects (font (size 1.27 1.27))))
@@ -299,7 +299,7 @@
       )
     )
   )
-  (symbol "CAP_12pF_50V_C0G_C0201" (in_bom yes) (on_board yes)
+  (symbol "CAP_CER_12pF_50V_C0G_C0201" (in_bom yes) (on_board yes)
     (property "Reference" "C" (at 3.81 5.08 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
@@ -345,7 +345,7 @@
     (property "ki_description" "12 pF ±5% 50V Ceramic Capacitor C0G, NP0 0201 (0603 Metric)" (at 0 0 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (symbol "CAP_12pF_50V_C0G_C0201_0_0"
+    (symbol "CAP_CER_12pF_50V_C0G_C0201_0_0"
       (polyline
         (pts
           (xy 5.08 1.27)
@@ -363,7 +363,7 @@
         (fill (type none))
       )
     )
-    (symbol "CAP_12pF_50V_C0G_C0201_1_1"
+    (symbol "CAP_CER_12pF_50V_C0G_C0201_1_1"
       (pin passive line (at 0 0 0) (length 5.08)
         (name "" (effects (font (size 1.27 1.27))))
         (number "1" (effects (font (size 1.27 1.27))))
@@ -374,7 +374,7 @@
       )
     )
   )
-  (symbol "CAP_1nF_500V_X7R_C0805" (in_bom yes) (on_board yes)
+  (symbol "CAP_CER_1nF_500V_X7R_C0805" (in_bom yes) (on_board yes)
     (property "Reference" "C" (at 2.54 3.81 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
@@ -420,7 +420,7 @@
     (property "ki_description" "1000 pF ±10% 500V Ceramic Capacitor X7R 0805 (2012 Metric)" (at 0 0 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (symbol "CAP_1nF_500V_X7R_C0805_0_0"
+    (symbol "CAP_CER_1nF_500V_X7R_C0805_0_0"
       (polyline
         (pts
           (xy 5.08 1.27)
@@ -438,7 +438,7 @@
         (fill (type none))
       )
     )
-    (symbol "CAP_1nF_500V_X7R_C0805_1_1"
+    (symbol "CAP_CER_1nF_500V_X7R_C0805_1_1"
       (pin passive line (at 0 0 0) (length 5.08)
         (name "" (effects (font (size 1.27 1.27))))
         (number "1" (effects (font (size 1.27 1.27))))
@@ -449,7 +449,7 @@
       )
     )
   )
-  (symbol "CAP_1nF_50_C0G_C0201" (in_bom yes) (on_board yes)
+  (symbol "CAP_CER_1nF_50_C0G_C0201" (in_bom yes) (on_board yes)
     (property "Reference" "C" (at 2.54 3.81 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
@@ -495,7 +495,7 @@
     (property "ki_description" "1000 pF ±5% 50V Ceramic Capacitor C0G, NP0 0201 (0603 Metric)" (at 0 0 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (symbol "CAP_1nF_50_C0G_C0201_0_0"
+    (symbol "CAP_CER_1nF_50_C0G_C0201_0_0"
       (polyline
         (pts
           (xy 5.08 1.27)
@@ -513,7 +513,7 @@
         (fill (type none))
       )
     )
-    (symbol "CAP_1nF_50_C0G_C0201_1_1"
+    (symbol "CAP_CER_1nF_50_C0G_C0201_1_1"
       (pin passive line (at 0 0 0) (length 5.08)
         (name "" (effects (font (size 1.27 1.27))))
         (number "1" (effects (font (size 1.27 1.27))))
@@ -524,7 +524,7 @@
       )
     )
   )
-  (symbol "CAP_1pF_50V_C0G_C0201" (in_bom yes) (on_board yes)
+  (symbol "CAP_CER_1pF_50V_C0G_C0201" (in_bom yes) (on_board yes)
     (property "Reference" "C" (at 2.54 3.81 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
@@ -570,7 +570,7 @@
     (property "ki_description" "1 pF ±0.25pF 50V Ceramic Capacitor C0G, NP0 0201 (0603 Metric)" (at 0 0 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (symbol "CAP_1pF_50V_C0G_C0201_0_0"
+    (symbol "CAP_CER_1pF_50V_C0G_C0201_0_0"
       (polyline
         (pts
           (xy 5.08 1.27)
@@ -588,7 +588,7 @@
         (fill (type none))
       )
     )
-    (symbol "CAP_1pF_50V_C0G_C0201_1_1"
+    (symbol "CAP_CER_1pF_50V_C0G_C0201_1_1"
       (pin passive line (at 0 0 0) (length 5.08)
         (name "" (effects (font (size 1.27 1.27))))
         (number "1" (effects (font (size 1.27 1.27))))
@@ -599,7 +599,7 @@
       )
     )
   )
-  (symbol "CAP_1uF_6V3_X5R_C0201" (in_bom yes) (on_board yes)
+  (symbol "CAP_CER_1uF_6V3_X5R_C0201" (in_bom yes) (on_board yes)
     (property "Reference" "C" (at 2.54 3.81 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
@@ -645,7 +645,7 @@
     (property "ki_description" "1 µF ±20% 6.3V Ceramic Capacitor X5R 0201 (0603 Metric)" (at 0 0 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (symbol "CAP_1uF_6V3_X5R_C0201_0_0"
+    (symbol "CAP_CER_1uF_6V3_X5R_C0201_0_0"
       (polyline
         (pts
           (xy 5.08 1.27)
@@ -663,7 +663,7 @@
         (fill (type none))
       )
     )
-    (symbol "CAP_1uF_6V3_X5R_C0201_1_1"
+    (symbol "CAP_CER_1uF_6V3_X5R_C0201_1_1"
       (pin passive line (at 0 0 0) (length 5.08)
         (name "" (effects (font (size 1.27 1.27))))
         (number "1" (effects (font (size 1.27 1.27))))
@@ -674,7 +674,7 @@
       )
     )
   )
-  (symbol "CAP_2u2F_6V3_X5R_C0201" (in_bom yes) (on_board yes)
+  (symbol "CAP_CER_2u2F_6V3_X5R_C0201" (in_bom yes) (on_board yes)
     (property "Reference" "C" (at 2.54 3.81 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
@@ -720,7 +720,7 @@
     (property "ki_description" "2.2 µF ±20% 6.3V Ceramic Capacitor X5R 0201 (0603 Metric)" (at 0 0 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (symbol "CAP_2u2F_6V3_X5R_C0201_0_0"
+    (symbol "CAP_CER_2u2F_6V3_X5R_C0201_0_0"
       (polyline
         (pts
           (xy 5.08 1.27)
@@ -738,7 +738,7 @@
         (fill (type none))
       )
     )
-    (symbol "CAP_2u2F_6V3_X5R_C0201_1_1"
+    (symbol "CAP_CER_2u2F_6V3_X5R_C0201_1_1"
       (pin passive line (at 0 0 0) (length 5.08)
         (name "" (effects (font (size 1.27 1.27))))
         (number "1" (effects (font (size 1.27 1.27))))
@@ -749,7 +749,7 @@
       )
     )
   )
-  (symbol "CAP_680pF_50V_X7R_C0402" (in_bom yes) (on_board yes)
+  (symbol "CAP_CER_680pF_50V_X7R_C0402" (in_bom yes) (on_board yes)
     (property "Reference" "C" (at 2.54 3.81 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
@@ -795,7 +795,7 @@
     (property "ki_description" "680 pF ±10% 50V Ceramic Capacitor X7R 0402 (1005 Metric)" (at 0 0 0)
       (effects (font (size 1.27 1.27)) hide)
     )
-    (symbol "CAP_680pF_50V_X7R_C0402_0_0"
+    (symbol "CAP_CER_680pF_50V_X7R_C0402_0_0"
       (polyline
         (pts
           (xy 5.08 1.27)
@@ -813,7 +813,7 @@
         (fill (type none))
       )
     )
-    (symbol "CAP_680pF_50V_X7R_C0402_1_1"
+    (symbol "CAP_CER_680pF_50V_X7R_C0402_1_1"
       (pin passive line (at 0 0 0) (length 5.08)
         (name "" (effects (font (size 1.27 1.27))))
         (number "1" (effects (font (size 1.27 1.27))))
@@ -2904,7 +2904,7 @@
     (property "Link" "https://www.digikey.ca/en/products/detail/diodes-incorporated/PAM8003DR/4033274" (at 2.54 10.16 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "Package" "16-SOIC (0.154\", 3.90mm Width)" (at 2.54 33.02 0)
+    (property "Package" "16-SOIC (3.90mm Width)" (at 2.54 33.02 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "SCH CHECK" "SCH (N/A)" (at 2.54 30.48 0)
@@ -3031,28 +3031,28 @@
     (property "Description" "Buffer, Non-Inverting 1 Element 1 Bit per Element Push-Pull Output SOT-23-5" (at 2.54 13.97 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "Part Number (Manufacturer)" "SN74LVC1G17DBVR" (at 2.54 19.05 0)
+    (property "Part Number (Manufacturer)" "SN74LVC1G17DBVR" (at 2.54 21.59 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
     (property "Link" "https://www.digikey.ca/en/products/detail/texas-instruments/SN74LVC1G17DBVR/389051" (at 2.54 11.43 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "Manufacturer" "Texas Instruments" (at 0 0 0)
+    (property "Manufacturer" "Texas Instruments" (at 2.54 24.13 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "Part Number (Vendor)" "296-11933-2-ND" (at 0 0 0)
+    (property "Part Number (Vendor)" "296-11933-2-ND" (at 2.54 19.05 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "Vendor" "Digikey" (at 0 0 0)
+    (property "Vendor" "Digikey" (at 2.54 26.67 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "Package" "SOT23-5" (at 0 0 0)
+    (property "Package" "SOT23-5" (at 2.54 34.29 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "SCH CHECK" "SCH (N/A)" (at 2.54 21.59 0)
+    (property "SCH CHECK" "SCH (N/A)" (at 2.54 31.75 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "PCB CHECK" "PCB (N/A)" (at 0 0 0)
+    (property "PCB CHECK" "PCB (N/A)" (at 2.54 29.21 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "ki_keywords" "SN74LVC1G17DBVR" (at 0 0 0)
@@ -3182,7 +3182,7 @@
     (property "Vendor" "Digikey" (at 3.81 26.67 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "Package" "16-SSOP (0.154\", 3.90mm Width)" (at 3.81 34.29 0)
+    (property "Package" "16-SSOP (3.90mm Width)" (at 3.81 34.29 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "SCH CHECK" "SCH (N/A)" (at 3.81 31.75 0)
@@ -3317,7 +3317,7 @@
     (property "Vendor" "Digikey" (at 2.54 25.4 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "Package" "8-SOIC (0.154\", 3.90mm Width)" (at 2.54 33.02 0)
+    (property "Package" "8-SOIC (3.90mm Width)" (at 2.54 33.02 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "SCH CHECK" "SCH (N/A)" (at 2.54 30.48 0)
@@ -6013,12 +6013,6 @@
     (property "Link" "https://www.digikey.ca/en/products/detail/ecs-inc/ECS-160-12-37B-CTN-TR/9838848" (at 3.81 15.24 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "SCH CHECK" "SCH (N/A)" (at 3.81 35.56 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
-    (property "Package" "4SMD-2016" (at 3.81 38.1 0)
-      (effects (font (size 1.27 1.27)) (justify left))
-    )
     (property "Manufacturer" "ECS Inc." (at 3.81 27.94 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
@@ -6027,6 +6021,12 @@
     )
     (property "Vendor" "Digikey" (at 3.81 30.48 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
+    )
+    (property "Package" "4SMD-2016" (at 3.81 38.1 0)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "SCH CHECK" "SCH (N/A)" (at 3.81 35.56 0)
+      (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "PCB CHECk" "PCB (N/A)" (at 3.81 33.02 0)
       (effects (font (size 1.27 1.27)) (justify left))

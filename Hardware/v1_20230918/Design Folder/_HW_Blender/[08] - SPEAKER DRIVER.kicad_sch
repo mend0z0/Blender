@@ -21,7 +21,7 @@
   )
 
   (lib_symbols
-    (symbol "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603" (in_bom yes) (on_board yes)
+    (symbol "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603" (in_bom yes) (on_board yes)
       (property "Reference" "C" (at 2.54 3.81 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
@@ -67,7 +67,7 @@
       (property "ki_description" "10 µF ±10% 16V Ceramic Capacitor X5R 0603 (1608 Metric)" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (symbol "CAP_10uF_16V_X5R_C0603_0_0"
+      (symbol "CAP_CER_10uF_16V_X5R_C0603_0_0"
         (polyline
           (pts
             (xy 5.08 1.27)
@@ -85,7 +85,7 @@
           (fill (type none))
         )
       )
-      (symbol "CAP_10uF_16V_X5R_C0603_1_1"
+      (symbol "CAP_CER_10uF_16V_X5R_C0603_1_1"
         (pin passive line (at 0 0 0) (length 5.08)
           (name "" (effects (font (size 1.27 1.27))))
           (number "1" (effects (font (size 1.27 1.27))))
@@ -96,7 +96,7 @@
         )
       )
     )
-    (symbol "_SCHLIB_Blender:CAP_1uF_6V3_X5R_C0201" (in_bom yes) (on_board yes)
+    (symbol "_SCHLIB_Blender:CAP_CER_1uF_6V3_X5R_C0201" (in_bom yes) (on_board yes)
       (property "Reference" "C" (at 2.54 3.81 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
@@ -142,7 +142,7 @@
       (property "ki_description" "1 µF ±20% 6.3V Ceramic Capacitor X5R 0201 (0603 Metric)" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (symbol "CAP_1uF_6V3_X5R_C0201_0_0"
+      (symbol "CAP_CER_1uF_6V3_X5R_C0201_0_0"
         (polyline
           (pts
             (xy 5.08 1.27)
@@ -160,7 +160,7 @@
           (fill (type none))
         )
       )
-      (symbol "CAP_1uF_6V3_X5R_C0201_1_1"
+      (symbol "CAP_CER_1uF_6V3_X5R_C0201_1_1"
         (pin passive line (at 0 0 0) (length 5.08)
           (name "" (effects (font (size 1.27 1.27))))
           (number "1" (effects (font (size 1.27 1.27))))
@@ -171,7 +171,7 @@
         )
       )
     )
-    (symbol "_SCHLIB_Blender:CAP_2u2F_6V3_X5R_C0201" (in_bom yes) (on_board yes)
+    (symbol "_SCHLIB_Blender:CAP_CER_2u2F_6V3_X5R_C0201" (in_bom yes) (on_board yes)
       (property "Reference" "C" (at 2.54 3.81 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
@@ -217,7 +217,7 @@
       (property "ki_description" "2.2 µF ±20% 6.3V Ceramic Capacitor X5R 0201 (0603 Metric)" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (symbol "CAP_2u2F_6V3_X5R_C0201_0_0"
+      (symbol "CAP_CER_2u2F_6V3_X5R_C0201_0_0"
         (polyline
           (pts
             (xy 5.08 1.27)
@@ -235,7 +235,7 @@
           (fill (type none))
         )
       )
-      (symbol "CAP_2u2F_6V3_X5R_C0201_1_1"
+      (symbol "CAP_CER_2u2F_6V3_X5R_C0201_1_1"
         (pin passive line (at 0 0 0) (length 5.08)
           (name "" (effects (font (size 1.27 1.27))))
           (number "1" (effects (font (size 1.27 1.27))))
@@ -481,7 +481,7 @@
       (property "Vendor" "Digikey" (at 3.81 26.67 0)
         (effects (font (size 1.27 1.27)) (justify left) hide)
       )
-      (property "Package" "16-SSOP (0.154\", 3.90mm Width)" (at 3.81 34.29 0)
+      (property "Package" "16-SSOP (3.90mm Width)" (at 3.81 34.29 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
       (property "SCH CHECK" "SCH (N/A)" (at 3.81 31.75 0)
@@ -1725,7 +1725,7 @@
   )
 
   (symbol (lib_id "_SCHLIB_Blender:CONN_HEADER_2POS_1ROW_MALE_VERT_1.27MM") (at 495.3 165.1 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (in_bom yes) (on_board yes) (dnp no)
     (uuid 1864c394-4661-4d14-9a70-92c354f74c77)
     (property "Reference" "J801" (at 500.38 163.83 0)
       (effects (font (size 1.27 1.27)) (justify left))
@@ -1745,13 +1745,13 @@
     (property "Link" "https://www.digikey.ca/en/products/detail/sullins-connector-solutions/GRPB021VWVN-RC/1786438" (at 497.84 154.94 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "SCH CHECK" "SCH (N/A)" (at 500.38 168.91 0)
+    (property "SCH CHECK" "SCH (N/A)" (at 500.38 171.45 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Part Number (Manufacturer)" "GRPB021VWVN-RC" (at 497.84 144.78 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "Package" "THD-RA-2.54MM" (at 500.38 171.45 0)
+    (property "Package" "THD-RA-2.54MM" (at 500.38 168.91 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Manufacturer" "Sullins Connector Solutions" (at 497.84 142.24 0)
@@ -1782,7 +1782,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_2u2F_6V3_X5R_C0201") (at 339.09 198.12 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_2u2F_6V3_X5R_C0201") (at 339.09 198.12 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 231d031b-7634-42ca-a297-e3153f6bc073)
     (property "Reference" "C806" (at 341.63 199.39 90)
@@ -1898,7 +1898,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603") (at 210.82 195.58 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603") (at 210.82 195.58 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 3106cc12-65ba-4a85-9405-60b021484818)
     (property "Reference" "C804" (at 213.36 196.85 90)
@@ -2189,7 +2189,7 @@
     (property "Part Number (Manufacturer)" "PCM1754DBQR" (at 245.11 144.78 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "Package" "16-SSOP (0.154\", 3.90mm Width)" (at 241.3 158.75 0)
+    (property "Package" "16-SSOP (3.90mm Width)" (at 241.3 158.75 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Manufacturer" "Texas Instruments" (at 245.11 142.24 0)
@@ -2380,7 +2380,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603") (at 312.42 173.99 0) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603") (at 312.42 173.99 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 5bc3f5ae-44a6-4719-8636-d50ec9e87e27)
     (property "Reference" "C802" (at 327.66 172.72 0)
@@ -2557,7 +2557,7 @@
   )
 
   (symbol (lib_id "_SCHLIB_Blender:CONN_HEADER_2POS_1ROW_MALE_VERT_1.27MM") (at 495.3 177.8 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (in_bom yes) (on_board yes) (dnp no)
     (uuid 82254f28-7392-4770-bce7-4df5ffdc1630)
     (property "Reference" "J802" (at 500.38 176.53 0)
       (effects (font (size 1.27 1.27)) (justify left))
@@ -2577,13 +2577,13 @@
     (property "Link" "https://www.digikey.ca/en/products/detail/sullins-connector-solutions/GRPB021VWVN-RC/1786438" (at 497.84 167.64 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "SCH CHECK" "SCH (N/A)" (at 500.38 181.61 0)
+    (property "SCH CHECK" "SCH (N/A)" (at 500.38 184.15 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Part Number (Manufacturer)" "GRPB021VWVN-RC" (at 497.84 157.48 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "Package" "THD-RA-2.54MM" (at 500.38 184.15 0)
+    (property "Package" "THD-RA-2.54MM" (at 500.38 181.61 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Manufacturer" "Sullins Connector Solutions" (at 497.84 154.94 0)
@@ -2614,7 +2614,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_2u2F_6V3_X5R_C0201") (at 308.61 198.12 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_2u2F_6V3_X5R_C0201") (at 308.61 198.12 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 8377b58e-e351-4abe-b41e-37eeea448aee)
     (property "Reference" "C805" (at 311.15 199.39 90)
@@ -2732,7 +2732,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_2u2F_6V3_X5R_C0201") (at 388.62 198.12 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_2u2F_6V3_X5R_C0201") (at 388.62 198.12 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 96e3d839-fb60-4404-aabb-2f7ef1f8b5e6)
     (property "Reference" "C808" (at 391.16 199.39 90)
@@ -3036,7 +3036,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603") (at 191.77 195.58 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603") (at 191.77 195.58 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid c0812c5e-52c1-46b6-b371-cbbbed189533)
     (property "Reference" "C803" (at 194.31 196.85 90)
@@ -3240,7 +3240,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_1uF_6V3_X5R_C0201") (at 368.3 198.12 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_1uF_6V3_X5R_C0201") (at 368.3 198.12 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid dfaf807c-0b33-441c-80f4-e0ca26f248a0)
     (property "Reference" "C807" (at 370.84 199.39 90)
@@ -3298,7 +3298,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603") (at 312.42 165.1 0) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603") (at 312.42 165.1 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid ee81d3fa-409e-4e28-85b8-361e841e442d)
     (property "Reference" "C801" (at 327.66 163.83 0)

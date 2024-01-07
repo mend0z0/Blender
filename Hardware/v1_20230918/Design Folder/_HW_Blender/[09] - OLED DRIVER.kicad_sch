@@ -21,7 +21,7 @@
   )
 
   (lib_symbols
-    (symbol "_SCHLIB_Blender:CAP_1uF_6V3_X5R_C0201" (in_bom yes) (on_board yes)
+    (symbol "_SCHLIB_Blender:CAP_CER_1uF_6V3_X5R_C0201" (in_bom yes) (on_board yes)
       (property "Reference" "C" (at 2.54 3.81 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
@@ -67,7 +67,7 @@
       (property "ki_description" "1 µF ±20% 6.3V Ceramic Capacitor X5R 0201 (0603 Metric)" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (symbol "CAP_1uF_6V3_X5R_C0201_0_0"
+      (symbol "CAP_CER_1uF_6V3_X5R_C0201_0_0"
         (polyline
           (pts
             (xy 5.08 1.27)
@@ -85,7 +85,7 @@
           (fill (type none))
         )
       )
-      (symbol "CAP_1uF_6V3_X5R_C0201_1_1"
+      (symbol "CAP_CER_1uF_6V3_X5R_C0201_1_1"
         (pin passive line (at 0 0 0) (length 5.08)
           (name "" (effects (font (size 1.27 1.27))))
           (number "1" (effects (font (size 1.27 1.27))))
@@ -565,7 +565,7 @@
     (uuid ec7530e5-da9e-44ef-9c03-3d657195fbf8)
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_1uF_6V3_X5R_C0201") (at 264.16 180.34 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_1uF_6V3_X5R_C0201") (at 264.16 180.34 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 06f9daed-cf6d-4b28-bd5c-d61bc3155b5f)
     (property "Reference" "C901" (at 266.7 181.61 90)

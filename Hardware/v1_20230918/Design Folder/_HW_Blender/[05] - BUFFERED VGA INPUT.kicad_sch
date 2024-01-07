@@ -21,7 +21,7 @@
   )
 
   (lib_symbols
-    (symbol "_SCHLIB_Blender:CAP_100nF_6V3_X7R_C0201" (in_bom yes) (on_board yes)
+    (symbol "_SCHLIB_Blender:CAP_CER_100nF_6V3_X7R_C0201" (in_bom yes) (on_board yes)
       (property "Reference" "C" (at 2.54 5.08 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
@@ -67,7 +67,7 @@
       (property "ki_description" "0.1 µF ±10% 6.3V Ceramic Capacitor X7R 0201 (0603 Metric)" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (symbol "CAP_100nF_6V3_X7R_C0201_0_0"
+      (symbol "CAP_CER_100nF_6V3_X7R_C0201_0_0"
         (polyline
           (pts
             (xy 5.08 1.27)
@@ -85,7 +85,7 @@
           (fill (type none))
         )
       )
-      (symbol "CAP_100nF_6V3_X7R_C0201_1_1"
+      (symbol "CAP_CER_100nF_6V3_X7R_C0201_1_1"
         (pin passive line (at 0 0 0) (length 5.08)
           (name "" (effects (font (size 1.27 1.27))))
           (number "1" (effects (font (size 1.27 1.27))))
@@ -96,7 +96,7 @@
         )
       )
     )
-    (symbol "_SCHLIB_Blender:CAP_2u2F_6V3_X5R_C0201" (in_bom yes) (on_board yes)
+    (symbol "_SCHLIB_Blender:CAP_CER_2u2F_6V3_X5R_C0201" (in_bom yes) (on_board yes)
       (property "Reference" "C" (at 2.54 3.81 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
@@ -142,7 +142,7 @@
       (property "ki_description" "2.2 µF ±20% 6.3V Ceramic Capacitor X5R 0201 (0603 Metric)" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (symbol "CAP_2u2F_6V3_X5R_C0201_0_0"
+      (symbol "CAP_CER_2u2F_6V3_X5R_C0201_0_0"
         (polyline
           (pts
             (xy 5.08 1.27)
@@ -160,7 +160,7 @@
           (fill (type none))
         )
       )
-      (symbol "CAP_2u2F_6V3_X5R_C0201_1_1"
+      (symbol "CAP_CER_2u2F_6V3_X5R_C0201_1_1"
         (pin passive line (at 0 0 0) (length 5.08)
           (name "" (effects (font (size 1.27 1.27))))
           (number "1" (effects (font (size 1.27 1.27))))
@@ -1443,7 +1443,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_2u2F_6V3_X5R_C0201") (at 306.07 247.65 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_2u2F_6V3_X5R_C0201") (at 306.07 247.65 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 077608ac-146a-435c-8a4e-bcb9592b1248)
     (property "Reference" "C503" (at 308.61 248.92 90)
@@ -1522,13 +1522,13 @@
     (property "Link" "https://www.digikey.ca/en/products/detail/texas-instruments/SN74LVC1G17DBVR/389051" (at 356.87 184.15 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "SCH CHECK" "SCH (N/A)" (at 354.33 187.96 0)
+    (property "SCH CHECK" "SCH (N/A)" (at 354.33 190.5 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Part Number (Manufacturer)" "SN74LVC1G17DBVR" (at 356.87 176.53 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "PCB CHECK" "PCB (N/A)" (at 354.33 190.5 0)
+    (property "PCB CHECK" "PCB (N/A)" (at 354.33 193.04 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Manufacturer" "Texas Instruments" (at 354.33 195.58 0)
@@ -1540,7 +1540,7 @@
     (property "Vendor" "Digikey" (at 354.33 195.58 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "Package" "SOT23-5" (at 354.33 193.04 0)
+    (property "Package" "SOT23-5" (at 354.33 187.96 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (pin "1" (uuid b6dd3f53-3a3c-4d4c-b397-dce8aa938d3e))
@@ -1583,13 +1583,13 @@
     (property "Link" "https://www.digikey.ca/en/products/detail/texas-instruments/SN74LVC1G17DBVR/389051" (at 356.87 224.79 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "SCH CHECK" "SCH (N/A)" (at 354.33 228.6 0)
+    (property "SCH CHECK" "SCH (N/A)" (at 354.33 231.14 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Part Number (Manufacturer)" "SN74LVC1G17DBVR" (at 356.87 217.17 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "PCB CHECK" "PCB (N/A)" (at 354.33 231.14 0)
+    (property "PCB CHECK" "PCB (N/A)" (at 354.33 233.68 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Manufacturer" "Texas Instruments" (at 354.33 236.22 0)
@@ -1601,7 +1601,7 @@
     (property "Vendor" "Digikey" (at 354.33 236.22 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "Package" "SOT23-5" (at 354.33 233.68 0)
+    (property "Package" "SOT23-5" (at 354.33 228.6 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (pin "1" (uuid 821a7e14-09aa-48ab-8d94-41b35290098f))
@@ -2299,7 +2299,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_2u2F_6V3_X5R_C0201") (at 306.07 207.01 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_2u2F_6V3_X5R_C0201") (at 306.07 207.01 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 831176c6-48a0-4930-a321-a5214b5675ad)
     (property "Reference" "C501" (at 308.61 208.28 90)
@@ -2387,7 +2387,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_100nF_6V3_X7R_C0201") (at 328.93 207.01 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_100nF_6V3_X7R_C0201") (at 328.93 207.01 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 9008ce50-be05-42f7-9120-aca900850685)
     (property "Reference" "C502" (at 331.47 208.28 90)
@@ -2876,13 +2876,13 @@
     (property "Link" "https://www.digikey.ca/en/products/detail/amphenol-cs-commercial-products/L717HDE15PD4CH4R/4886543" (at 143.51 162.56 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "SCH CHECK" "SCH (N/A)" (at 140.97 165.1 0)
+    (property "SCH CHECK" "SCH (N/A)" (at 140.97 167.64 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Part Number (Manufacturer)" "L717HDE15PD4CH4R" (at 143.51 152.4 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "Package" "THD-R/A" (at 140.97 167.64 0)
+    (property "Package" "THD-R/A" (at 140.97 165.1 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Manufacturer" "Amphenol ICC (Commercial Products)" (at 143.51 149.86 0)
@@ -2985,7 +2985,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_100nF_6V3_X7R_C0201") (at 328.93 247.65 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_100nF_6V3_X7R_C0201") (at 328.93 247.65 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid e83e5da1-8551-4395-9fe2-ff0511f6965e)
     (property "Reference" "C504" (at 331.47 248.92 90)

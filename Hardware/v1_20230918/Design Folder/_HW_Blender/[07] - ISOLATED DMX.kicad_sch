@@ -21,7 +21,7 @@
   )
 
   (lib_symbols
-    (symbol "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603" (in_bom yes) (on_board yes)
+    (symbol "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603" (in_bom yes) (on_board yes)
       (property "Reference" "C" (at 2.54 3.81 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
@@ -67,7 +67,7 @@
       (property "ki_description" "10 µF ±10% 16V Ceramic Capacitor X5R 0603 (1608 Metric)" (at 0 0 0)
         (effects (font (size 1.27 1.27)) hide)
       )
-      (symbol "CAP_10uF_16V_X5R_C0603_0_0"
+      (symbol "CAP_CER_10uF_16V_X5R_C0603_0_0"
         (polyline
           (pts
             (xy 5.08 1.27)
@@ -85,7 +85,7 @@
           (fill (type none))
         )
       )
-      (symbol "CAP_10uF_16V_X5R_C0603_1_1"
+      (symbol "CAP_CER_10uF_16V_X5R_C0603_1_1"
         (pin passive line (at 0 0 0) (length 5.08)
           (name "" (effects (font (size 1.27 1.27))))
           (number "1" (effects (font (size 1.27 1.27))))
@@ -757,7 +757,7 @@
       (property "Vendor" "Digikey" (at 2.54 26.67 0)
         (effects (font (size 1.27 1.27)) (justify left) hide)
       )
-      (property "Package" "8-SOIC (0.209\", 5.30mm Width)" (at 2.54 34.29 0)
+      (property "Package" "8-SOIC (5.30mm Width)" (at 2.54 34.29 0)
         (effects (font (size 1.27 1.27)) (justify left))
       )
       (property "SCH CHECK" "SCH (N/A)" (at 2.54 31.75 0)
@@ -5291,7 +5291,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603") (at 147.32 184.15 90) (mirror x) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603") (at 147.32 184.15 90) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 46496c30-7b6d-4d00-a959-65b191ff1879)
     (property "Reference" "C703" (at 149.86 185.42 90)
@@ -5409,7 +5409,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603") (at 220.98 222.25 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603") (at 220.98 222.25 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 5162d0a2-5cdc-40c0-a357-d0bd25ffa927)
     (property "Reference" "C705" (at 223.52 223.52 90)
@@ -5676,7 +5676,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603") (at 218.44 134.62 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603") (at 218.44 134.62 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 81ad791a-4e96-4c3a-ad83-5be6ea5c12b3)
     (property "Reference" "C701" (at 220.98 135.89 90)
@@ -5843,13 +5843,13 @@
     (property "Link" "https://www.digikey.ca/en/products/detail/analog-devices-inc-maxim-integrated/MAX22028AWA/11503422" (at 248.92 201.93 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "SCH CHECK" "SCH (N/A)" (at 246.38 205.74 0)
+    (property "SCH CHECK" "SCH (N/A)" (at 246.38 208.28 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Part Number (Manufacturer)" "MAX22028FAWA+" (at 248.92 191.77 0)
       (effects (font (size 1.27 1.27)) (justify left) hide)
     )
-    (property "Package" "8-SOIC (0.209\", 5.30mm Width)" (at 246.38 208.28 0)
+    (property "Package" "8-SOIC (5.30mm Width)" (at 246.38 205.74 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Manufacturer" "Analog Devices Inc./Maxim Integrated" (at 248.92 189.23 0)
@@ -6095,7 +6095,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603") (at 280.67 134.62 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603") (at 280.67 134.62 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid b634dae2-3643-447a-aba7-d9ca49873747)
     (property "Reference" "C702" (at 283.21 135.89 90)
@@ -6211,7 +6211,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603") (at 85.09 224.79 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603") (at 85.09 224.79 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid bef070ac-64f9-47d0-81c3-b01cc8de7097)
     (property "Reference" "C706" (at 87.63 226.06 90)
@@ -6269,7 +6269,7 @@
     )
   )
 
-  (symbol (lib_id "_SCHLIB_Blender:CAP_10uF_16V_X5R_C0603") (at 283.21 176.53 270) (unit 1)
+  (symbol (lib_id "_SCHLIB_Blender:CAP_CER_10uF_16V_X5R_C0603") (at 283.21 176.53 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid d4cffd8d-da7f-44c3-a1b1-d7fc3118b2dd)
     (property "Reference" "C704" (at 285.75 177.8 90)

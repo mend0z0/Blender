@@ -39,10 +39,6 @@ Description...
 - **Application:** N/A
 
 
-## WBS Chart
-
-![WBS Chart](https://github.com/mend0z0)
-
 
 ## Block Diagrams
 

@@ -1,12 +1,7 @@
-# _SUB_FW_Prj
+# Version History
 
-What is this firmware for?
+A brief description of this version history belongs to what project
 
+## Roadmap
 
-## Features
-
-- __MCU :__ 
-- __IDE :__ 
-- __Language :__ 
-- __Supported Protocols :__ 
-		
+- __vX_YYYYMMDD :__ Describe what's this version and what's the difference between this and previous version.

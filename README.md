@@ -65,7 +65,7 @@ The Blender project's purpose is to extract digitalized sound characteristics li
 
 ![_ASMView_Top](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/Assembled%20Hardware/_ASMView_Top_Blender_v1.0.jpeg)
 
-![_ASMView_Bottom](https://github.com/mend0z0)
+![_ASMView_Bottom](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/Assembled%20Hardware/_ASMView_Bottom_Blender_v1.0.jpeg)
 
 ### Application
 ![App Screenshot](https://github.com/mend0z0)

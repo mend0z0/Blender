@@ -11,6 +11,10 @@ Assembling the board, and working on the firmware...
 
 The Blender project's purpose is to extract digitalized sound characteristics like amplitude and frequency, which are transferring through the S/PDIF protocol, and display the amplitude of different frequencies by the dominant color of the input VGA received signal. So the base color will be determined by VGA input, and a spectrum of that color will be displayed over/on the DMX/WS2812 chip. Also, the specification of the sound will be displayed on an OLED, and the sound will be played by a chip that has an integrated DAC in it. The data to DAC will be transferred via the I2S protocol.
 
+## Category
+
+__Digital Signal Processing (DSP)__
+
 ## Features
 
 - Battery Powered

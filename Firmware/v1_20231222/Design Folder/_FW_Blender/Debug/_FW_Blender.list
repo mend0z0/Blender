@@ -37,15 +37,15 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_rnglists 000002f0  00000000  00000000  00024a10  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  0001faac  00000000  00000000  00024d00  2**0
+ 17 .debug_macro  0001f004  00000000  00000000  00024d00  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   0000565f  00000000  00000000  000447ac  2**0
+ 18 .debug_line   00005660  00000000  00000000  00043d04  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000c1c7b  00000000  00000000  00049e0b  2**0
+ 19 .debug_str    000c1c7b  00000000  00000000  00049364  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_frame  00000eb0  00000000  00000000  0010ba88  2**2
+ 20 .debug_frame  00000eb0  00000000  00000000  0010afe0  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000075  00000000  00000000  0010c938  2**0
+ 21 .debug_line_str 00000075  00000000  00000000  0010be90  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -352,10 +352,10 @@ Disassembly of section .text:
  80004fe:	bf00      	nop
 
 08000500 <main>:
-/**
-  * @brief  The application entry point.
-  * @retval int
-  */
+
+/****************************************************************************************************
+****************************         STATIC FUNTIONS         ****************************************
+*****************************************************************************************************/
 int main(void)
 {
  8000500:	b580      	push	{r7, lr}
@@ -384,10 +384,10 @@ int main(void)
 	...
 
 08000510 <SystemClock_Config>:
-/**
-  * @brief System Clock Configuration
-  * @retval None
-  */
+  }
+  /* USER CODE END 3 */
+}
+
 void SystemClock_Config(void)
 {
  8000510:	b580      	push	{r7, lr}

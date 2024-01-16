@@ -5,8 +5,8 @@ This todo list belongs to _FW_Blender_v1.0 project.
 ## Tasks
 
 - #### MUST to DO (List the works that proper working of project depends on these tasks):
-    - Drawing peripheral functions block diagram (SPIDF, I2S, TIMER 0, TIMER 1, TIMER 2, TIMER 3, GPIO, SPI, WDT, EXTI, RTC, I2C, ADC, DMA, UART)
-    - Drawing each module/device API/Init functions block diagram (DMX, WS2812, VGA, SSD1306, PAM8003, PCM1754, )
+    - Drawing peripheral functions block diagram (SPIDF, I2S, TIMER 0, TIMER 1, TIMER 2, TIMER 3, GPIO, WDT, RTC, I2C, ADC, DMA, UART)
+    - Drawing each module/device API/Init functions block diagram (DMX, WS2812, VGA, SSD1306, PAM8003, PCM1754, Toslink, Ind LED)
     - Writing C code for the drawn block diagram
     - Writing C code for the ISR
     - Writing C code for the modules/devices

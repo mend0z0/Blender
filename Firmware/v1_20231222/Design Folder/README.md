@@ -1,21 +1,33 @@
 # TODO List
 
-A brief description of this todo list belongs to what project
+This todo list belongs to _FW_Blender_v1.0 project.
 
 ## Tasks
 
 - #### MUST to DO (List the works that proper working of project depends on these tasks):
-    - Drawing the block diagram in draw.io
-    -	Opening a firmware project and structuring the files
-    -	Writing driver for DMX
-    -	Writing driver for OLED
-    -	Writing driver for SPIDF
-    -	Writing driver for WS2812
-    -	Writing driver for VGA
-    -	Writing a driver for Output audio    
-    -	Downloading the FreeRTOS and compiling it as a blinking LED
-    -	Writing a driver analyzer for SPIDF data
-    -	Writing an application
+    - Drawing peripheral functions block diagram (SPIDF, I2S, TIMER 0, TIMER 1, TIMER 2, TIMER 3, GPIO, SPI, WDT, EXTI, RTC, I2C, ADC, DMA, UART)
+    - Drawing each module/device API/Init functions block diagram (DMX, WS2812, VGA, SSD1306, PAM8003, PCM1754, )
+    - Writing C code for the drawn block diagram
+    - Writing C code for the ISR
+    - Writing C code for the modules/devices
+    - Drawing a test scenario for connected modules/devices
+    - Writing C code the test scenario block diagram
+    - Drawing block diagram for main super-loop
+    - Writing C code for the main super-loop block diagram
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
     -
     - 
 - #### Important (List the works that efficient and optimized functionality of project depends on these tasks):

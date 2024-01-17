@@ -55,9 +55,9 @@ __Digital Signal Processing (DSP)__
 
 ### Hardware
 
-#### CAD View
+#### Hardware CAD View
 
-![_CADView](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/CAD%20View/_CADView_Blender_v1.0.svg)
+![_CADView_HW](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/CAD%20View/_CADView_HW_Blender_v1.0.svg)
 
 #### 3D_View
 
@@ -70,6 +70,12 @@ __Digital Signal Processing (DSP)__
 ![_ASMView_Top](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/Assembled%20Hardware/_ASMView_Top_Blender_v1.0.jpeg)
 
 ![_ASMView_Bottom](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/Assembled%20Hardware/_ASMView_Bottom_Blender_v1.0.jpeg)
+
+### Mechanical CAD View
+![_CADView_MECH](https://github.com/mend0z0)
+
+### Final Device
+![_HOTPLATE_](https://github.com/mend0z0)
 
 ### Application
 ![App Screenshot](https://github.com/mend0z0)

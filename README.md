@@ -57,7 +57,7 @@ __Digital Signal Processing (DSP)__
 
 #### Hardware CAD View
 
-![_CADView_HW](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/CAD%20View/_CADView_HW_Blender_v1.0.svg)
+![_CADView_HW](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/CAD%20View%20Hardware/_CADView_HW_Blender_v1.0.svg)
 
 #### 3D_View
 

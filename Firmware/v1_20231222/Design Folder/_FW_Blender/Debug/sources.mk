@@ -22,8 +22,20 @@ C_DEPS :=
 
 # Every subdirectory with source files must be described here
 SUBDIRS := \
+App/Test \
 Core \
 Core/Src \
 Core/Startup \
+Drivers/DMX \
+Drivers/PAM8003 \
+Drivers/PCM1754 \
+Drivers/Peripherals \
+Drivers/SSD1306 \
 Drivers/STM32F4xx_HAL_Driver/Src \
+Drivers/Toslink \
+Drivers/VGA \
+Drivers/WS2812 \
+OS/FreeRTOS/Source \
+OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU \
+OS/FreeRTOS/Source/portable/MemMang \
 

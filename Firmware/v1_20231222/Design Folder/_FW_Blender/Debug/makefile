@@ -9,10 +9,22 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
+-include OS/FreeRTOS/Source/portable/MemMang/subdir.mk
+-include OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/subdir.mk
+-include OS/FreeRTOS/Source/subdir.mk
+-include Drivers/WS2812/subdir.mk
+-include Drivers/VGA/subdir.mk
+-include Drivers/Toslink/subdir.mk
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
+-include Drivers/SSD1306/subdir.mk
+-include Drivers/Peripherals/subdir.mk
+-include Drivers/PCM1754/subdir.mk
+-include Drivers/PAM8003/subdir.mk
+-include Drivers/DMX/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
 -include Core/subdir.mk
+-include App/Test/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)

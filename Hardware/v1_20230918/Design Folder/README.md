@@ -18,7 +18,7 @@ A brief description of this todo list belongs to what project
     - Opening the STP in solid edge for the box desing!
     - 
     - Very important, changing the mosfet part number to SI4435FDY-T1-GE3 (https://www.digikey.ca/en/products/detail/vishay-siliconix/SI4435FDY-T1-GE3/7566600).
-    - 
+    - Very important, changing the mosfet gate circuit to a pull down resistor and a pnp transistor
     - 
     - 
     - 

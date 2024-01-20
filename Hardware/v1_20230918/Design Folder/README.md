@@ -14,8 +14,8 @@ Blender hardware project todo list
     - Adding info to Coverpage
     - Correcting the information for each page
     - 
-    - Very important, changing the mosfet part number to SI4435FDY-T1-GE3 (https://www.digikey.ca/en/products/detail/vishay-siliconix/SI4435FDY-T1-GE3/7566600). (Next revision)
-    - Very important, changing the mosfet gate circuit to a pull down resistor and a pnp transistor. (Next revision)
+    - Very important, changing the MOSFET part number to SI4435FDY-T1-GE3 (https://www.digikey.ca/en/products/detail/vishay-siliconix/SI4435FDY-T1-GE3/7566600). (Next revision)
+    - Very important, changing the MOSFET gate circuit to a pulldown resistor and a PNP transistor. (Next revision)
     - Modifying prog pins according to the programmer. (Next revision)
     - 
     - 

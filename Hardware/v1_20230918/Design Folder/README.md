@@ -6,7 +6,7 @@ Blender hardware project todo list
 
 - #### MUST DO (List the works that proper working of project depends on these tasks):
     - Correcting the power ports labels.?
-    - Labeling correction.?
+    - Labeling correction (Correcting that @ shit in the info label on the PCB). (Next revision)
     - Checking circuitry and adding information
     - Adding Mechanical parts (Wire, XLR connector, inline connector for ws2812, OLED, some standoffs, screws, and enclosure).
     - Doing the Power sequence analysis

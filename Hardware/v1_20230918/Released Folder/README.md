@@ -1,11 +1,9 @@
 # Revision History
 
-A brief description of this revision history belongs to what project
+HotPlate firmware project revision history
 
 ## Roadmap
 
-- #### __vX.Y_YYYYMMDD :__ 
-    - List the changes or modification that have been applied in this revision.
+- #### __v1.0_20230918 :__ 
+    - The first release.
     - 
-- #### __vX.Y_YYYYMMDD :__ 
-    - List the changes or modification that have been applied in this revision.

@@ -5,29 +5,28 @@ Blender hardware project todo list
 ## Tasks
 
 - #### MUST DO (List the works that proper working of project depends on these tasks):
-    - Correcting the power ports labels
-    - Labeling correction
+    - Correcting the power ports labels.?
+    - Labeling correction.?
     - Checking circuitry and adding information
-    - Adding Mechnical parts
+    - Adding Mechanical parts (Wire, XLR connector, inline connector for ws2812, OLED, some standoffs, screws, and enclosure).
     - Doing the Power sequence analysis
     - Exporting output files
-    - Adding info to coverpage
+    - Adding info to Coverpage
     - Correcting the information for each page
-    - Correcting the README and other .txt files for github
-    - Drawing the block diagram for the hardware in draw.io
-    - Opening the STP in solid edge for the box desing!
     - 
-    - Very important, changing the mosfet part number to SI4435FDY-T1-GE3 (https://www.digikey.ca/en/products/detail/vishay-siliconix/SI4435FDY-T1-GE3/7566600).
-    - Very important, changing the mosfet gate circuit to a pull down resistor and a pnp transistor
-    - Adding test points for voltages
-    - 
+    - Very important, changing the mosfet part number to SI4435FDY-T1-GE3 (https://www.digikey.ca/en/products/detail/vishay-siliconix/SI4435FDY-T1-GE3/7566600). (Next revision)
+    - Very important, changing the mosfet gate circuit to a pull down resistor and a pnp transistor. (Next revision)
+    - Modifying prog pins according to the programmer. (Next revision)
     - 
     - 
     - 
     - 
     - 
 - #### Important (List the works that efficient and optimized functionality of project depends on these tasks):
-    - 
+    - Sizing up the packages to 0603. (Next revision)
+    - Adding the missing 3D parts. (Next revision)
+    - Adding on/off switch. (Next revision)
+    - Adding test points for voltages. (Next revision)
     -
     - 
 - #### General (List tasks that are good to be done but the functionality of project doesn't depend on these):

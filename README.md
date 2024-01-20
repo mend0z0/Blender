@@ -75,7 +75,7 @@ __Digital Signal Processing (DSP)__
 ![_CADView_MECH](https://github.com/mend0z0)
 
 ### Final Device
-![_HOTPLATE_](https://github.com/mend0z0)
+![_BLENDER](https://github.com/mend0z0)
 
 ### Application
 ![App Screenshot](https://github.com/mend0z0)

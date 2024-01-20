@@ -1,10 +1,10 @@
 # TODO list
 
-A brief description of this todo list belongs to what project
+Blender hardware project todo list
 
 ## Tasks
 
-- #### MUST to DO (List the works that proper working of project depends on these tasks):
+- #### MUST DO (List the works that proper working of project depends on these tasks):
     - Correcting the power ports labels
     - Labeling correction
     - Checking circuitry and adding information

@@ -1,7 +1,7 @@
 # Version History
 
-A brief description of this version history belongs to what project
+Blender hardware project version history
 
 ## Roadmap
 
-- __vX_YYYYMMDD :__ Describe what's this version and what's the difference between this and previous version.
+- __v1_20230918 :__ first release.

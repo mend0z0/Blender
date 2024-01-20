@@ -1,6 +1,6 @@
 # TODO list
 
-Blender hardware project todo list
+Blender hardware project v1 todo list.
 
 ## Tasks
 

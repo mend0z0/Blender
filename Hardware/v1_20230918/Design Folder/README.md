@@ -8,7 +8,7 @@ Blender hardware project v1 todo list.
     - Correcting the power ports labels.?
     - Labeling correction (Correcting that @ shit in the info label on the PCB). (Next revision)
     - Checking circuitry and adding information
-    - Adding Mechanical parts (Wire, XLR connector, inline connector for ws2812, OLED, some standoffs, screws, and enclosure).
+    - Adding Mechanical parts (Wire, XLR connector, inline connector for ws2812, OLED, some standoffs, screws, and enclosure, 2 x speaker).
     - Doing the Power sequence analysis
     - Exporting output files
     - Adding info to Coverpage
@@ -17,7 +17,7 @@ Blender hardware project v1 todo list.
     - Very important, changing the MOSFET part number to SI4435FDY-T1-GE3 (https://www.digikey.ca/en/products/detail/vishay-siliconix/SI4435FDY-T1-GE3/7566600). (Next revision)
     - Very important, changing the MOSFET gate circuit to a pulldown resistor and a PNP transistor. (Next revision)
     - Modifying prog pins according to the programmer. (Next revision)
-    - 
+    - Placing the logo in a better and visible spot. (Next revision)
     - 
     - 
     - 

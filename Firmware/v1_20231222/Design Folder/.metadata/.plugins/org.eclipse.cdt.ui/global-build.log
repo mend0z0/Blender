@@ -591,3 +591,10 @@ Finished building: default.size.stdout
  
 Finished building: _FW_Blender.list
  
+08:08:16 **** Incremental Build of configuration Debug for project _FW_Blender ****
+make -j20 all 
+arm-none-eabi-size  _FW_Blender.elf 
+   text	   data	    bss	    dec	    hex	filename
+  14428	    108	  18692	  33228	   81cc	_FW_Blender.elf
+Finished building: default.size.stdout
+ 

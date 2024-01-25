@@ -6,6 +6,7 @@ Blender firmware project todo list.
 
 - #### MUST DO (List the works that proper working of project depends on these tasks):
     - Drawing peripheral functions block diagram (CLK, GPIO, TIMER 0, TIMER 1, TIMER 2, TIMER 3, I2C, DMA, RTC, SPDIF, I2S, ADC, UART, WDT)
+    - 
     - Drawing each module/device API/Init functions block diagram (Ind LED, SSD1306, Toslink, WS2812, DMX, VGA, PAM8003, PCM1754)
     - Writing C code for the drawn block diagram
     - Writing C code for the ISR
@@ -27,11 +28,10 @@ Blender firmware project todo list.
     - 
     - 
     - 
-    - 
     -
     - 
 - #### Important (List the works that efficient and optimized functionality of project depends on these tasks):
-    - 
+    - Configuring TIM5 for reading system clock frequency and displaying on OLED (Next revision)
     -
     - 
 - #### General (List tasks that are good to be done but the functionality of project doesn't depend on these):

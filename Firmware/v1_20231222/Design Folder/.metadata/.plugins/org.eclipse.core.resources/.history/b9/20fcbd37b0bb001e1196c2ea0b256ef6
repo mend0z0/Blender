@@ -71,17 +71,8 @@ static void _init_GPIO( void );
 /*			Direct memory access controller						*/
 static void _init_DMA( void );
 
-/*			Analog-to-digital converter	1						*/
-static void _init_ADC1( void );
-
-/*			Analog-to-digital converter	2						*/
-static void _init_ADC2( void );
-
-/*			Analog-to-digital converter	3						*/
-static void _init_ADC3( void );
-
-/*			Digital-to-analog converter							*/
-static void _init_DAC( void );
+/*			Analog-to-digital converter							*/
+static void _init_ADC( void );
 
 /*			Advanced-control timers (TIM1)						*/
 static void _init_TIM1( void );
@@ -231,7 +222,6 @@ static void _init_RCC( void )
 	//RCC->APB2ENR |= RCC_APB2ENR_ADC1EN;
 	//RCC->APB2ENR |= RCC_APB2ENR_ADC2EN;
 	//RCC->APB2ENR |= RCC_APB2ENR_ADC3EN;
-	//ENABLE DAC (LATER...!!!)
 	//Enable TIM1
 	RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;
 	//Enable TIM2
@@ -253,7 +243,7 @@ static void _init_RCC( void )
 static void _init_GPIO( void )
 {
 	/*		MODER REGs		*/
-	GPIOA->MODER |= GPIO_MODER_MODER4_0  |							//GPO - THIS MAY CHANGE TO ANALOG!
+	GPIOA->MODER |= GPIO_MODER_MODER4_0  |							//GPO
 					GPIO_MODER_MODER6_0  |							//GPO
 					GPIO_MODER_MODER0_0  | GPIO_MODER_MODER0_1 |  	//ADC - IN0
 					GPIO_MODER_MODER1_0  | GPIO_MODER_MODER1_1 |  	//ADC - IN1
@@ -310,11 +300,12 @@ static void _init_GPIO( void )
 					GPIO_AFRL_AFSEL7_2								//FMPI2C1_SDA
 					;
 
-	/*	RESET VALUE	*/
+	/*	DEFAULT VALUE	*/
 	GPIOA->ODR |= 0;
 	GPIOB->ODR |= 0;
 	GPIOC->ODR |= 0;
 	GPIOD->ODR |= 0;
+
 }
 
 /*			Direct memory access controller						*/
@@ -323,25 +314,25 @@ static void _init_DMA( void )
 
 }
 
-/*			Analog-to-digital converter	1						*/
+/*			Analog-to-digital converter							*/
 static void _init_ADC1( void )
 {
 
 }
 
-/*			Analog-to-digital converter	2						*/
+/*			Analog-to-digital converter							*/
 static void _init_ADC2( void )
 {
 
 }
 
-/*			Analog-to-digital converter	3						*/
+/*			Analog-to-digital converter							*/
 static void _init_ADC3( void )
 {
 
 }
 
-/*			Digital-to-analog converter							*/
+/*			Analog-to-digital converter							*/
 static void _init_DAC( void )
 {
 

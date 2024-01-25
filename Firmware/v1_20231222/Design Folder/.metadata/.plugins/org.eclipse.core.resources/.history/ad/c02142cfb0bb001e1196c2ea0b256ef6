@@ -315,6 +315,7 @@ static void _init_GPIO( void )
 	GPIOB->ODR |= 0;
 	GPIOC->ODR |= 0;
 	GPIOD->ODR |= 0;
+
 }
 
 /*			Direct memory access controller						*/

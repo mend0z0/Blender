@@ -310,11 +310,12 @@ static void _init_GPIO( void )
 					GPIO_AFRL_AFSEL7_2								//FMPI2C1_SDA
 					;
 
-	/*	RESET VALUE	*/
+	/*	DEFAULT VALUE	*/
 	GPIOA->ODR |= 0;
 	GPIOB->ODR |= 0;
 	GPIOC->ODR |= 0;
 	GPIOD->ODR |= 0;
+
 }
 
 /*			Direct memory access controller						*/

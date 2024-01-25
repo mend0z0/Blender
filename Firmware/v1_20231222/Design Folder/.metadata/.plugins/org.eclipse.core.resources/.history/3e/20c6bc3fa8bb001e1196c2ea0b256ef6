@@ -71,17 +71,8 @@ static void _init_GPIO( void );
 /*			Direct memory access controller						*/
 static void _init_DMA( void );
 
-/*			Analog-to-digital converter	1						*/
-static void _init_ADC1( void );
-
-/*			Analog-to-digital converter	2						*/
-static void _init_ADC2( void );
-
-/*			Analog-to-digital converter	3						*/
-static void _init_ADC3( void );
-
-/*			Digital-to-analog converter							*/
-static void _init_DAC( void );
+/*			Analog-to-digital converter							*/
+static void _init_ADC( void );
 
 /*			Advanced-control timers (TIM1)						*/
 static void _init_TIM1( void );
@@ -231,7 +222,6 @@ static void _init_RCC( void )
 	//RCC->APB2ENR |= RCC_APB2ENR_ADC1EN;
 	//RCC->APB2ENR |= RCC_APB2ENR_ADC2EN;
 	//RCC->APB2ENR |= RCC_APB2ENR_ADC3EN;
-	//ENABLE DAC (LATER...!!!)
 	//Enable TIM1
 	RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;
 	//Enable TIM2
@@ -252,69 +242,7 @@ static void _init_RCC( void )
 /*			General-purpose I/Os								*/
 static void _init_GPIO( void )
 {
-	/*		MODER REGs		*/
-	GPIOA->MODER |= GPIO_MODER_MODER4_0  |							//GPO - THIS MAY CHANGE TO ANALOG!
-					GPIO_MODER_MODER6_0  |							//GPO
-					GPIO_MODER_MODER0_0  | GPIO_MODER_MODER0_1 |  	//ADC - IN0
-					GPIO_MODER_MODER1_0  | GPIO_MODER_MODER1_1 |  	//ADC - IN1
-					GPIO_MODER_MODER2_0  | GPIO_MODER_MODER2_1 |  	//ADC - IN2
-					GPIO_MODER_MODER9_1  |							//UART1_TX
-					GPIO_MODER_MODER10_1 |							//UART1_RX
-					GPIO_MODER_MODER3_1  |							//TIM2_CH4
-					GPIO_MODER_MODER5_1  |							//TIM2_CH1
-					GPIO_MODER_MODER15_1							//I2S1_WS
-					;
-	GPIOB->MODER |= GPIO_MODER_MODER13_0 |							//GPO
-					GPIO_MODER_MODER14_0 |							//GPO
-					GPIO_MODER_MODER15_0 |							//GPO
-					GPIO_MODER_MODER3_1  |							//I2S1_CK
-					GPIO_MODER_MODER5_1  |							//I2S1_SD
-					GPIO_MODER_MODER0_1	 |							//TIM3_CH3
-					GPIO_MODER_MODER1_1  |							//TIM3_CH4
-					GPIO_MODER_MODER7_1	 							//SPDIFRX
-					;
-	GPIOC->MODER |= GPIO_MODER_MODER0_0  |							//GPO
-					GPIO_MODER_MODER8_0  |							//GPO
-					GPIO_MODER_MODER9_0  |							//GPO
-					GPIO_MODER_MODER4_1  |							//I2S1_
-					GPIO_MODER_MODER6_1	 |							//FMPI2C1_SCL
-					GPIO_MODER_MODER7_1								//FMPI2C1_SDA
-					;
-	GPIOD->MODER |= GPIO_MODER_MODER2_0;							//GPO
 
-	/*		OSPEEDR	REGs	*/
-	GPIOA->OSPEEDR |= 	GPIO_OSPEEDR_OSPEED3_0	|					//TIM2_CH4
-						GPIO_OSPEEDR_OSPEED5_0	|					//TIM2_CH1
-						GPIO_OSPEEDR_OSPEED15_0						//I2S1_WS
-						;
-	GPIOB->OSPEEDR |=	GPIO_OSPEEDR_OSPEED3_0	|					//I2S1_CK
-						GPIO_OSPEEDR_OSPEED5_0	|					//I2S1_SD
-						GPIO_OSPEEDR_OSPEED0_0	|					//TIM3_CH3
-						GPIO_OSPEEDR_OSPEED1_0	|					//TIM3_CH4
-						GPIO_OSPEEDR_OSPEED7_0						//SPDIFRX
-						;
-	/*		AFRL REGs		*/
-	GPIOA->AFR |= 	GPIO_AFRL_AFSEL3_0   |							//TIM2_CH4
-					GPIO_AFRL_AFSEL5_0	 |							//TIM2_CH1
-					(GPIO_AFRH_AFSEL9_0  | GPIO_AFRH_AFSEL9_1 | GPIO_AFRH_AFSEL9_2) |	//UART1_TX
-					(GPIO_AFRH_AFSEL10_0 | GPIO_AFRH_AFSEL10_1 | GPIO_AFRH_AFSEL10_2) |	//UART1_RX
-					(GPIO_AFRH_AFSEL15_0 | GPIO_AFRH_AFSEL15_2)		//I2S1_WS
-					;
-	GPIOB->AFR |= 	(GPIO_AFRL_AFSEL3_0 | GPIO_AFRL_AFSEL3_2) |		//I2S1_CK
-					(GPIO_AFRL_AFSEL5_0 | GPIO_AFRL_AFSEL5_2) |		//I2S1_SD
-					GPIO_AFRL_AFSEL0_1 	|							//TIM3_CH3
-					GPIO_AFRL_AFSEL1_1 	|							//TIM3_CH4
-					GPIO_AFRL_AFSEL7_3								//SPDIF_RX0
-					;
-	GPIOC->AFR |= 	GPIO_AFRL_AFSEL6_2	|							//FMPI2C1_SCL
-					GPIO_AFRL_AFSEL7_2								//FMPI2C1_SDA
-					;
-
-	/*	RESET VALUE	*/
-	GPIOA->ODR |= 0;
-	GPIOB->ODR |= 0;
-	GPIOC->ODR |= 0;
-	GPIOD->ODR |= 0;
 }
 
 /*			Direct memory access controller						*/
@@ -323,26 +251,8 @@ static void _init_DMA( void )
 
 }
 
-/*			Analog-to-digital converter	1						*/
-static void _init_ADC1( void )
-{
-
-}
-
-/*			Analog-to-digital converter	2						*/
-static void _init_ADC2( void )
-{
-
-}
-
-/*			Analog-to-digital converter	3						*/
-static void _init_ADC3( void )
-{
-
-}
-
-/*			Digital-to-analog converter							*/
-static void _init_DAC( void )
+/*			Analog-to-digital converter							*/
+static void _init_ADC( void )
 {
 
 }

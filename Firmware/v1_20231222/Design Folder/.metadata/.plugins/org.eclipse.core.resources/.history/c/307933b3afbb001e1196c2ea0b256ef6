@@ -57,17 +57,6 @@
 /****************************************************************************************************
 ****************************   DEFINED VARIABLES DECLARATION    *************************************
 *****************************************************************************************************/
-#define	PAM8003_DEFAULT_VALUE_PIN_SHDN  0
-#define PAM8003_DEFAULT_VALUE_PIN_VOL	0
-#define PCM1754_DEFAULT_VALUE_PIN_DMP	0
-#define PCM1754_DEFAULT_VALUE_PIN_FMT	0
-#define PCM1754_DEFAULT_VALUE_PIN_MUTE	0
-#define SSD1306_DEFAULT_VALUE_PIN_RES	0
-#define SSD1306_DEFAULT_VALUE_PIN_DC	0
-#define PWR_EN_DEFAULT_VALUE_PIN		0
-#define LED_IND_DEFAULT_VALUE_PIN 		0
-
-
 
 /****************************************************************************************************
 **************************     GLOBAL FUNCTIONS DECLARATION      ************************************

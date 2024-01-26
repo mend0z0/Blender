@@ -48,7 +48,7 @@
 /****************************************************************************************************
 ****************************       HEADERS DECLARATION       ****************************************
 *****************************************************************************************************/
-#include "stm32f446xx.h"
+#include "main.h"
 
 /****************************************************************************************************
 ****************************        MACRO DECLARATION         ***************************************
@@ -59,9 +59,11 @@
 *****************************************************************************************************/
 #define	PAM8003_DEFAULT_VALUE_PIN_SHDN  0
 #define PAM8003_DEFAULT_VALUE_PIN_VOL	0
-#define PCM1754_DEFAULT_VALUE_PIN_DMP	0
-#define PCM1754_DEFAULT_VALUE_PIN_FMT	0
-#define PCM1754_DEFAULT_VALUE_PIN_MUTE	0
+
+#define PCM1754_DEFAULT_VALUE_PIN_DMP	0 	// (1 -> DMP ON, 0 -> DMP OFF)
+#define PCM1754_DEFAULT_VALUE_PIN_FMT	1	// (1 -> 16-bit right-justified, 0 -> 24-bit I2S format)
+#define PCM1754_DEFAULT_VALUE_PIN_MUTE	1	// (1 -> MUTE ON, 0 -> MUTE OFF)
+
 #define SSD1306_DEFAULT_VALUE_PIN_RES	0
 #define SSD1306_DEFAULT_VALUE_PIN_DC	0
 #define PWR_EN_DEFAULT_VALUE_PIN		0

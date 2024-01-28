@@ -160,13 +160,20 @@ int8_t TIM3OCUpdate( uint32_t ocValue )
 /*			Real-time clock										*/
 
 /*			Inter-integrated circuit (I2C) interface			*/
-int8_t FMPI2C1DataTx( uint8_t *data)
+int8_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize)
 {
+	//assign the *data address to DMA address
+	//Init DMA
+	//Enable DMA
+	//send addr
+	//upon approval in ISR enable TXDMAEN, FMPI2C1->CR1 |= FMPI2C_CR1_TXDMAEN;				//Enable DMA for TX
+
+
 
 }
 
 /*			Universal asynchronous receiver transmitter			*/
-int8_t FMPI2C1DataTx( uint8_t *data )
+int8_t FMPI2C1DataTx( uint8_t *data, )
 {
 
 }
@@ -256,10 +263,11 @@ static void _init_RCC( void )
 						RCC_AHB1ENR_GPIOBEN |
 						RCC_AHB1ENR_GPIOCEN |
 						RCC_AHB1ENR_GPIODEN
-					);
-	//Enable DMA
-	//RCC->AHB1ENR |= RCC_AHB1ENR_DAM1;
-	//RCC->AHB1ENR |= RCC_AHB1ENR_DAM2;
+					)
+					;
+	RCC->AHB1ENR |= RCC_AHB1ENR_DMA1EN	| 	//Enable DMA1
+					RCC_AHB1ENR_DMA2EN		//Enable DMA2
+					;
 	//Enable ADC (Each ADC for one channel of RGB VGA)
 	//RCC->APB2ENR |= RCC_APB2ENR_ADC1EN;
 	//RCC->APB2ENR |= RCC_APB2ENR_ADC2EN;
@@ -353,6 +361,13 @@ static void _init_GPIO( void )
 /*			Direct memory access controller						*/
 static void _init_DMA( void )
 {
+	//set DMA1 - Stream5 for FMPI2C1_TX
+
+
+}
+
+static void DMAEnable( uint8_t channelNumber )
+{
 
 }
 
@@ -408,20 +423,21 @@ static void _init_RTC( void )
 static void _init_FMPI2C1( void )
 {
 	//Setting the clock to 400KHz
-	FMPI2C1->TIMINGR |= (10 << 28) |		//PRESC = 10 --> 4000000MHz
-						(1 << 20) | 		//SCLDEL = 1 --> 500  ns
-						(1 << 16) | 		//SDADEL = 1 --> 250  ns
-						(1 << 8) | 			//SCLH = 1   --> 500  ns
-						(4 << 0)			//SCLL = 4   --> 1250 ns
+	FMPI2C1->TIMINGR |= (10 << 28) 	|				//PRESC = 10 --> 4000000MHz
+						(1 << 20) 	| 				//SCLDEL = 1 --> 500  ns
+						(1 << 16) 	| 				//SDADEL = 1 --> 250  ns
+						(1 << 8) 	|				//SCLH = 1   --> 500  ns
+						(4 << 0)					//SCLL = 4   --> 1250 ns
 						;
-	//FMPI2C1->CR1 |= FMPI2C_CR1_TXDMAEN;	//Enable DMA for TX
+	FMPI2C1->CR2 |= FMPI2C_CR2_RELOAD;				//The transfer is not completed after the NBYTES data transfer
+	FMPI2C1->CR2 |= (1 << FMPI2C_CR2_NBYTES_Pos);	//Setting the no. of bytes to be transfered 1 that each byte there would be a tick to get new value from DMA.
 	//Enable interrupts
-	FMPI2C1->CR1 |= FMPI2C_CR1_PE;			//Enable I2C
-}
-
-static void FMPI2C1ByteTx( uint8_t byte )
-{
-
+	FMPI2C1->CR1 |= FMPI2C_CR1_TXIE		|			//Enable Transmit interrupt (it's mainly for confirming the sent addr)
+					FMPI2C_CR1_TCIE 	| 			//Enable Transfer complete interrupt
+					FMPI2C_CR1_ERRIE 	| 			//Enable Error flags interrupt
+					FMPI2C_CR1_NACKIE				//Enable NACK interrupt
+					;
+	FMPI2C1->CR1 |= FMPI2C_CR1_PE;					//Enable I2C
 }
 
 /*			Universal asynchronous receiver transmitter			*/
@@ -451,14 +467,20 @@ static void _init_I2S( void )
 	//Clock polarity = ?
 }
 
-static void I2SByteTx( uint16_t word){
+static void I2SByteTx( uint16_t word)
+{
 
 }
 
 /*			SPDIF receiver interface							*/
 static void _init_SPDIF( void )
 {
-
+	//we need DMA
+	/*
+	 * 	Connect the SPDIFRX_IN input to an external interrupt event block in order to detect
+		transitions of SPDIFRX_IN line. When activity is detected, then SPDIFRXEN can be
+		set to 01 or 11.
+	 */
 }
 
 

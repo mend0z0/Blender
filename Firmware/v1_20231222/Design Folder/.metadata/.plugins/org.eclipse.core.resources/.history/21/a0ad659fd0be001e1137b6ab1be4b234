@@ -161,10 +161,9 @@ int8_t TIM3OCUpdate( uint32_t ocValue )
 /*			Real-time clock										*/
 
 /*			Inter-integrated circuit (I2C) interface			*/
-int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize, TaskHandle_t xTask)
+int8_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize, TaskHandle_t xTask)
 {
-	__IO int32_t status = 0;
-
+	__IO int8_t status = 0;
 	BaseType_t semaphoreStatus = pdFALSE;
 	TickType_t semaphoreWatiTime = pdMS_TO_TICKS(10);	// 10msec delay for semaphore to get created, if it didn't happen immediately!
 	FMPI2CBinarySemaphore = xSemaphoreCreateBinary();	// Creating semaphore for FMPI2C
@@ -173,7 +172,7 @@ int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize, Task
 	//because there is insufficient heap memory available for FreeRTOS
 	//to allocate the semaphore data structures.
 	if(FMPI2CBinarySemaphore == NULL){
-		status = pdFALSE;
+		status = -1;
 	}
 	else{
 		DMAEnable( DMA1_FMPI2C1_TX_EN, *data, buffSize);	// Init DMA with data address and number of transfer and then enable it.
@@ -184,19 +183,15 @@ int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize, Task
 
 		// At this point, we'll wait until we give the semaphore back from ISR
 		semaphoreStatus = xSemaphoreTake( FMPI2CBinarySemaphore, semaphoreWatiTime );
-		//Once we've received the semaphore from ISR we'll check if there was an error or completion of transmitted data.
-		if((FMPI2C1->ISR & FMPI2C_ISR_NACKF) == FMPI2C_ISR_NACKF)
+		if()
 		{
-			FMPI2C1->ICR |= FMPI2C_ICR_NACKCF;		 // Clearing the NACK flag.
-			status = FMPI2C_ERROR_NACK;				 // Returning error
+			break;
 		}
-		else if((DMA1->HISR & DMA_HISR_TCIF5) == DMA_HISR_TCIF5)
+		else if()
 		{
-			DMA1->HISR |= DMA_HISR_TCIF5;	//Clearing the flag by writing a one.
-			status = buffSize;
+			break;
 		}
-		else{
-			status = FMPI2C_ERROR_UNKNOWN;
+
 		}
 	}
 
@@ -410,7 +405,7 @@ static void _init_DMA( void )
 	DMA2_Stream7->CR |= DMA_SxCR_CHSEL_2 |	// Selecting channel 4 for Stream 7 (ch4 is UART1_TX)
 						DMA_SxCR_MINC	 |	// Memory address pointer will increase after each transfer.
 						DMA_SxCR_DIR_0	 |	// Mem To Periph Direction.
-						DMA_SxCR_PFCTRL	 |	// Periph is controlling the flow
+						DAM_SxCR_PFCTRL	 |	// Periph is controlling the flow
 						DMA_SxCR_TCIE		// Enable Transfer complete interrupt.
 						;
 	DMA2_Stream7->PAR = &USART1->DR;		// Assigning the Data register of USART1 to DMA periph pointer

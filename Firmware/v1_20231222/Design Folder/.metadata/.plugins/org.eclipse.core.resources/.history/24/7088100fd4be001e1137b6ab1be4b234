@@ -187,16 +187,12 @@ int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize, Task
 		//Once we've received the semaphore from ISR we'll check if there was an error or completion of transmitted data.
 		if((FMPI2C1->ISR & FMPI2C_ISR_NACKF) == FMPI2C_ISR_NACKF)
 		{
-			FMPI2C1->ICR |= FMPI2C_ICR_NACKCF;		 // Clearing the NACK flag.
-			status = FMPI2C_ERROR_NACK;				 // Returning error
+			FMPI2C1->ICR |= FMPI2C_ICR_NACKCF;		 //Clearing the NACK flag.
+			status = FMPI2C_ERROR_NACK;
 		}
 		else if((DMA1->HISR & DMA_HISR_TCIF5) == DMA_HISR_TCIF5)
 		{
-			DMA1->HISR |= DMA_HISR_TCIF5;	//Clearing the flag by writing a one.
 			status = buffSize;
-		}
-		else{
-			status = FMPI2C_ERROR_UNKNOWN;
 		}
 	}
 

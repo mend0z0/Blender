@@ -78,9 +78,7 @@
 #define	DMA1_FMPI2C1_TX_EN				5
 #define	DMA2_UART1_TX_EN				7
 
-#define FMPI2C_ERROR_NACK				-2
-#define	FMPI2C_ERROR_UNKNOWN			-3
-
+#define FMPI2C_NACK_ERROR				-2
 
 
 /****************************************************************************************************

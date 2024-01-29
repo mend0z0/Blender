@@ -43,12 +43,23 @@
 *	Author: Siavash Taher Parvar
 *	Github: www.github.com/Mend0z0
 ****************************************************************************************************/
-#ifndef _DRV_PERIPHERALS_H_
-#define _DRV_PERIPHERALS_H_
+
+#ifndef __MAIN_H
+#define __MAIN_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 /****************************************************************************************************
 ****************************       HEADERS DECLARATION       ****************************************
 *****************************************************************************************************/
-#include "main.h"
+#include "stm32f446xx.h"
+#include "stdbool.h"
+
+/*	FreeRTOS Libraries	*/
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
 
 /****************************************************************************************************
 ****************************        MACRO DECLARATION         ***************************************
@@ -57,38 +68,18 @@
 /****************************************************************************************************
 ****************************   DEFINED VARIABLES DECLARATION    *************************************
 *****************************************************************************************************/
-#define	PAM8003_DEFAULT_VALUE_PIN_SHDN  0
-#define PAM8003_DEFAULT_VALUE_PIN_VOL	0
-
-#define PCM1754_DEFAULT_VALUE_PIN_DMP	0 	// (1 -> DMP ON, 0 -> DMP OFF)
-#define PCM1754_DEFAULT_VALUE_PIN_FMT	1	// (1 -> 16-bit right-justified, 0 -> 24-bit I2S format)
-#define PCM1754_DEFAULT_VALUE_PIN_MUTE	1	// (1 -> MUTE ON, 0 -> MUTE OFF)
-
-#define SSD1306_DEFAULT_VALUE_PIN_RES	0
-#define SSD1306_DEFAULT_VALUE_PIN_DC	0
-#define PWR_EN_DEFAULT_VALUE_PIN		0
-#define LED_IND_DEFAULT_VALUE_PIN 		0
-
-#define	SET_PIN( port, pin)				(port |= pin)
-#define	CLR_PIN( port, pin)				(port &= ~pin)
-#define	TGL_PIN( port, pin)				(port ^= pin)
-
-
-#define	DMA2_SPI1_TX_EN					3
-#define	DMA1_FMPI2C1_TX_EN				5
-#define	DMA2_UART1_TX_EN				7
-
-#define FMPI2C_ERROR_NACK				-2
-#define	FMPI2C_ERROR_UNKNOWN			-3
-
-
 
 /****************************************************************************************************
 **************************     GLOBAL FUNCTIONS DECLARATION      ************************************
 *****************************************************************************************************/
-void _init_Peripherals( void );
+void Error_Handler(void);
 
-#endif /* _DRV_PERIPHERALS_H_  */
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* __MAIN_H */
 
 /****************************************************************************************************
 *	Revision History (Description (author, date: yyyy/mm/dd))
@@ -106,3 +97,4 @@ void _init_Peripherals( void );
 ****************************************************************************************************/
 
 /************************************     END OF THE FILE      *************************************/
+

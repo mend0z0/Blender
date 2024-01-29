@@ -109,8 +109,6 @@ void DMA1_Stream3_IRQHandler( void )
 void DMA1_Stream4_IRQHandler( void )
 {
 	//ONCE THE COMPLETE TRANSFER HAS BEEN TRIGGERED I SHOULD TURN OFF THE FMPI2C.
-	//Upon completion sending the stop for releasing the line.
-	FMPI2C1->CR2 |= FMPI2C_CR2_STOP;
 	//this will give back the semaphore so we'll back to continue FMPI2CDataTx
 	xSemaphoreGiveFromISR( FMPI2CBinarySemaphore, pdFALSE);
 }

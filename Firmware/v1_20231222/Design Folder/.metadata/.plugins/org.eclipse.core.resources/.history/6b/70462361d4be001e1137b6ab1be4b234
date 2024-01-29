@@ -192,11 +192,10 @@ int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize, Task
 		}
 		else if((DMA1->HISR & DMA_HISR_TCIF5) == DMA_HISR_TCIF5)
 		{
-			DMA1->HISR |= DMA_HISR_TCIF5;	//Clearing the flag by writing a one.
 			status = buffSize;
 		}
 		else{
-			status = FMPI2C_ERROR_UNKNOWN;
+			status =
 		}
 	}
 

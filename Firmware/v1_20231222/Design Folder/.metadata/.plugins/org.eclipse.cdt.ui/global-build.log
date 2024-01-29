@@ -598,3 +598,202 @@ arm-none-eabi-size  _FW_Blender.elf
   14428	    108	  18692	  33228	   81cc	_FW_Blender.elf
 Finished building: default.size.stdout
  
+06:44:28 **** Build of configuration Debug for project _FW_Blender ****
+make -j20 all 
+arm-none-eabi-gcc "../Drivers/Peripherals/_drv_peripherals.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Peripherals/_drv_peripherals.d" -MT"Drivers/Peripherals/_drv_peripherals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Peripherals/_drv_peripherals.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f4xx_hal_msp.d" -MT"Core/Src/stm32f4xx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_hal_msp.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:81:3: warning: implicit declaration of function 'HAL_Init' [-Wimplicit-function-declaration]
+   81 |   HAL_Init();
+      |   ^~~~~~~~
+../Drivers/Peripherals/_drv_peripherals.c: In function 'FMPI2C1DataTx':
+../Drivers/Peripherals/_drv_peripherals.c:166:9: warning: implicit declaration of function 'DMAEnable' [-Wimplicit-function-declaration]
+  166 |         DMAEnable( DMA1_FMPI2C1_TX_EN, *data, buffSize);
+      |         ^~~~~~~~~
+../Drivers/Peripherals/_drv_peripherals.c: In function '_init_GPIO':
+../Drivers/Peripherals/_drv_peripherals.c:342:20: error: assignment to expression with array type
+  342 |         GPIOA->AFR |=   GPIO_AFRL_AFSEL3_0   |                                                  //TIM2_CH4
+      |                    ^~
+../Drivers/Peripherals/_drv_peripherals.c:348:20: error: assignment to expression with array type
+  348 |         GPIOB->AFR |=   (GPIO_AFRL_AFSEL3_0 | GPIO_AFRL_AFSEL3_2) |             //I2S1_CK
+      |                    ^~
+../Drivers/Peripherals/_drv_peripherals.c:354:20: error: assignment to expression with array type
+  354 |         GPIOC->AFR |=   GPIO_AFRL_AFSEL6_2      |                                                       //FMPI2C1_SCL
+      |                    ^~
+../Drivers/Peripherals/_drv_peripherals.c: In function '_init_DMA':
+../Drivers/Peripherals/_drv_peripherals.c:376:27: warning: assignment to 'uint32_t' {aka 'long unsigned int'} from 'volatile uint32_t *' {aka 'volatile long unsigned int *'} makes integer from pointer without a cast [-Wint-conversion]
+  376 |         DMA1_Stream5->PAR = &FMPI2C1->TXDR;             // Assigning the TXD register of FMPI2C to DMA periph pointing address
+      |                           ^
+../Drivers/Peripherals/_drv_peripherals.c:381:49: error: 'DAM_SxCR_PFCTRL' undeclared (first use in this function); did you mean 'DMA_SxCR_PFCTRL'?
+  381 |                                                 DAM_SxCR_PFCTRL  |      // Periph is controlling the flow
+      |                                                 ^~~~~~~~~~~~~~~
+      |                                                 DMA_SxCR_PFCTRL
+../Drivers/Peripherals/_drv_peripherals.c:381:49: note: each undeclared identifier is reported only once for each function it appears in
+../Drivers/Peripherals/_drv_peripherals.c:384:27: warning: assignment to 'uint32_t' {aka 'long unsigned int'} from 'volatile uint32_t *' {aka 'volatile long unsigned int *'} makes integer from pointer without a cast [-Wint-conversion]
+  384 |         DMA2_Stream7->PAR = &USART1->DR;                // Assigning the Data register of USART1 to DMA periph pointer
+      |                           ^
+../Drivers/Peripherals/_drv_peripherals.c:393:27: warning: assignment to 'uint32_t' {aka 'long unsigned int'} from 'volatile uint32_t *' {aka 'volatile long unsigned int *'} makes integer from pointer without a cast [-Wint-conversion]
+  393 |         DMA2_Stream3->PAR = &SPI1->DR;                  // Assigning the Data register of SPI1 to DMA periph pointer.
+      |                           ^
+../Drivers/Peripherals/_drv_peripherals.c: At top level:
+../Drivers/Peripherals/_drv_peripherals.c:397:13: warning: conflicting types for 'DMAEnable'; have 'void(uint8_t,  uint8_t *, uint32_t)' {aka 'void(unsigned char,  unsigned char *, long unsigned int)'}
+  397 | static void DMAEnable( uint8_t channelNumber, uint8_t *data, uint32_t numOfTransfer)
+      |             ^~~~~~~~~
+../Drivers/Peripherals/_drv_peripherals.c:397:13: error: static declaration of 'DMAEnable' follows non-static declaration
+../Drivers/Peripherals/_drv_peripherals.c:166:9: note: previous implicit declaration of 'DMAEnable' with type 'void(uint8_t,  uint8_t *, uint32_t)' {aka 'void(unsigned char,  unsigned char *, long unsigned int)'}
+  166 |         DMAEnable( DMA1_FMPI2C1_TX_EN, *data, buffSize);
+      |         ^~~~~~~~~
+../Drivers/Peripherals/_drv_peripherals.c: In function 'GPIOWrite':
+../Drivers/Peripherals/_drv_peripherals.c:137:1: warning: control reaches end of non-void function [-Wreturn-type]
+  137 | }
+      | ^
+../Drivers/Peripherals/_drv_peripherals.c: In function 'GPIORead':
+../Core/Src/main.c: In function 'SystemClock_Config':
+../Drivers/Peripherals/_drv_peripherals.c:142:1: warning: control reaches end of non-void function [-Wreturn-type]
+  142 | }
+      | ^
+../Drivers/Peripherals/_drv_peripherals.c: In function 'GPIOToggle':
+../Drivers/Peripherals/_drv_peripherals.c:147:1: warning: control reaches end of non-void function [-Wreturn-type]
+  147 | }
+      | ^
+../Core/Src/main.c:115:3: error: unknown type name 'RCC_OscInitTypeDef'
+  115 |   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+      |   ^~~~~~~~~~~~~~~~~~
+../Drivers/Peripherals/_drv_peripherals.c: In function 'TIM3OCUpdate':
+../Drivers/Peripherals/_drv_peripherals.c:157:1: warning: control reaches end of non-void function [-Wreturn-type]
+  157 | }
+      | ^
+../Drivers/Peripherals/_drv_peripherals.c: In function 'FMPI2C1DataTx':
+../Drivers/Peripherals/_drv_peripherals.c:172:1: warning: control reaches end of non-void function [-Wreturn-type]
+  172 | }
+      | ^
+../Drivers/Peripherals/_drv_peripherals.c: In function 'UART1DataTx':
+../Drivers/Peripherals/_drv_peripherals.c:181:1: warning: control reaches end of non-void function [-Wreturn-type]
+  181 | }
+      | ^
+../Drivers/Peripherals/_drv_peripherals.c: In function 'I2SDataTx':
+../Drivers/Peripherals/_drv_peripherals.c:189:1: warning: control reaches end of non-void function [-Wreturn-type]
+  189 | }
+      | ^
+At top level:
+../Drivers/Peripherals/_drv_peripherals.c:397:13: warning: 'DMAEnable' defined but not used [-Wunused-function]
+  397 | static void DMAEnable( uint8_t channelNumber, uint8_t *data, uint32_t numOfTransfer)
+      |             ^~~~~~~~~
+../Core/Src/stm32f4xx_hal_msp.c: In function 'HAL_MspInit':
+../Core/Src/stm32f4xx_hal_msp.c:70:3: warning: implicit declaration of function '__HAL_RCC_SYSCFG_CLK_ENABLE' [-Wimplicit-function-declaration]
+   70 |   __HAL_RCC_SYSCFG_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+make: *** [Drivers/Peripherals/subdir.mk:19: Drivers/Peripherals/_drv_peripherals.o] Error 1
+make: *** Waiting for unfinished jobs....
+../Core/Src/main.c:116:3: error: unknown type name 'RCC_ClkInitTypeDef'
+  116 |   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+      |   ^~~~~~~~~~~~~~~~~~
+../Core/Src/stm32f4xx_hal_msp.c:71:3: warning: implicit declaration of function '__HAL_RCC_PWR_CLK_ENABLE' [-Wimplicit-function-declaration]
+   71 |   __HAL_RCC_PWR_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:120:3: warning: implicit declaration of function '__HAL_RCC_PWR_CLK_ENABLE' [-Wimplicit-function-declaration]
+  120 |   __HAL_RCC_PWR_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:121:3: warning: implicit declaration of function '__HAL_PWR_VOLTAGESCALING_CONFIG' [-Wimplicit-function-declaration]
+  121 |   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:121:35: error: 'PWR_REGULATOR_VOLTAGE_SCALE3' undeclared (first use in this function)
+  121 |   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
+      |                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:121:35: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:126:20: error: request for member 'OscillatorType' in something not a structure or union
+  126 |   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+      |                    ^
+../Core/Src/main.c:126:38: error: 'RCC_OSCILLATORTYPE_HSI' undeclared (first use in this function)
+  126 |   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+      |                                      ^~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:127:20: error: request for member 'HSIState' in something not a structure or union
+  127 |   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+      |                    ^
+../Core/Src/main.c:127:32: error: 'RCC_HSI_ON' undeclared (first use in this function); did you mean 'RCC_CR_HSION'?
+  127 |   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+      |                                ^~~~~~~~~~
+      |                                RCC_CR_HSION
+../Core/Src/main.c:128:20: error: request for member 'HSICalibrationValue' in something not a structure or union
+  128 |   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+      |                    ^
+../Core/Src/main.c:128:43: error: 'RCC_HSICALIBRATION_DEFAULT' undeclared (first use in this function)
+  128 |   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+      |                                           ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:129:20: error: request for member 'PLL' in something not a structure or union
+  129 |   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+      |                    ^
+../Core/Src/main.c:129:36: error: 'RCC_PLL_NONE' undeclared (first use in this function)
+  129 |   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+      |                                    ^~~~~~~~~~~~
+../Core/Src/main.c:130:7: warning: implicit declaration of function 'HAL_RCC_OscConfig' [-Wimplicit-function-declaration]
+  130 |   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+      |       ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:130:48: error: 'HAL_OK' undeclared (first use in this function)
+  130 |   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+      |                                                ^~~~~~
+../Core/Src/main.c:137:20: error: request for member 'ClockType' in something not a structure or union
+  137 |   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+      |                    ^
+../Core/Src/main.c:137:33: error: 'RCC_CLOCKTYPE_HCLK' undeclared (first use in this function)
+  137 |   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+      |                                 ^~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:137:52: error: 'RCC_CLOCKTYPE_SYSCLK' undeclared (first use in this function)
+  137 |   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+      |                                                    ^~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:138:32: error: 'RCC_CLOCKTYPE_PCLK1' undeclared (first use in this function)
+  138 |                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+      |                                ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:138:52: error: 'RCC_CLOCKTYPE_PCLK2' undeclared (first use in this function)
+  138 |                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+      |                                                    ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:139:20: error: request for member 'SYSCLKSource' in something not a structure or union
+  139 |   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+      |                    ^
+../Core/Src/main.c:139:36: error: 'RCC_SYSCLKSOURCE_HSI' undeclared (first use in this function)
+  139 |   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+      |                                    ^~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:140:20: error: request for member 'AHBCLKDivider' in something not a structure or union
+  140 |   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+      |                    ^
+../Core/Src/main.c:140:37: error: 'RCC_SYSCLK_DIV1' undeclared (first use in this function)
+  140 |   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+      |                                     ^~~~~~~~~~~~~~~
+../Core/Src/main.c:141:20: error: request for member 'APB1CLKDivider' in something not a structure or union
+  141 |   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+      |                    ^
+../Core/Src/main.c:141:38: error: 'RCC_HCLK_DIV1' undeclared (first use in this function)
+  141 |   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+      |                                      ^~~~~~~~~~~~~
+../Core/Src/main.c:142:20: error: request for member 'APB2CLKDivider' in something not a structure or union
+  142 |   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+      |                    ^
+../Core/Src/main.c:144:7: warning: implicit declaration of function 'HAL_RCC_ClockConfig' [-Wimplicit-function-declaration]
+  144 |   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+      |       ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:144:47: error: 'FLASH_LATENCY_0' undeclared (first use in this function)
+  144 |   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+      |                                               ^~~~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j20 all" terminated with exit code 2. Build might be incomplete.
+06:44:58 **** Clean-only build of configuration Debug for project _FW_Blender ****
+make -j20 clean 
+rm -rf ./OS/FreeRTOS/Source/portable/MemMang/heap_4.cyclo ./OS/FreeRTOS/Source/portable/MemMang/heap_4.d ./OS/FreeRTOS/Source/portable/MemMang/heap_4.o ./OS/FreeRTOS/Source/portable/MemMang/heap_4.su
+rm -rf ./OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.cyclo ./OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.d ./OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.o ./OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.su
+rm -rf ./OS/FreeRTOS/Source/croutine.cyclo ./OS/FreeRTOS/Source/croutine.d ./OS/FreeRTOS/Source/croutine.o ./OS/FreeRTOS/Source/croutine.su ./OS/FreeRTOS/Source/event_groups.cyclo ./OS/FreeRTOS/Source/event_groups.d ./OS/FreeRTOS/Source/event_groups.o ./OS/FreeRTOS/Source/event_groups.su ./OS/FreeRTOS/Source/list.cyclo ./OS/FreeRTOS/Source/list.d ./OS/FreeRTOS/Source/list.o ./OS/FreeRTOS/Source/list.su ./OS/FreeRTOS/Source/queue.cyclo ./OS/FreeRTOS/Source/queue.d ./OS/FreeRTOS/Source/queue.o ./OS/FreeRTOS/Source/queue.su ./OS/FreeRTOS/Source/stream_buffer.cyclo ./OS/FreeRTOS/Source/stream_buffer.d ./OS/FreeRTOS/Source/stream_buffer.o ./OS/FreeRTOS/Source/stream_buffer.su ./OS/FreeRTOS/Source/task.cyclo ./OS/FreeRTOS/Source/task.d ./OS/FreeRTOS/Source/task.o ./OS/FreeRTOS/Source/task.su ./OS/FreeRTOS/Source/timers.cyclo ./OS/FreeRTOS/Source/timers.d ./OS/FreeRTOS/Source/timers.o ./OS/FreeRTOS/Source/timers.su
+rm -rf ./Drivers/WS2812/_drv_WS2812.cyclo ./Drivers/WS2812/_drv_WS2812.d ./Drivers/WS2812/_drv_WS2812.o ./Drivers/WS2812/_drv_WS2812.su
+rm -rf ./Drivers/VGA/_drv_VGA.cyclo ./Drivers/VGA/_drv_VGA.d ./Drivers/VGA/_drv_VGA.o ./Drivers/VGA/_drv_VGA.su
+rm -rf ./Drivers/Toslink/_drv_Toslink.cyclo ./Drivers/Toslink/_drv_Toslink.d ./Drivers/Toslink/_drv_Toslink.o ./Drivers/Toslink/_drv_Toslink.su
+rm -rf ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.su
+rm -rf ./Drivers/SSD1306/_drv_SSD1306.cyclo ./Drivers/SSD1306/_drv_SSD1306.d ./Drivers/SSD1306/_drv_SSD1306.o ./Drivers/SSD1306/_drv_SSD1306.su
+rm -rf ./Drivers/Peripherals/_drv_peripherals.cyclo ./Drivers/Peripherals/_drv_peripherals.d ./Drivers/Peripherals/_drv_peripherals.o ./Drivers/Peripherals/_drv_peripherals.su
+rm -rf ./Drivers/PCM1754/_drv_PCM1754.cyclo ./Drivers/PCM1754/_drv_PCM1754.d ./Drivers/PCM1754/_drv_PCM1754.o ./Drivers/PCM1754/_drv_PCM1754.su
+rm -rf ./Drivers/PAM8003/_drv_PAM8003.cyclo ./Drivers/PAM8003/_drv_PAM8003.d ./Drivers/PAM8003/_drv_PAM8003.o ./Drivers/PAM8003/_drv_PAM8003.su
+rm -rf ./Drivers/DMX/_drv_DMX.cyclo ./Drivers/DMX/_drv_DMX.d ./Drivers/DMX/_drv_DMX.o ./Drivers/DMX/_drv_DMX.su
+rm -rf ./Core/Startup/startup_stm32f446rctx.d ./Core/Startup/startup_stm32f446rctx.o
+rm -rf ./Core/Src/ISR.cyclo ./Core/Src/ISR.d ./Core/Src/ISR.o ./Core/Src/ISR.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/stm32f4xx_hal_msp.cyclo ./Core/Src/stm32f4xx_hal_msp.d ./Core/Src/stm32f4xx_hal_msp.o ./Core/Src/stm32f4xx_hal_msp.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32f4xx.cyclo ./Core/Src/system_stm32f4xx.d ./Core/Src/system_stm32f4xx.o ./Core/Src/system_stm32f4xx.su
+rm -rf ./Core/Code\ Template\ Source.cyclo ./Core/Code\ Template\ Source.d ./Core/Code\ Template\ Source.o ./Core/Code\ Template\ Source.su
+rm -rf ./App/Test/_app_test.cyclo ./App/Test/_app_test.d ./App/Test/_app_test.o ./App/Test/_app_test.su
+rm -rf _FW_Blender.elf _FW_Blender.list _FW_Blender.map default.size.stdout
+ 

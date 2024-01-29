@@ -70,6 +70,7 @@ static void _init_GPIO( void );
 
 /*			Direct memory access controller						*/
 static void _init_DMA( void );
+static void DMAEnable( uint8_t channelNumber, uint8_t *data, uint32_t numOfTransfer);
 
 /*			Analog-to-digital converter	1						*/
 static void _init_ADC1( void );
@@ -145,8 +146,6 @@ int8_t GPIOToggle( uint8_t pinName )
 
 }
 
-/*			Direct memory access controller						*/
-
 /*			Analog-to-digital converter							*/
 
 /*			Advanced-control timers (TIM1)						*/
@@ -160,28 +159,46 @@ int8_t TIM3OCUpdate( uint32_t ocValue )
 /*			Real-time clock										*/
 
 /*			Inter-integrated circuit (I2C) interface			*/
-int8_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize)
+int8_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize, TaskHandle_t xTask)
 {
-	//assign the *data address to DMA address
-	//Init DMA
-	//Enable DMA
-	//send addr
-	//upon approval in ISR enable TXDMAEN, FMPI2C1->CR1 |= FMPI2C_CR1_TXDMAEN;				//Enable DMA for TX
+	__IO int8_t status = 0;
+	DMAEnable( DMA1_FMPI2C1_TX_EN, *data, buffSize);	//Init DMA with data address and number of transfer and then enable it.
+	FMPI2C1->CR1 |= FMPI2C_CR1_TXIE;					//Enable Transmit interrupt (it's mainly for confirming the sent addr)
+	FMPI2C1->CR2 |= ((slaveAddr & 0X7F) << 1);			// Set Slave Address
+	FMPI2C1->CR2 &= ~FMPI2C_CR2_RD_WRN;					// Set transfer direction to 0 to write on slave.
+	FMPI2C1->CR2 |=	FMPI2C_CR2_START;					// Sending an start on line
+	while(1)
+	{
+		vTaskSuspend( );							// At this point We suspend the task priority that asked for FMPI2C and will wait for FMPI2C interrupts
+		if()
+		{
 
+			break;
+		}
+		else if()
+		{
+			break;
+		}
 
-
+	}
+	return status;
 }
 
 /*			Universal asynchronous receiver transmitter			*/
-int8_t FMPI2C1DataTx( uint8_t *data, )
+int8_t UART1DataTx( uint8_t *data, uint32_t buffSize)
 {
+	//Init DMA with data address and number of transfer
+	//Enable DMA
+	//DMAEnable( DAM2_UART1_TX_EN, *data, buffSize);
 
 }
 
 /*			Inter-IC sound										*/
 int8_t I2SDataTx( uint32_t *data)
 {
-
+	//Init DMA with data address and number of transfer
+	//Enable DMA
+	//DMAEnable( DMA2_SPI1_TX_EN, *data, buffSize);
 }
 
 /*			SPDIF receiver interface							*/
@@ -362,12 +379,57 @@ static void _init_GPIO( void )
 static void _init_DMA( void )
 {
 	//set DMA1 - Stream5 for FMPI2C1_TX
+	DMA1_Stream5->CR |= DMA_SxCR_CHSEL_1 |	// Selecting channel 2 for Stream 5 (ch2 is FMPI2C1_TX)
+						DMA_SxCR_MINC	 |	// Memory address pointer will increase after each transfer.
+						DMA_SxCR_DIR_0	 |	// Mem To Periph Direction.
+						DMA_SxCR_PFCTRL	 |	// Periph is controlling the flow
+						DMA_SxCR_TCIE		// Enable Transfer complete interrupt.
+						;
 
+	DMA1_Stream5->PAR = &FMPI2C1->TXDR;		// Assigning the TXD register of FMPI2C to DMA periph pointing address
+
+	DMA2_Stream7->CR |= DMA_SxCR_CHSEL_2 |	// Selecting channel 4 for Stream 7 (ch4 is UART1_TX)
+						DMA_SxCR_MINC	 |	// Memory address pointer will increase after each transfer.
+						DMA_SxCR_DIR_0	 |	// Mem To Periph Direction.
+						DAM_SxCR_PFCTRL	 |	// Periph is controlling the flow
+						DMA_SxCR_TCIE		// Enable Transfer complete interrupt.
+						;
+	DMA2_Stream7->PAR = &USART1->DR;		// Assigning the Data register of USART1 to DMA periph pointer
+
+
+	DMA2_Stream3->CR |= DMA_SxCR_CHSEL_0 | DMA_SxCR_CHSEL_1 |	// Selecting channel 3 for Stream 3 (ch3 is SPI1_TX)
+						DMA_SxCR_MINC	 |	// Memory address pointer will increase after each transfer.
+						DMA_SxCR_DIR_0	 |	// Mem To Periph Direction.
+						DAM_SxCR_PFCTRL	 |	// Periph is controlling the flow
+						DMA_SxCR_TCIE		// Enable Transfer complete interrupt.
+						;
+	DMA2_Stream3->PAR = &SPI1->DR;			// Assigning the Data register of SPI1 to DMA periph pointer.
 
 }
 
-static void DMAEnable( uint8_t channelNumber )
+static void DMAEnable( uint8_t channelNumber, uint8_t *data, uint32_t numOfTransfer)
 {
+	switch (channelNumber)
+	{
+	case DMA1_FMPI2C1_TX_EN:
+		DMA1_Stream5->M0AR = *data;				// Pointing to mem address
+		DMA1_Stream5->NDTR = numOfTransfer;		// Assigning the number of transfer
+		DMA1_Stream5->CR |= DMA_SxCR_EN;		// Enabling Stream 5
+		break;
+	case DMA2_UART1_TX_EN:
+		DMA2_Stream7->M0AR = *data;				// Pointing to mem address
+		DMA2_Stream7->NDTR = numOfTransfer;		// Assigning the number of transfer
+		DMA2_Stream7->CR |= DMA_SxCR_EN;		// Enabling Stream 7
+		break;
+	case DMA2_SPI1_TX_EN:
+		DMA2_Stream3->M0AR = *data;				// Pointing to mem address
+		DMA2_Stream3->NDTR = numOfTransfer;		// Assigning the number of transfer
+		DMA2_Stream3->CR |= DMA_SxCR_EN;		// Enabling Stream 3
+		break;
+	default:
+		break;
+
+	}
 
 }
 
@@ -432,8 +494,7 @@ static void _init_FMPI2C1( void )
 	FMPI2C1->CR2 |= FMPI2C_CR2_RELOAD;				//The transfer is not completed after the NBYTES data transfer
 	FMPI2C1->CR2 |= (1 << FMPI2C_CR2_NBYTES_Pos);	//Setting the no. of bytes to be transfered 1 that each byte there would be a tick to get new value from DMA.
 	//Enable interrupts
-	FMPI2C1->CR1 |= FMPI2C_CR1_TXIE		|			//Enable Transmit interrupt (it's mainly for confirming the sent addr)
-					FMPI2C_CR1_TCIE 	| 			//Enable Transfer complete interrupt
+	FMPI2C1->CR1 |= FMPI2C_CR1_TCIE 	| 			//Enable Transfer complete interrupt
 					FMPI2C_CR1_ERRIE 	| 			//Enable Error flags interrupt
 					FMPI2C_CR1_NACKIE				//Enable NACK interrupt
 					;
@@ -452,11 +513,6 @@ static void _init_UART1( void )
 	USART1->CR1 |= USART_CR1_UE;		//Enabling the UART peripheral.
 }
 
-static void UART1ByteTx( uint8_t byte )
-{
-
-}
-
 /*			Inter-IC sound										*/
 static void _init_I2S( void )
 {
@@ -465,11 +521,6 @@ static void _init_I2S( void )
 	//Data format = 16-bit right justified
 	//Packet frame = ?
 	//Clock polarity = ?
-}
-
-static void I2SByteTx( uint16_t word)
-{
-
 }
 
 /*			SPDIF receiver interface							*/

@@ -69,6 +69,15 @@
 #define PWR_EN_DEFAULT_VALUE_PIN		0
 #define LED_IND_DEFAULT_VALUE_PIN 		0
 
+#define	SET_PIN( port, pin)				(port |= pin)
+#define	CLR_PIN( port, pin)				(port &= ~pin)
+#define	TGL_PIN( port, pin)				(port ^= pin)
+
+
+#define	DMA2_SPI1_TX_EN					3
+#define	DMA1_FMPI2C1_TX_EN				5
+#define	DMA2_UART1_TX_EN				7
+
 
 
 /****************************************************************************************************

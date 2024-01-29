@@ -46,10 +46,11 @@
 /****************************************************************************************************
 ****************************       HEADERS DECLARATION       ****************************************
 *****************************************************************************************************/
-
+#include "isr.h"
 /****************************************************************************************************
 ****************************   GLOB. VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
+extern TaskHandle_t  FMPI2CDedicatedTask;
 
 /****************************************************************************************************
 ****************************   CONST VARIABLES DECLARATION    ***************************************
@@ -62,10 +63,120 @@
 /****************************************************************************************************
 ****************************         GLOBAL FUNTIONS         ****************************************
 *****************************************************************************************************/
+void _init_ISR( void )
+{
+	NVIC_SetPriority();
+}
 
 /****************************************************************************************************
 ****************************         STATIC FUNTIONS         ****************************************
 *****************************************************************************************************/
+
+
+
+
+
+/*			Power controller 									*/
+
+
+/*			Reset and clock control 							*/
+
+
+/*			General-purpose I/Os								*/
+
+
+/*			Direct memory access controller						*/
+void DMA1_Stream0_IRQHandler( void )
+{
+
+}
+
+void DMA1_Stream1_IRQHandler( void )
+{
+
+}
+
+void DMA1_Stream2_IRQHandler( void )
+{
+
+}
+
+void DMA1_Stream3_IRQHandler( void )
+{
+
+}
+
+void DMA1_Stream4_IRQHandler( void )
+{
+	//ONCE THE COMPLETE TRANSFER HAS BEEN TRIGGERED I SHOULD TURN OFF THE FMPI2C.
+}
+
+void DMA1_Stream5_IRQHandler( void )
+{
+
+}
+
+void DMA1_Stream6_IRQHandler( void )
+{
+
+}
+
+/*			Analog-to-digital converter	1						*/
+
+
+/*			Analog-to-digital converter	2						*/
+
+
+/*			Analog-to-digital converter	3						*/
+
+
+/*			Digital-to-analog converter							*/
+
+
+/*			Advanced-control timers (TIM1)						*/
+
+
+/*			General-purpose timers (TIMER2)						*/
+
+
+/*			General-purpose timers (TIMER3)						*/
+
+
+/*			Real-time clock										*/
+
+
+/*			Inter-integrated circuit (I2C) interface			*/
+void FMPI2C1_EV_IRQHandler( void )
+{
+	if((FMPI2C1->ISR & FMPI2C_ISR_NACKF) == FMPI2C_ISR_NACKF)
+	{
+		FMPI2C1->ICR |= FMPI2C_ICR_NACKCF;		 //Clearing the NACK flag.
+		vTaskResumeFromISR(FMPI2CDedicatedTask); //I should stop the bus, but will figure it out how
+	}
+	else if((FMPI2C1->ISR & FMPI2C_ISR_TXIS) == FMPI2C_ISR_TXIS)
+	{
+		//Enabling the DMA for transferring the data via DMA
+		FMPI2C1->CR1 |= FMPI2C_CR1_TXDMAEN;
+		//No more needed after confirming the slave address. So we disable TXIE.
+		FMPI2C1->CR1 &= ~FMPI2C_CR1_TXIE;
+	}
+
+}
+
+void FMPI2C1_ER_IRQHandler( void )
+{
+
+}
+
+/*			Universal asynchronous receiver transmitter			*/
+
+
+/*			Inter-IC sound										*/
+
+
+/*			SPDIF receiver interface							*/
+
+
 
 /***************************************************************************************************/
 /**********************************                             ************************************/

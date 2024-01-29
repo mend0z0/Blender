@@ -70,44 +70,22 @@ void SystemClock_Config(void);
 *****************************************************************************************************/
 int main(void)
 {
+	/* MCU Configuration--------------------------------------------------------*/
 
-  /* USER CODE BEGIN 1 */
+	/* Initialize all configured peripherals */
 
-  /* USER CODE END 1 */
+	/* MCU Configuration  ------------------------------------------------------*/
 
-  /* MCU Configuration--------------------------------------------------------*/
+	/* Modules Configuration ---------------------------------------------------*/
+	//First enable the power...
+	//then different inits..
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+	/* Start the created tasks running. */
+	vTaskStartScheduler();
 
-  /* USER CODE BEGIN Init */
-
-  /* USER CODE END Init */
-
-  /* Configure the system clock */
-  SystemClock_Config();
-
-  /* USER CODE BEGIN SysInit */
-
-  /* USER CODE END SysInit */
-
-  /* Initialize all configured peripherals */
-  /* USER CODE BEGIN 2 */
-
-  /* USER CODE END 2 */
-
-  /* Start the created tasks running. */
-  vTaskStartScheduler();
-
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
+	while (1)
+	{
+	}
 }
 
 void SystemClock_Config(void)

@@ -9,8 +9,8 @@ A brief description of this todo list belongs to what project
     - Add a USB slot
     - Add a power button (push button)
     - Add the logo in a way that would be engraved... (looking for how to add a picture as an object so I can give it depth
-    - 
-    - 
+    - Add a slot for WS2812
+    - Opening an output folder (one output for laser cut)
     - 
     - 
     - 

@@ -51,6 +51,7 @@
 ****************************   GLOB. VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
 extern SemaphoreHandle_t FMPI2CBinarySemaphore;
+extern SemaphoreHandle_t USART1BinarySemaphore;
 
 /****************************************************************************************************
 ****************************   CONST VARIABLES DECLARATION    ***************************************
@@ -108,9 +109,8 @@ void DMA1_Stream3_IRQHandler( void )
 
 void DMA1_Stream4_IRQHandler( void )
 {
-	//ONCE THE COMPLETE TRANSFER HAS BEEN TRIGGERED I SHOULD TURN OFF THE FMPI2C.
-	//Upon completion sending the stop for releasing the line.
-	FMPI2C1->CR2 |= FMPI2C_CR2_STOP;
+	DMA1_Stream5->CR &= ~DMA_SxCR_TCIE;		// Disable Transfer complete interrupt.
+	FMPI2C1->CR2 |= FMPI2C_CR2_STOP;		//Upon completion sending the stop for releasing the line.
 	//this will give back the semaphore so we'll back to continue FMPI2CDataTx
 	xSemaphoreGiveFromISR( FMPI2CBinarySemaphore, pdFALSE);
 }
@@ -123,6 +123,42 @@ void DMA1_Stream5_IRQHandler( void )
 void DMA1_Stream6_IRQHandler( void )
 {
 
+}
+
+void DMA2_Stream0_IRQHandler( void )
+{
+
+}
+
+void DMA2_Stream1_IRQHandler( void )
+{
+
+}
+
+void DMA2_Stream2_IRQHandler( void )
+{
+
+}
+
+void DMA2_Stream3_IRQHandler( void )
+{
+
+}
+
+void DMA2_Stream4_IRQHandler( void )
+{
+
+}
+
+void DMA2_Stream5_IRQHandler( void )
+{
+
+}
+
+void DMA2_Stream6_IRQHandler( void )
+{
+	DMA2->HIFCR |= DMA_HIFCR_CTCIF7;	// Clearing the flag by writing a one.
+	DMA2_Stream7->CR &= ~DMA_SxCR_TCIE;	// Disable Transfer complete interrupt.
 }
 
 /*			Analog-to-digital converter	1						*/
@@ -154,6 +190,8 @@ void FMPI2C1_EV_IRQHandler( void )
 {
 	if((FMPI2C1->ISR & FMPI2C_ISR_NACKF) == FMPI2C_ISR_NACKF)
 	{
+		//Disable the NACK interrupt for servicing it outside of ISR.
+		FMPI2C1->CR1 &= ~FMPI2C_CR1_NACKIE;
 		//this will give back the semaphore so we'll back to continue FMPI2CDataTx
 		xSemaphoreGiveFromISR( FMPI2CBinarySemaphore, pdFALSE);
 	}
@@ -173,7 +211,11 @@ void FMPI2C1_ER_IRQHandler( void )
 }
 
 /*			Universal asynchronous receiver transmitter			*/
-
+void USART1_IRQHandler( void )
+{
+	USART1->CR1 &= ~USART_CR1_TCIE;							//disabling the USART interrupt
+	xSemaphoreGiveFromISR( USART1BinarySemaphore, pdFALSE);	//Giving back the semaphore
+}
 
 /*			Inter-IC sound										*/
 

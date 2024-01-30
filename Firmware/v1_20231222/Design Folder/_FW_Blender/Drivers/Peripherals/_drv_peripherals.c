@@ -52,6 +52,7 @@
 ****************************   GLOB. VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
 SemaphoreHandle_t FMPI2CBinarySemaphore;
+SemaphoreHandle_t USART1BinarySemaphore;
 
 /****************************************************************************************************
 ****************************   CONST VARIABLES DECLARATION    ***************************************
@@ -161,11 +162,10 @@ int8_t TIM3OCUpdate( uint32_t ocValue )
 /*			Real-time clock										*/
 
 /*			Inter-integrated circuit (I2C) interface			*/
-int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize, TaskHandle_t xTask)
+int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize)
 {
 	__IO int32_t status = 0;
 
-	BaseType_t semaphoreStatus = pdFALSE;
 	TickType_t semaphoreWatiTime = pdMS_TO_TICKS(10);	// 10msec delay for semaphore to get created, if it didn't happen immediately!
 	FMPI2CBinarySemaphore = xSemaphoreCreateBinary();	// Creating semaphore for FMPI2C
 
@@ -177,14 +177,17 @@ int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize, Task
 	}
 	else{
 		DMAEnable( DMA1_FMPI2C1_TX_EN, *data, buffSize);	// Init DMA with data address and number of transfer and then enable it.
-		FMPI2C1->CR1 |= FMPI2C_CR1_TXIE;					// Enable Transmit interrupt (it's mainly for confirming the sent addr)
+		FMPI2C1->CR1 |= FMPI2C_CR1_TXIE 	| 					// Enable Transmit interrupt (it's mainly for confirming the sent addr)
+						FMPI2C_CR1_NACKIE					// Enable NACK interrupt.
+						;
 		FMPI2C1->CR2 |= ((slaveAddr & 0X7F) << 1);			// Set Slave Address
 		FMPI2C1->CR2 &= ~FMPI2C_CR2_RD_WRN;					// Set transfer direction to 0 to write on slave.
 		FMPI2C1->CR2 |=	FMPI2C_CR2_START;					// Sending an start on line
 
 		// At this point, we'll wait until we give the semaphore back from ISR
-		semaphoreStatus = xSemaphoreTake( FMPI2CBinarySemaphore, semaphoreWatiTime );
+		xSemaphoreTake( FMPI2CBinarySemaphore, semaphoreWatiTime );
 		//Once we've received the semaphore from ISR we'll check if there was an error or completion of transmitted data.
+		DMADisable( DMA1_FMPI2C1_TX_DIS );
 		if((FMPI2C1->ISR & FMPI2C_ISR_NACKF) == FMPI2C_ISR_NACKF)
 		{
 			FMPI2C1->ICR |= FMPI2C_ICR_NACKCF;		 // Clearing the NACK flag.
@@ -192,8 +195,8 @@ int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize, Task
 		}
 		else if((DMA1->HISR & DMA_HISR_TCIF5) == DMA_HISR_TCIF5)
 		{
-			DMA1->HISR |= DMA_HISR_TCIF5;	//Clearing the flag by writing a one.
-			status = buffSize;
+			DMA1->HIFCR |= DMA_HIFCR_CTCIF5;	//Clearing the flag by writing a one.
+			status = (int32_t)buffSize;
 		}
 		else{
 			status = FMPI2C_ERROR_UNKNOWN;
@@ -204,12 +207,39 @@ int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize, Task
 }
 
 /*			Universal asynchronous receiver transmitter			*/
-int8_t UART1DataTx( uint8_t *data, uint32_t buffSize)
+int32_t UART1DataTx( uint8_t *data, uint32_t buffSize)
 {
-	//Init DMA with data address and number of transfer
-	//Enable DMA
-	//DMAEnable( DAM2_UART1_TX_EN, *data, buffSize);
+	__IO int32_t status = 0;
 
+	TickType_t semaphoreWatiTime = pdMS_TO_TICKS(10);	// 10msec delay for semaphore to get created, if it didn't happen immediately!
+	USART1BinarySemaphore = xSemaphoreCreateBinary();	// Creating semaphore for FMPI2C
+
+	//If NULL is returned, then the semaphore cannot be created
+	//because there is insufficient heap memory available for FreeRTOS
+	//to allocate the semaphore data structures.
+	if(USART1BinarySemaphore == NULL){
+		status = pdFALSE;
+	}
+	else{
+		DMAEnable( DMA2_UART1_TX_EN, *data, buffSize);	// Init DMA with data address and number of transfer and then enable it.
+		USART1->CR1 |= USART_CR1_TCIE;					// Enabling the transmission complete interrupt
+		USART1->CR1 |= USART_CR1_UE;					// Enabling the UART peripheral.
+		// Creating a semaphore to hold the code here and send the data from DMA to USART
+		xSemaphoreTake( USART1BinarySemaphore, semaphoreWatiTime);
+		// After the Semaphore has been given we should disable DMA
+		DMADisable( DMA2_UART1_TX_DIS );
+		// Checking if the TC has been raised, in that case the transfer has been completed.
+		if((USART1->SR & USART_SR_TC) == USART_SR_TC){
+			USART1->SR &= ~USART_SR_TC;					// Clearing the TC flag.
+			status = (int32_t)buffSize;
+		}
+		else
+		{
+			status = pdFALSE;
+		}
+	}
+	USART1->CR1 &= ~USART_CR1_UE;					//Disable the UART peripheral.
+	return status;
 }
 
 /*			Inter-IC sound										*/
@@ -401,8 +431,7 @@ static void _init_DMA( void )
 	DMA1_Stream5->CR |= DMA_SxCR_CHSEL_1 |	// Selecting channel 2 for Stream 5 (ch2 is FMPI2C1_TX)
 						DMA_SxCR_MINC	 |	// Memory address pointer will increase after each transfer.
 						DMA_SxCR_DIR_0	 |	// Mem To Periph Direction.
-						DMA_SxCR_PFCTRL	 |	// Periph is controlling the flow
-						DMA_SxCR_TCIE		// Enable Transfer complete interrupt.
+						DMA_SxCR_PFCTRL		// Periph is controlling the flow
 						;
 
 	DMA1_Stream5->PAR = &FMPI2C1->TXDR;		// Assigning the TXD register of FMPI2C to DMA periph pointing address
@@ -410,8 +439,7 @@ static void _init_DMA( void )
 	DMA2_Stream7->CR |= DMA_SxCR_CHSEL_2 |	// Selecting channel 4 for Stream 7 (ch4 is UART1_TX)
 						DMA_SxCR_MINC	 |	// Memory address pointer will increase after each transfer.
 						DMA_SxCR_DIR_0	 |	// Mem To Periph Direction.
-						DMA_SxCR_PFCTRL	 |	// Periph is controlling the flow
-						DMA_SxCR_TCIE		// Enable Transfer complete interrupt.
+						DMA_SxCR_PFCTRL	 	// Periph is controlling the flow
 						;
 	DMA2_Stream7->PAR = &USART1->DR;		// Assigning the Data register of USART1 to DMA periph pointer
 
@@ -419,8 +447,7 @@ static void _init_DMA( void )
 	DMA2_Stream3->CR |= DMA_SxCR_CHSEL_0 | DMA_SxCR_CHSEL_1 |	// Selecting channel 3 for Stream 3 (ch3 is SPI1_TX)
 						DMA_SxCR_MINC	 |	// Memory address pointer will increase after each transfer.
 						DMA_SxCR_DIR_0	 |	// Mem To Periph Direction.
-						DAM_SxCR_PFCTRL	 |	// Periph is controlling the flow
-						DMA_SxCR_TCIE		// Enable Transfer complete interrupt.
+						DAM_SxCR_PFCTRL	 	// Periph is controlling the flow
 						;
 	DMA2_Stream3->PAR = &SPI1->DR;			// Assigning the Data register of SPI1 to DMA periph pointer.
 
@@ -433,23 +460,48 @@ static void DMAEnable( uint8_t channelNumber, uint8_t *data, uint32_t numOfTrans
 	case DMA1_FMPI2C1_TX_EN:
 		DMA1_Stream5->M0AR = *data;				// Pointing to mem address
 		DMA1_Stream5->NDTR = numOfTransfer;		// Assigning the number of transfer
-		DMA1_Stream5->CR |= DMA_SxCR_EN;		// Enabling Stream 5
+		DMA1_Stream5->CR |= DMA_SxCR_EN 	|	// Enabling Stream 5
+							DMA_SxCR_TCIE		// Enable Transfer complete interrupt.
+							;
 		break;
 	case DMA2_UART1_TX_EN:
 		DMA2_Stream7->M0AR = *data;				// Pointing to mem address
 		DMA2_Stream7->NDTR = numOfTransfer;		// Assigning the number of transfer
-		DMA2_Stream7->CR |= DMA_SxCR_EN;		// Enabling Stream 7
+		DMA2_Stream7->CR |= DMA_SxCR_EN		|	// Enabling Stream 7
+							DMA_SxCR_TCIE		// Enable Transfer complete interrupt.
+							;
 		break;
 	case DMA2_SPI1_TX_EN:
 		DMA2_Stream3->M0AR = *data;				// Pointing to mem address
 		DMA2_Stream3->NDTR = numOfTransfer;		// Assigning the number of transfer
-		DMA2_Stream3->CR |= DMA_SxCR_EN;		// Enabling Stream 3
+		DMA2_Stream3->CR |= DMA_SxCR_EN		|	// Enabling Stream 3
+							DMA_SxCR_TCIE		// Enable Transfer complete interrupt.
+							;
 		break;
 	default:
 		break;
 
 	}
 
+}
+
+void DMADisable( uint8_t channelNumber )
+{
+	switch (channelNumber)
+	{
+	case DMA1_FMPI2C1_TX_DIS:
+		DMA1_Stream5->CR &= ~DMA_SxCR_EN;		// Disabling Stream 5
+		break;
+	case DMA2_UART1_TX_DIS:
+		DMA2_Stream7->CR &= ~DMA_SxCR_EN;		// Disabling Stream 7
+		break;
+	case DMA2_SPI1_TX_DIS:
+		DMA2_Stream3->CR &= ~DMA_SxCR_EN;		// Disabling Stream 3
+		break;
+	default:
+		break;
+
+	}
 }
 
 /*			Analog-to-digital converter	1						*/
@@ -525,11 +577,8 @@ static void _init_UART1( void )
 {
 	USART1->BRR |= (0X16 << 4);			//Configuring the baud rate for 250000 => ((176MHz/2) / (16* 22(USART_DIV)))
 	USART1->CR2 |= USART_CR2_STOP_1;	//Selecting 2 stop bits
-	//Enabling appropriate interrupts
-
-	//USART1->CR3 |= USART_CR3_DMAT;	//Enabling DMA for Transmitter
+	USART1->CR3 |= USART_CR3_DMAT;		//Enabling DMA for Transmitter
 	USART1->CR1 |= USART_CR1_TE;		//Enabling the Transmitter
-	USART1->CR1 |= USART_CR1_UE;		//Enabling the UART peripheral.
 }
 
 /*			Inter-IC sound										*/

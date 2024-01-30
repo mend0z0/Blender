@@ -78,6 +78,10 @@
 #define	DMA1_FMPI2C1_TX_EN				5
 #define	DMA2_UART1_TX_EN				7
 
+#define	DMA2_SPI1_TX_DIS				33
+#define	DMA1_FMPI2C1_TX_DIS				55
+#define	DMA2_UART1_TX_DIS				77
+
 #define FMPI2C_ERROR_NACK				-2
 #define	FMPI2C_ERROR_UNKNOWN			-3
 

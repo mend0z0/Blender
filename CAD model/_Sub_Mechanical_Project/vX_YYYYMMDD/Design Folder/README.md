@@ -12,7 +12,7 @@ A brief description of this todo list belongs to what project
     - Add a slot for WS2812
     - Opening an output folder (one output for laser cut)
     - Add a tolerance to the openings
-    - 
+    - Make the edges curvy..
     - 
     - 
     - 

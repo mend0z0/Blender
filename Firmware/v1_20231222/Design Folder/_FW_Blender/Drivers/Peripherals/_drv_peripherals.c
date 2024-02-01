@@ -74,6 +74,7 @@ static void _init_GPIO( void );
 /*			Direct memory access controller						*/
 static void _init_DMA( void );
 static void DMAEnable( uint8_t channelNumber, uint8_t *data, uint32_t numOfTransfer);
+void DMADisable( uint8_t channelNumber );
 
 /*			Analog-to-digital converter	1						*/
 static void _init_ADC1( void );
@@ -153,7 +154,7 @@ int8_t GPIOToggle( uint8_t pinName )
 
 /*			Advanced-control timers (TIM1)						*/
 
-/*			General-purpose timers (TIMER3)						*/
+/*			General-purpose timers (TIM3)						*/
 int8_t TIM3OCUpdate( uint32_t ocValue )
 {
 
@@ -376,7 +377,7 @@ static void _init_GPIO( void )
 					GPIO_MODER_MODER15_0 |							//GPO
 					GPIO_MODER_MODER3_1  |							//I2S1_CK
 					GPIO_MODER_MODER5_1  |							//I2S1_SD
-					GPIO_MODER_MODER0_1	 |							//TIM3_CH3
+					GPIO_MODER_MODER0_1	 |							//TIM3_CH3_WS2812_DIN
 					GPIO_MODER_MODER1_1  |							//TIM3_CH4
 					GPIO_MODER_MODER7_1	 							//SPDIFRX
 					;
@@ -451,6 +452,12 @@ static void _init_DMA( void )
 						;
 	DMA2_Stream3->PAR = &SPI1->DR;			// Assigning the Data register of SPI1 to DMA periph pointer.
 
+
+	//Enable DMA for TIM3
+	//Circular mode
+	//DMA Address is DMAR of TIM3
+	//1 Transfer, and interrupt should be activated...
+	//The number of transfer would be checked manually!
 }
 
 static void DMAEnable( uint8_t channelNumber, uint8_t *data, uint32_t numOfTransfer)
@@ -543,7 +550,16 @@ static void _init_TIM2( void )
 /*			General-purpose timers (TIMER3)						*/
 static void _init_TIM3( void )
 {
-
+	TIM3->CR2 |= TIM_CR2_CCDS;								// CCx DMA requests sent when update event occurs
+	TIM3->CCMR2 |= 	TIM_CCMR2_OC3M_0 | TIM_CCMR2_OC3M_1 |	// Toggle - OC1REF toggles when TIMx_CNT=TIMx_CCR1
+					TIM_CCMR2_OC3PE							// Preload register on TIMx_CCR1 enabled.
+					;
+	TIM3->CCER |= TIM_CCER_CC3E;							// Capture/Compare 3 output enable.
+	TIM3->ARR = 56;											// fclk = 45MHz, then 56 will make a signal with overall period of 1.25 usec.
+	TIM3->CCR3 = 0;											// initializing with 0 as compare value. Technically turning it off.
+	TIM3->DCR = 0X3C;										// TIM3_CCR3 address
+	TIM3->DMAR = 0xF0;										// (TIM3_CCR3 address) * 4
+	TIM3->DIER |= TIM_DIER_UDE;								// Update DMA request enable (It can change to CC3DE: Capture/Compare 3 DMA request enable)
 }
 
 /*			Real-time clock										*/

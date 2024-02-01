@@ -1,6 +1,6 @@
 # Revision History
 
-HotPlate firmware project revision history
+Blender Hardware project revision history
 
 ## Roadmap
 

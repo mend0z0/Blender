@@ -13,7 +13,7 @@ A brief description of this todo list belongs to what project
     - Opening an output folder (one output for laser cut)
     - Add a tolerance to the openings
     - Make the edges curvy..
-    - 
+    - adding a switch to enclosure
     - 
     - 
     - 

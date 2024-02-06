@@ -74,13 +74,14 @@
 #define	TGL_PIN( port, pin)				(port ^= pin)
 
 
-#define	DMA2_SPI1_TX_EN					3
-#define	DMA1_FMPI2C1_TX_EN				5
-#define	DMA2_UART1_TX_EN				7
+#define	DMA2_SPI1_TX_EN					253	//(DMA z / STREAM x / CHANNEL y)
+#define	DMA1_FMPI2C1_TX_EN				152	//(DMA z / STREAM x / CHANNEL y)
+#define	DMA2_UART1_TX_EN				274	//(DMA z / STREAM x / CHANNEL y)
 
-#define	DMA2_SPI1_TX_DIS				33
-#define	DMA1_FMPI2C1_TX_DIS				55
-#define	DMA2_UART1_TX_DIS				77
+#define	DMA2_SPI1_TX_DIS				253253	//(DMA z / STREAM x / CHANNEL y)(DMA z / STREAM x / CHANNEL y)
+#define	DMA1_FMPI2C1_TX_DIS				152152	//(DMA z / STREAM x / CHANNEL y)(DMA z / STREAM x / CHANNEL y)
+#define	DMA2_UART1_TX_DIS				274274	//(DMA z / STREAM x / CHANNEL y)(DMA z / STREAM x / CHANNEL y)
+#define	DMAx_TIM3_CH2_DIS				155155	//(DMA z / STREAM x / CHANNEL y)(DMA z / STREAM x / CHANNEL y)
 
 #define FMPI2C_ERROR_NACK				-2
 #define	FMPI2C_ERROR_UNKNOWN			-3

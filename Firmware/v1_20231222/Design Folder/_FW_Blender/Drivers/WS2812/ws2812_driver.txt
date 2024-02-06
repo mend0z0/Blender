@@ -1,0 +1,40 @@
+#define	WS2812_COLOR_BITS		24
+#define	WS2812_T0H			x	(0.35us)
+#define	WS2812_T1H			x	(0.70us)		
+
+void _init_WS2812();
+
+
+int8_t WS2812UpdateString( uint32_t *color /*G R B*/, uint32_t LEDIndex){
+	uint32_t ledIndexCnt = 0;
+	uint8_t colorBitCnt = 0;
+	__IO uint8_t colorBits[WS2812_COLOR_BITS];
+	__IO uint32_t tempColor = 0;
+
+	//check if I can make a semaphore...
+	
+	for(counter = 0; counter < LEDIndex; ++counter)
+	{
+		tempColor = *(color + counter);
+		for(colorBitCnt = 0; colorBitCnt < WS2812_COLOR_BITS; ++colorBitCnt)
+		{
+			if((tempColor & (1 << 23)) == (1 << 23))
+			{
+				TIM3_CCMR = WS2812_T1H; //the compare register
+			}
+			else
+			{
+				TIM3_CCMR = WS2812_T0H;	//the compare register
+			}
+			take a semaphore()
+		}
+		
+	}
+	return true; //as it's completed the update of string.
+}
+
+TIM3_OVF (void)
+{
+	clearing the flag
+	give the semaphore back
+}

@@ -155,9 +155,9 @@ int8_t GPIOToggle( uint8_t pinName )
 /*			Advanced-control timers (TIM1)						*/
 
 /*			General-purpose timers (TIM3)						*/
-int8_t TIM3OCUpdate( uint32_t ocValue )
+int8_t TIM3OCUpdate( uint32_t *ocValue )
 {
-
+	DMAEnable( TIM3)
 }
 
 /*			Real-time clock										*/
@@ -497,13 +497,13 @@ void DMADisable( uint8_t channelNumber )
 	switch (channelNumber)
 	{
 	case DMA1_FMPI2C1_TX_DIS:
-		DMA1_Stream5->CR &= ~DMA_SxCR_EN;		// Disabling Stream 5
+		DMA1_Stream5->CR &= ~DMA_SxCR_EN;		// Disabling from Stream 5
 		break;
 	case DMA2_UART1_TX_DIS:
-		DMA2_Stream7->CR &= ~DMA_SxCR_EN;		// Disabling Stream 7
+		DMA2_Stream7->CR &= ~DMA_SxCR_EN;		// Disabling from Stream 7
 		break;
 	case DMA2_SPI1_TX_DIS:
-		DMA2_Stream3->CR &= ~DMA_SxCR_EN;		// Disabling Stream 3
+		DMA2_Stream3->CR &= ~DMA_SxCR_EN;		// Disabling from Stream 3
 		break;
 	default:
 		break;

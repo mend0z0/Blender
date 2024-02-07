@@ -46,6 +46,7 @@
 /****************************************************************************************************
 ****************************       HEADERS DECLARATION       ****************************************
 *****************************************************************************************************/
+#include "_drv_ws2812.h"
 
 /****************************************************************************************************
 ****************************   GLOB. VARIABLES DECLARATION    ***************************************
@@ -62,6 +63,54 @@
 /****************************************************************************************************
 ****************************         GLOBAL FUNTIONS         ****************************************
 *****************************************************************************************************/
+void _init_WS2812( void )
+{
+	uint32_t testColor[3][7] = {{0X00FF0000, 0X00FF0000, 0X00FF0000, 0X00FF0000, 0X00FF0000, 0X00FF0000, 0X00FF0000},
+								{0X0000FF00, 0X0000FF00, 0X0000FF00, 0X0000FF00, 0X0000FF00, 0X0000FF00, 0X0000FF00},
+								{0X000000FF, 0X000000FF, 0X000000FF, 0X000000FF, 0X000000FF, 0X000000FF, 0X000000FF}
+								};
+	//Turning on the G B R individually to make sure all the colors are in working condition.
+	for(uint8_t cnt = 0; cnt < 3; ++cnt){
+		WS2812UpdatePixels( &testColor[cnt], 7);
+		//put a delay of 500ms from FreeRTOS library
+	}
+}
+
+int8_t WS2812UpdatePixels( uint32_t *colors/*G R B*/, uint32_t numOfPixels)
+{
+	uint32_t ledIndexCnt = 0;
+	uint8_t colorBitCnt = 0;
+	__IO uint8_t colorBits[WS2812_COLOR_BITS];
+	__IO uint32_t tempColor = 0;
+
+	//check if I can make a semaphore...
+
+	TIM3Enable();
+
+	for(ledIndexCnt = 0; ledIndexCnt < numOfPixels; ++ledIndexCnt)
+	{
+		tempColor = *(colors + ledIndexCnt);
+		for(colorBitCnt = 0; colorBitCnt < WS2812_COLOR_BITS; ++colorBitCnt)
+		{
+			if((tempColor & (1 << 23)) == (1 << 23))
+			{
+				TIM3UpdateCCR3( WS2812_T1H );
+			}
+			else
+			{
+				TIM3UpdateCCR3( WS2812_T0H );
+			}
+			//take a semaphore()
+		}
+	}
+
+	TIM3Disable();
+
+	//put a delay of 50us second. from FreeRTOS library
+
+	return true; //as it's completed the update of string.
+}
+
 
 /****************************************************************************************************
 ****************************         STATIC FUNTIONS         ****************************************

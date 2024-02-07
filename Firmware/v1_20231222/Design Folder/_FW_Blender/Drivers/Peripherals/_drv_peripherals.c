@@ -135,29 +135,26 @@ void _init_Peripherals( void ){
 }
 
 /*			General-purpose I/Os								*/
-int8_t GPIOWrite( uint8_t pinName, bool pinValue)
-{
-
-}
-
-int8_t GPIORead( uint8_t pinName )
-{
-
-}
-
-int8_t GPIOToggle( uint8_t pinName )
-{
-
-}
 
 /*			Analog-to-digital converter							*/
 
 /*			Advanced-control timers (TIM1)						*/
 
 /*			General-purpose timers (TIM3)						*/
-int8_t TIM3OCUpdate( uint32_t *ocValue )
+void TIM3Enable( void )
 {
-	DMAEnable( TIM3)
+	TIM3->CNT = 0;
+	TIM3->CR1 |= TIM_CR1_CEN;
+}
+
+void TIM3Disable( void )
+{
+	TIM3->CR1 &= ~TIM_CR1_CEN;
+}
+
+void TIM3UpdateCCR3( uint32_t *ccrValue )
+{
+	TIM3->CCR3 = *ccrValue;
 }
 
 /*			Real-time clock										*/
@@ -249,6 +246,7 @@ int8_t I2SDataTx( uint32_t *data)
 	//Init DMA with data address and number of transfer
 	//Enable DMA
 	//DMAEnable( DMA2_SPI1_TX_EN, *data, buffSize);
+	return 0;
 }
 
 /*			SPDIF receiver interface							*/
@@ -448,7 +446,7 @@ static void _init_DMA( void )
 	DMA2_Stream3->CR |= DMA_SxCR_CHSEL_0 | DMA_SxCR_CHSEL_1 |	// Selecting channel 3 for Stream 3 (ch3 is SPI1_TX)
 						DMA_SxCR_MINC	 |	// Memory address pointer will increase after each transfer.
 						DMA_SxCR_DIR_0	 |	// Mem To Periph Direction.
-						DAM_SxCR_PFCTRL	 	// Periph is controlling the flow
+						DMA_SxCR_PFCTRL	 	// Periph is controlling the flow
 						;
 	DMA2_Stream3->PAR = &SPI1->DR;			// Assigning the Data register of SPI1 to DMA periph pointer.
 
@@ -550,16 +548,14 @@ static void _init_TIM2( void )
 /*			General-purpose timers (TIMER3)						*/
 static void _init_TIM3( void )
 {
-	TIM3->CR2 |= TIM_CR2_CCDS;								// CCx DMA requests sent when update event occurs
 	TIM3->CCMR2 |= 	TIM_CCMR2_OC3M_0 | TIM_CCMR2_OC3M_1 |	// Toggle - OC1REF toggles when TIMx_CNT=TIMx_CCR1
 					TIM_CCMR2_OC3PE							// Preload register on TIMx_CCR1 enabled.
 					;
 	TIM3->CCER |= TIM_CCER_CC3E;							// Capture/Compare 3 output enable.
 	TIM3->ARR = 56;											// fclk = 45MHz, then 56 will make a signal with overall period of 1.25 usec.
-	TIM3->CCR3 = 0;											// initializing with 0 as compare value. Technically turning it off.
-	TIM3->DCR = 0X3C;										// TIM3_CCR3 address
-	TIM3->DMAR = 0xF0;										// (TIM3_CCR3 address) * 4
-	TIM3->DIER |= TIM_DIER_UDE;								// Update DMA request enable (It can change to CC3DE: Capture/Compare 3 DMA request enable)
+	TIM3->CCR3 = 0;											// Initializing with 0 as compare value. Technically turning it off.
+	TIM3->CR1 |= TIM_CR1_URS;								// Only counter overflow/underflow will generate an update request
+	TIM3->DIER |= TIM_DIER_UIE;								// Update Interrupt Enable.
 }
 
 /*			Real-time clock										*/
@@ -572,29 +568,29 @@ static void _init_RTC( void )
 static void _init_FMPI2C1( void )
 {
 	//Setting the clock to 400KHz
-	FMPI2C1->TIMINGR |= (10 << 28) 	|				//PRESC = 10 --> 4000000MHz
-						(1 << 20) 	| 				//SCLDEL = 1 --> 500  ns
-						(1 << 16) 	| 				//SDADEL = 1 --> 250  ns
-						(1 << 8) 	|				//SCLH = 1   --> 500  ns
-						(4 << 0)					//SCLL = 4   --> 1250 ns
+	FMPI2C1->TIMINGR |= (10 << 28) 	|				// PRESC = 10 --> 4000000MHz
+						(1 << 20) 	| 				// SCLDEL = 1 --> 500  ns
+						(1 << 16) 	| 				// SDADEL = 1 --> 250  ns
+						(1 << 8) 	|				// SCLH = 1   --> 500  ns
+						(4 << 0)					// SCLL = 4   --> 1250 ns
 						;
-	FMPI2C1->CR2 |= FMPI2C_CR2_RELOAD;				//The transfer is not completed after the NBYTES data transfer
-	FMPI2C1->CR2 |= (1 << FMPI2C_CR2_NBYTES_Pos);	//Setting the no. of bytes to be transfered 1 that each byte there would be a tick to get new value from DMA.
+	FMPI2C1->CR2 |= FMPI2C_CR2_RELOAD;				// The transfer is not completed after the NBYTES data transfer
+	FMPI2C1->CR2 |= (1 << FMPI2C_CR2_NBYTES_Pos);	// Setting the no. of bytes to be transfered 1 that each byte there would be a tick to get new value from DMA.
 	//Enable interrupts
-	FMPI2C1->CR1 |= FMPI2C_CR1_TCIE 	| 			//Enable Transfer complete interrupt
-					FMPI2C_CR1_ERRIE 	| 			//Enable Error flags interrupt
-					FMPI2C_CR1_NACKIE				//Enable NACK interrupt
+	FMPI2C1->CR1 |= FMPI2C_CR1_TCIE 	| 			// Enable Transfer complete interrupt
+					FMPI2C_CR1_ERRIE 	| 			// Enable Error flags interrupt
+					FMPI2C_CR1_NACKIE				// Enable NACK interrupt
 					;
-	FMPI2C1->CR1 |= FMPI2C_CR1_PE;					//Enable I2C
+	FMPI2C1->CR1 |= FMPI2C_CR1_PE;					// Enable I2C
 }
 
 /*			Universal asynchronous receiver transmitter			*/
 static void _init_UART1( void )
 {
-	USART1->BRR |= (0X16 << 4);			//Configuring the baud rate for 250000 => ((176MHz/2) / (16* 22(USART_DIV)))
-	USART1->CR2 |= USART_CR2_STOP_1;	//Selecting 2 stop bits
-	USART1->CR3 |= USART_CR3_DMAT;		//Enabling DMA for Transmitter
-	USART1->CR1 |= USART_CR1_TE;		//Enabling the Transmitter
+	USART1->BRR |= (0X16 << 4);			// Configuring the baud rate for 250000 => ((176MHz/2) / (16* 22(USART_DIV)))
+	USART1->CR2 |= USART_CR2_STOP_1;	// Selecting 2 stop bits
+	USART1->CR3 |= USART_CR3_DMAT;		// Enabling DMA for Transmitter
+	USART1->CR1 |= USART_CR1_TE;		// Enabling the Transmitter
 }
 
 /*			Inter-IC sound										*/

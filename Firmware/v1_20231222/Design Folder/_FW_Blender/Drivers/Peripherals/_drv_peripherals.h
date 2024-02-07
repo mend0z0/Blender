@@ -75,13 +75,13 @@
 
 
 #define	DMA2_SPI1_TX_EN					253	//(DMA z / STREAM x / CHANNEL y)
-#define	DMA1_FMPI2C1_TX_EN				152	//(DMA z / STREAM x / CHANNEL y)
-#define	DMA2_UART1_TX_EN				274	//(DMA z / STREAM x / CHANNEL y)
+#define	DMA1_FMPI2C1_TX_EN				152		//(DMA z / STREAM x / CHANNEL y)
+#define	DMA2_UART1_TX_EN				274		//(DMA z / STREAM x / CHANNEL y)
 
-#define	DMA2_SPI1_TX_DIS				253253	//(DMA z / STREAM x / CHANNEL y)(DMA z / STREAM x / CHANNEL y)
-#define	DMA1_FMPI2C1_TX_DIS				152152	//(DMA z / STREAM x / CHANNEL y)(DMA z / STREAM x / CHANNEL y)
-#define	DMA2_UART1_TX_DIS				274274	//(DMA z / STREAM x / CHANNEL y)(DMA z / STREAM x / CHANNEL y)
-#define	DMAx_TIM3_CH2_DIS				155155	//(DMA z / STREAM x / CHANNEL y)(DMA z / STREAM x / CHANNEL y)
+#define	DMA2_SPI1_TX_DIS				2532	//(DMA z / STREAM x / CHANNEL y / DMA z)
+#define	DMA1_FMPI2C1_TX_DIS				1521	//(DMA z / STREAM x / CHANNEL y / DMA z)
+#define	DMA2_UART1_TX_DIS				2742	//(DMA z / STREAM x / CHANNEL y / DMA z)
+#define	DMAx_TIM3_CH2_DIS				1551	//(DMA z / STREAM x / CHANNEL y / DMA z)
 
 #define FMPI2C_ERROR_NACK				-2
 #define	FMPI2C_ERROR_UNKNOWN			-3
@@ -92,6 +92,22 @@
 **************************     GLOBAL FUNCTIONS DECLARATION      ************************************
 *****************************************************************************************************/
 void _init_Peripherals( void );
+
+/*			General-purpose timers (TIM3)						*/
+void TIM3Enable( void );
+void TIM3Disable( void );
+void TIM3UpdateCCR3( uint32_t *ccrValue );
+
+/*			Inter-integrated circuit (I2C) interface			*/
+int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize);
+
+/*			Universal asynchronous receiver transmitter			*/
+int32_t UART1DataTx( uint8_t *data, uint32_t buffSize);
+
+/*			Inter-IC sound										*/
+int8_t I2SDataTx( uint32_t *data);
+
+
 
 #endif /* _DRV_PERIPHERALS_H_  */
 

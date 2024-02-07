@@ -13,6 +13,8 @@ int8_t WS2812UpdateString( uint32_t *color /*G R B*/, uint32_t LEDIndex){
 
 	//check if I can make a semaphore...
 	
+	TIM3Enable();
+	
 	for(counter = 0; counter < LEDIndex; ++counter)
 	{
 		tempColor = *(color + counter);
@@ -30,11 +32,16 @@ int8_t WS2812UpdateString( uint32_t *color /*G R B*/, uint32_t LEDIndex){
 		}
 		
 	}
+	
+	TIM3Disable();	
+
 	return true; //as it's completed the update of string.
 }
 
 TIM3_OVF (void)
 {
-	clearing the flag
+	clearing the flag 
+	writing zero to
+	TIM3->SR &= ~TIM_SR_UIF;
 	give the semaphore back
 }

@@ -74,7 +74,7 @@
 #define	TGL_PIN( port, pin)				(port ^= pin)
 
 
-#define	DMA2_SPI1_TX_EN					253	//(DMA z / STREAM x / CHANNEL y)
+#define	DMA2_SPI1_TX_EN					253		//(DMA z / STREAM x / CHANNEL y)
 #define	DMA1_FMPI2C1_TX_EN				152		//(DMA z / STREAM x / CHANNEL y)
 #define	DMA2_UART1_TX_EN				274		//(DMA z / STREAM x / CHANNEL y)
 

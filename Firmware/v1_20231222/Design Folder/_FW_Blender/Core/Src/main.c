@@ -74,11 +74,9 @@ int main(void)
 
 	/* Initialize all configured peripherals */
 
-	/* MCU Configuration  ------------------------------------------------------*/
-
 	/* Modules Configuration ---------------------------------------------------*/
-	//First enable the power...
-	//then different inits..
+	SET_PIN( EXT_LDO_EN_PORT, EXT_LDO_EN_PIN);	//Enable the LDO power to turn the modules on
+	//Each module init will be a task...
 
 	/* Start the created tasks running. */
 	vTaskStartScheduler();

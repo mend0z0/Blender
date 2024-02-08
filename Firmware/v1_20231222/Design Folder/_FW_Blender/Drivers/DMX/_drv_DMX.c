@@ -64,17 +64,40 @@
 ****************************         GLOBAL FUNTIONS         ****************************************
 *****************************************************************************************************/
 void _init_DMX( void )
-{							//	 R	   G	 B
-	uint8_t TestColor[7][3] = {	{0X0F, 0X0F, 0X0F},	// 1
-								{0XF0, 0XF0, 0XF0},	// 2
-								{0X08, 0X08, 0X08},	// 3
-								{0X80, 0X80, 0X80},	// 4
-								{0X07, 0X07, 0X07},	// 5
-								{0X70, 0X70, 0X70},	// 6
-								{0XAA, 0XAA, 0XAA}	// 7
-	};
+{
+	uint8_t cnt;
+	const TickType_t xDelay100ms = pdMS_TO_TICKS( 100UL );
 
-	DMXHeadUpdate( &TestColor[0][0], 21);
+	struct{
+			uint8_t colorRed;
+			uint8_t colorGreen;
+			uint8_t colorBlue;
+	}dmx_head[DMX_HEAD_MAX];
+
+	for(cnt = DMX_HEAD_MAX; cnt > 0; --cnt)
+	{
+		dmx_head[(cnt - 1)].colorRed = 0x01;
+		dmx_head[(cnt - 1)].colorGreen = 0x01;
+		dmx_head[(cnt - 1)].colorBlue = 0x01;
+	}
+
+	while(1)
+	{
+		//shifting the light values to the left
+		dmx_head[(cnt - 1)].colorRed = (dmx_head[(cnt - 1)].colorRed << 1) | 0x01;
+		dmx_head[(cnt - 1)].colorGreen = (dmx_head[(cnt - 1)].colorGreen << 1) | 0x02;
+		dmx_head[(cnt - 1)].colorBlue = (dmx_head[(cnt - 1)].colorBlue << 1) | 0x04;
+		cnt--;
+		//reseting the counter.
+		if(cnt == 0)
+		{
+			cnt = DMX_HEAD_MAX;
+		}
+		//Updating the colors for all the heads.
+		DMXHeadUpdate( &dmx_head[0].colorRed, (DMX_HEAD_MAX *3));
+		//100 milliseconds delay
+		vTaskDelay(xDelay100ms);
+	}
 }
 
 int8_t DMXHeadUpdate( uint8_t *colors /* R G B */, uint32_t numOfHead /*it should be (numOfHead x 3)*/)

@@ -52,6 +52,7 @@
 *****************************************************************************************************/
 extern SemaphoreHandle_t FMPI2CBinarySemaphore;
 extern SemaphoreHandle_t USART1BinarySemaphore;
+extern SemaphoreHandle_t TIM3BinarySemaphore;
 
 /****************************************************************************************************
 ****************************   CONST VARIABLES DECLARATION    ***************************************
@@ -180,7 +181,10 @@ void DMA2_Stream6_IRQHandler( void )
 
 
 /*			General-purpose timers (TIMER3)						*/
-
+void TIM3_IRQHandler( void ){
+	TIM3->SR &= ~TIM_SR_UIF;
+	xSemaphoreGiveFromISR( TIM3BinarySemaphore, pdFALSE);
+}
 
 /*			Real-time clock										*/
 

@@ -417,10 +417,10 @@ static void _init_GPIO( void )
 					;
 
 	/*	RESET VALUE	*/
-	GPIOA->ODR = 0;
-	GPIOB->ODR = 0;
-	GPIOC->ODR = 0;
-	GPIOD->ODR = 0;
+	GPIOA->ODR |= 0;
+	GPIOB->ODR |= 0;
+	GPIOC->ODR |= 0;
+	GPIOD->ODR |= 0;
 }
 
 /*			Direct memory access controller						*/
@@ -490,7 +490,7 @@ static void DMAEnable( uint8_t channelNumber, uint8_t *data, uint32_t numOfTrans
 
 }
 
-static void DMADisable( uint8_t channelNumber )
+void DMADisable( uint8_t channelNumber )
 {
 	switch (channelNumber)
 	{

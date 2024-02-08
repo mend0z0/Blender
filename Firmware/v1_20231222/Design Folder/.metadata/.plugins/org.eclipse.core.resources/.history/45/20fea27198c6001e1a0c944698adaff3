@@ -55,16 +55,6 @@
 /****************************************************************************************************
 ****************************   CONST VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
-
-struct{
-	uint8_t *mend0z0Logo;
-	uint8_t *consolas_6pt;
-}ssd1306;
-
-// Bitmap sizes for mEND0Z0LOGO_simple
-const uint8_t mend0z0Logo_simpleBitmapsWidthPages = 16;
-const uint8_t mend0z0Logo_simpleBitmapsHeightPixels = 120;
-
 //
 //  Image data for mend0z0Logo_simpleBitmaps
 //
@@ -193,7 +183,9 @@ const uint8_t mend0z0Logo_simpleBitmaps[] =
 	0x00, 0x00, 0x00, 0x03, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0x00, 0x00, 0x00, 0x30, 0x00, //                               ###                                               ###                               ##
 };
 
-
+// Bitmap sizes for mEND0Z0LOGO_simple
+const uint8_t mend0z0Logo_simpleBitmapsWidthPages = 16;
+const uint8_t mend0z0Logo_simpleBitmapsHeightPixels = 120;
 
 //
 //  Font data for Consolas 6pt
@@ -1386,7 +1378,6 @@ const uint16_t	DATA_TEMP_BUFF = 4000;
 static void SSD1306InitProcedure( void );
 static int8_t SSD1306ScrollText( void );
 static int8_t SSD1306ClearDisplay( void );
-static int8_t SSD1306SetXY( uint8_t x, uint8_t y);
 static int8_t SSD1306SendData( uint8_t *data, uint32_t buffSize);
 static int8_t SSD1306SendCommand( uint8_t *command, uint8_t buffSize);
 
@@ -1395,17 +1386,12 @@ static int8_t SSD1306SendCommand( uint8_t *command, uint8_t buffSize);
 *****************************************************************************************************/
 void _init_SSD1306( void )
 {
-	const TickType_t xDelay500ms = pdMS_TO_TICKS( 500UL );
-
-	ssd1306.mend0z0Logo = &mend0z0Logo_simpleBitmaps[0];
-	ssd1306.consolas_6pt = &consolas_6ptBitmaps[0];
 
 	SSD1306InitProcedure();
 
     //Display scrolling Mend0z0 Logo
     while(1){
-    	SSD1306SendData( ssd1306.mend0z0Logo, (mend0z0Logo_simpleBitmapsWidthPages * mend0z0Logo_simpleBitmapsHeightPixels));
-    	vTaskDelay( xDelay500ms );
+
     }
 }
 
@@ -1416,7 +1402,6 @@ int8_t SSD1306TypeTxt( char *txt, uint8_t locX, uint8_t locY)
 
 int8_t SSD1306DisplayPic( uint8_t pictureIndex, uint8_t locX, uint8_t locY)
 {
-	SSD1306SetXY( locX, locY);
 
 }
 
@@ -1479,12 +1464,9 @@ static int8_t SSD1306SendData( uint8_t *data, uint16_t buffSize){
 
     i2cStatus = FMPI2C1DataTx( SSD1306_I2C_ADDR, tempBuffer, (buffSize * 2));
 
-    //if we received NACk, we'll try to init OLED repeatedly until it backs to normal condition.
-    if(i2cStatus < pdFALSE){
-    	SSD1306InitProcedure();
+    if(i2cStatus < 0){
+    	SSD1306InitProcedures();
     }
-
-    return i2cStatus;
 }
 
 static int8_t SSD1306SendCommand( uint8_t *command, uint8_t buffSize){
@@ -1510,10 +1492,6 @@ static int8_t SSD1306SendCommand( uint8_t *command, uint8_t buffSize){
     return pdTRUE;
 }
 
-static int8_t SSD1306SetXY( uint8_t x, uint8_t y)
-{
-
-}
 /***************************************************************************************************/
 /**********************************                             ************************************/
 /********************                     END OF THE CODE                         ******************/

@@ -55,16 +55,6 @@
 /****************************************************************************************************
 ****************************   CONST VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
-
-struct{
-	uint8_t *mend0z0Logo;
-	uint8_t *consolas_6pt;
-}ssd1306;
-
-// Bitmap sizes for mEND0Z0LOGO_simple
-const uint8_t mend0z0Logo_simpleBitmapsWidthPages = 16;
-const uint8_t mend0z0Logo_simpleBitmapsHeightPixels = 120;
-
 //
 //  Image data for mend0z0Logo_simpleBitmaps
 //
@@ -193,7 +183,9 @@ const uint8_t mend0z0Logo_simpleBitmaps[] =
 	0x00, 0x00, 0x00, 0x03, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0x00, 0x00, 0x00, 0x30, 0x00, //                               ###                                               ###                               ##
 };
 
-
+// Bitmap sizes for mEND0Z0LOGO_simple
+const uint8_t mend0z0Logo_simpleBitmapsWidthPages = 16;
+const uint8_t mend0z0Logo_simpleBitmapsHeightPixels = 120;
 
 //
 //  Font data for Consolas 6pt
@@ -1337,76 +1329,21 @@ const uint16_t consolas_6ptDescriptors[][] =
 	{4, 837}, 		// ~
 };
 
-/*	Hardware constants		*/
-const uint8_t SSD1306_I2C_ADDR = 0X3C;
-
-const uint8_t SSD1306_CTRL_BYTE = 0b10000000;
-const uint8_t SSD1306_DATA_BYTE = 0b01000000;
-
-/*Fundamental Command Table*/
-const uint8_t SET_CONTRAST_CTRL = 0X81;                     //
-const uint8_t ENTIRE_DISPLAY_ON = 0XA4;                     //
-const uint8_t ENTIRE_DISPLAY_ON_HOME = 0XA5;                //
-const uint8_t SET_NORMAL_DISPLAY = 0XA6;                    //
-const uint8_t SET_INVERSE_DISPLAY = 0XA7;                   //
-const uint8_t SET_DISPLAY_ON = 0XAF;                        //
-const uint8_t SET_DISPLAY_OFF = 0XAE;                       //
-
-/*Hardware Configuration (Panel resolution & layout related) Command Table*/
-const uint8_t SET_MUX_RATIO = 0XA8;
-const uint8_t SET_DISPLAY_START_LINE = 0X40;                //
-const uint8_t SET_SEGMENT_REMAP_COL_0 = 0XA0;               //
-const uint8_t SET_SEGMENT_REMAP_COL_127 = 0XA1;             //
-const uint8_t SET_COM_OUTPUT_SCAN_DIR_UP_DOWN = 0XC0;       //
-const uint8_t SET_COM_OUTPUT_SCAN_DIR_DOWN_UP = 0XC8;       //
-const uint8_t SET_DISPLAY_OFFSET = 0XD3;                    //
-const uint8_t SET_COM_PINS_HARDWARE_CONFIG = 0XDA;          //
-
-/*Timing & Driving Scheme Setting Command Table*/
-const uint8_t SET_DISPLAY_CLOCK_RATIO = 0XD5;               //
-const uint8_t SET_PRECHARGE_PERIOD = 0XD9;                  //
-const uint8_t SET_VCOMH_DESELECT_LEVEL = 0XDB;              //
-const uint8_t NOP = 0XE3;                                   //
-
-/*Charge Pump Command Table */
-const uint8_t SET_CHARGE_PUMP = 0X8D;                       //
-/*
- * Note:    The Charge Pump must be enabled by the following command:
-            8Dh ; Charge Pump Setting
-            14h ; Enable Charge Pump
-            AFh; Display ON
-*/
-
-const uint8_t	CMD_TEMP_BUFF = 100;
-const uint16_t	DATA_TEMP_BUFF = 4000;
 
 /****************************************************************************************************
 ***********************     STATIC/LOCAL FUNCTIONS DECLARATION      *********************************
 *****************************************************************************************************/
-static void SSD1306InitProcedure( void );
 static int8_t SSD1306ScrollText( void );
 static int8_t SSD1306ClearDisplay( void );
-static int8_t SSD1306SetXY( uint8_t x, uint8_t y);
-static int8_t SSD1306SendData( uint8_t *data, uint32_t buffSize);
-static int8_t SSD1306SendCommand( uint8_t *command, uint8_t buffSize);
+static int8_t SSD1306SendCommand( uint8_t command );
+static int8_t SSD1306SendData( uint8_t *data );
 
 /****************************************************************************************************
 ****************************         GLOBAL FUNTIONS         ****************************************
 *****************************************************************************************************/
 void _init_SSD1306( void )
 {
-	const TickType_t xDelay500ms = pdMS_TO_TICKS( 500UL );
 
-	ssd1306.mend0z0Logo = &mend0z0Logo_simpleBitmaps[0];
-	ssd1306.consolas_6pt = &consolas_6ptBitmaps[0];
-
-	SSD1306InitProcedure();
-
-    //Display scrolling Mend0z0 Logo
-    while(1){
-    	SSD1306SendData( ssd1306.mend0z0Logo, (mend0z0Logo_simpleBitmapsWidthPages * mend0z0Logo_simpleBitmapsHeightPixels));
-    	vTaskDelay( xDelay500ms );
-    }
 }
 
 int8_t SSD1306TypeTxt( char *txt, uint8_t locX, uint8_t locY)
@@ -1416,7 +1353,6 @@ int8_t SSD1306TypeTxt( char *txt, uint8_t locX, uint8_t locY)
 
 int8_t SSD1306DisplayPic( uint8_t pictureIndex, uint8_t locX, uint8_t locY)
 {
-	SSD1306SetXY( locX, locY);
 
 }
 
@@ -1426,94 +1362,7 @@ int8_t SSD1306DisplayPic( uint8_t pictureIndex, uint8_t locX, uint8_t locY)
 /****************************************************************************************************
 ****************************         STATIC FUNTIONS         ****************************************
 *****************************************************************************************************/
-static void SSD1306InitProcedure( void )
-{
-	uint8_t initCmd[20];
-	const TickType_t xDelay500ms = pdMS_TO_TICKS( 500UL );
 
-	initCmd[0] = SET_MUX_RATIO;
-	initCmd[1] = 0X3F;
-	initCmd[2] = SET_DISPLAY_OFFSET;
-	initCmd[3] = 0X00;
-	initCmd[4] = SET_DISPLAY_START_LINE;
-	initCmd[5] = SET_SEGMENT_REMAP_COL_0;
-	initCmd[6] = SET_COM_OUTPUT_SCAN_DIR_UP_DOWN;
-	initCmd[7] = SET_COM_PINS_HARDWARE_CONFIG;
-	initCmd[8] = 0X02;
-	initCmd[9] = SET_CONTRAST_CTRL;
-	initCmd[10] = 0X7F;
-	initCmd[11] = ENTIRE_DISPLAY_ON;
-	initCmd[12] = SET_NORMAL_DISPLAY;
-	initCmd[13] = SET_DISPLAY_CLOCK_RATIO;
-	initCmd[14] = 0X80;
-	initCmd[15] = SET_DISPLAY_OFFSET;
-	initCmd[16] = 0X00;
-	initCmd[17] = SET_CHARGE_PUMP;
-	initCmd[18] = 0X14;
-	initCmd[19] = SET_DISPLAY_ON;
-
-    //Keep the module in reset state
-    CLR_PIN( SSD1306_PORT_RST, SSD1306_PIN_RST);
-
-    vTaskDelay( xDelay500ms );
-
-    //Enable the module by pulling high the reset pin.
-    SET_PIN( SSD1306_PORT_RST, SSD1306_PIN_RST);
-
-    //Configure the internal registers of SSD1306
-    SSD1306SendCommand( initCmd, 20);
-}
-
-static int8_t SSD1306SendData( uint8_t *data, uint16_t buffSize){
-    uint16_t cnt = 0;
-    uint8_t tempBuffer[DATA_TEMP_BUFF];
-    int8_t i2cStatus = 0;
-
-    // We need to define the type of data for each data byte,
-    // So in this for loop we fill each byte with it's type.
-    for(cnt = buffSize; cnt > 1; cnt - 2)
-    {
-        tempBuff[(cnt - 1)] = SSD1306_DATA_BYTE;
-        tempBuff[(cnt - 2)] = *data++;				//load the tempBuff and increase the pointer value by 1
-    }
-
-    i2cStatus = FMPI2C1DataTx( SSD1306_I2C_ADDR, tempBuffer, (buffSize * 2));
-
-    //if we received NACk, we'll try to init OLED repeatedly until it backs to normal condition.
-    if(i2cStatus < pdFALSE){
-    	SSD1306InitProcedure();
-    }
-
-    return i2cStatus;
-}
-
-static int8_t SSD1306SendCommand( uint8_t *command, uint8_t buffSize){
-    uint8_t cnt = 0;
-    uint8_t tempBuffer[CMD_TEMP_BUFF];
-
-    // We need to define the type of data for each data byte,
-    // So in this for loop we fill each byte with it's type.
-    for(cnt = buffSize; cnt > 1; cnt - 2)
-    {
-    	tempBuff[(cnt - 1)] = SSD1306_CTRL_BYTE;
-    	tempBuff[(cnt - 2)] = *command++;			//load the tempBuff and increase the pointer value by 1
-    }
-
-    while(1)
-    {
-    	//we'll keep sending the data, if a value more than 0
-    	//(which means the number of data that has been sent) returned. It means the data has been sent and it was successful.
-    	if(FMPI2C1DataTx( SSD1306_I2C_ADDR, tempBuffer, (buffSize * 2)) > 0){
-    		break;
-    	}
-    }
-    return pdTRUE;
-}
-
-static int8_t SSD1306SetXY( uint8_t x, uint8_t y)
-{
-
-}
 /***************************************************************************************************/
 /**********************************                             ************************************/
 /********************                     END OF THE CODE                         ******************/

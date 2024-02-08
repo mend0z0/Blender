@@ -417,10 +417,10 @@ static void _init_GPIO( void )
 					;
 
 	/*	RESET VALUE	*/
-	GPIOA->ODR = 0;
-	GPIOB->ODR = 0;
-	GPIOC->ODR = 0;
-	GPIOD->ODR = 0;
+	GPIOA->ODR |= 0;
+	GPIOB->ODR |= 0;
+	GPIOC->ODR |= 0;
+	GPIOD->ODR |= 0;
 }
 
 /*			Direct memory access controller						*/

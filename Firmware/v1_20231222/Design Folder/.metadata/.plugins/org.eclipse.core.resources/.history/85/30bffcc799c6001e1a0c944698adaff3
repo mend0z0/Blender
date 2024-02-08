@@ -55,21 +55,21 @@
 /****************************************************************************************************
 ****************************   CONST VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
-
-struct{
-	uint8_t *mend0z0Logo;
-	uint8_t *consolas_6pt;
-}ssd1306;
-
 // Bitmap sizes for mEND0Z0LOGO_simple
 const uint8_t mend0z0Logo_simpleBitmapsWidthPages = 16;
 const uint8_t mend0z0Logo_simpleBitmapsHeightPixels = 120;
+
+struct{
+	uint8_t mend0z0Logo_simpleBitmaps[(mend0z0Logo_simpleBitmapsWidthPages * mend0z0Logo_simpleBitmapsHeightPixels)];
+	uint8_t consolas_6ptBitmaps[1000];
+}ssd1306;
+
 
 //
 //  Image data for mend0z0Logo_simpleBitmaps
 //
 
-const uint8_t mend0z0Logo_simpleBitmaps[] =
+ssd1306.mend0z0Logo_simpleBitmaps[] =
 {
 	0x00, 0x00, 0x00, 0x00, 0x07, 0xE0, 0x03, 0x00, 0x00, 0x03, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, //                                      ######           ##                      ######
 	0x00, 0x00, 0x00, 0x00, 0x0F, 0xE0, 0x03, 0x00, 0x00, 0x03, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, //                                     #######           ##                      ######
@@ -1386,7 +1386,6 @@ const uint16_t	DATA_TEMP_BUFF = 4000;
 static void SSD1306InitProcedure( void );
 static int8_t SSD1306ScrollText( void );
 static int8_t SSD1306ClearDisplay( void );
-static int8_t SSD1306SetXY( uint8_t x, uint8_t y);
 static int8_t SSD1306SendData( uint8_t *data, uint32_t buffSize);
 static int8_t SSD1306SendCommand( uint8_t *command, uint8_t buffSize);
 
@@ -1395,17 +1394,12 @@ static int8_t SSD1306SendCommand( uint8_t *command, uint8_t buffSize);
 *****************************************************************************************************/
 void _init_SSD1306( void )
 {
-	const TickType_t xDelay500ms = pdMS_TO_TICKS( 500UL );
-
-	ssd1306.mend0z0Logo = &mend0z0Logo_simpleBitmaps[0];
-	ssd1306.consolas_6pt = &consolas_6ptBitmaps[0];
 
 	SSD1306InitProcedure();
 
     //Display scrolling Mend0z0 Logo
     while(1){
-    	SSD1306SendData( ssd1306.mend0z0Logo, (mend0z0Logo_simpleBitmapsWidthPages * mend0z0Logo_simpleBitmapsHeightPixels));
-    	vTaskDelay( xDelay500ms );
+
     }
 }
 
@@ -1416,7 +1410,6 @@ int8_t SSD1306TypeTxt( char *txt, uint8_t locX, uint8_t locY)
 
 int8_t SSD1306DisplayPic( uint8_t pictureIndex, uint8_t locX, uint8_t locY)
 {
-	SSD1306SetXY( locX, locY);
 
 }
 
@@ -1510,10 +1503,6 @@ static int8_t SSD1306SendCommand( uint8_t *command, uint8_t buffSize){
     return pdTRUE;
 }
 
-static int8_t SSD1306SetXY( uint8_t x, uint8_t y)
-{
-
-}
 /***************************************************************************************************/
 /**********************************                             ************************************/
 /********************                     END OF THE CODE                         ******************/

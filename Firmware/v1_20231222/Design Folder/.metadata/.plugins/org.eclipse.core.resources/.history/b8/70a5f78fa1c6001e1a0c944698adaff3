@@ -1386,7 +1386,7 @@ const uint16_t	DATA_TEMP_BUFF = 4000;
 static void SSD1306InitProcedure( void );
 static int8_t SSD1306ScrollText( void );
 static int8_t SSD1306ClearDisplay( void );
-static int8_t SSD1306SetXY( uint8_t x, uint8_t y);
+static int8_t SSD1306SetCoordination( uint8_t x, uint8_t y);
 static int8_t SSD1306SendData( uint8_t *data, uint32_t buffSize);
 static int8_t SSD1306SendCommand( uint8_t *command, uint8_t buffSize);
 
@@ -1416,7 +1416,7 @@ int8_t SSD1306TypeTxt( char *txt, uint8_t locX, uint8_t locY)
 
 int8_t SSD1306DisplayPic( uint8_t pictureIndex, uint8_t locX, uint8_t locY)
 {
-	SSD1306SetXY( locX, locY);
+	SSD1306SetCoordination( locX, locY);
 
 }
 
@@ -1510,7 +1510,7 @@ static int8_t SSD1306SendCommand( uint8_t *command, uint8_t buffSize){
     return pdTRUE;
 }
 
-static int8_t SSD1306SetXY( uint8_t x, uint8_t y)
+static int8_t SSD1306SetCoordination( uint8_t x, uint8_t y)
 {
 
 }

@@ -5,8 +5,8 @@
 
 ## Features
 
-- __Material:__ 
-- __How to be build:__
+- __Material:__ ABS
+- __How to be build:__ 3D Printer
 - __Overall Dimensions:__
 
 ## Picture

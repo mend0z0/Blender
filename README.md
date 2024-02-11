@@ -38,7 +38,14 @@ __Digital Signal Processing (DSP)__
 
 ### Application
 
-- **Application:** N/A
+- **IDE:** N/A
+- **Operating System:** N/A
+- **Device:** N/A
+
+### Mechanical
+
+- **CAD:** Solid Edge
+- **Printing Method:** 3D Printing
 
 
 

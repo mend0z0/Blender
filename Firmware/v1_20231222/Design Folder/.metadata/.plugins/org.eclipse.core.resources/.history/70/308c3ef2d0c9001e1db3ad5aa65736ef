@@ -74,7 +74,7 @@ int main(void)
 		----------------------   Initialize all configured peripherals  ----------------------------*/
 	_init_Peripherals();
 	_init_ISR();
-	/* ----------------------   	  Modules Configuration 			----------------------------*/
+	/* -------------------------		Modules Configuration 			----------------------------*/
 	SET_PIN( EXT_LDO_EN_PORT, EXT_LDO_EN_PIN);	//Enable the LDO power to turn the modules on
 	//Each module init will be a task...
 

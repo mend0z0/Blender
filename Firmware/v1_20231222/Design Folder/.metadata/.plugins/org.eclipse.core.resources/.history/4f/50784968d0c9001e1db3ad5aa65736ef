@@ -46,114 +46,212 @@
 /****************************************************************************************************
 ****************************       HEADERS DECLARATION       ****************************************
 *****************************************************************************************************/
-#include "main.h"
+#include "isr.h"
+/****************************************************************************************************
+****************************   CONST VARIABLES DECLARATION    ***************************************
+*****************************************************************************************************/
+const uint32_t LED_IND_DELAY = 100;	// This is 100 milliseconds
+
 
 /****************************************************************************************************
 ****************************   GLOB. VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
+extern SemaphoreHandle_t FMPI2CBinarySemaphore;
+extern SemaphoreHandle_t USART1BinarySemaphore;
+extern SemaphoreHandle_t TIM3BinarySemaphore;
 
-/****************************************************************************************************
-****************************   CONST VARIABLES DECLARATION    ***************************************
-*****************************************************************************************************/
+uint32_t ledIndCnt = LED_IND_DELAY;			// This is a counter to toggle the LED once it's it's underflowed.
 
 /****************************************************************************************************
 ***********************     STATIC/LOCAL FUNCTIONS DECLARATION      *********************************
 *****************************************************************************************************/
-void SystemClock_Config(void);
 
 /****************************************************************************************************
 ****************************         GLOBAL FUNTIONS         ****************************************
 *****************************************************************************************************/
+void _init_ISR( void )
+{
+
+	NVIC_SetPriority(DMA1_Stream4_IRQn, 10);
+	NVIC_SetPriority(DMA2_Stream6_IRQn, 10);
+	NVIC_SetPriority(TIM3_IRQn, 10);
+	NVIC_SetPriority(FMPI2C1_EV_IRQn, 10);
+	NVIC_SetPriority(USART1_IRQn, 10);
+
+	NVIC_EnableIRQ(DMA1_Stream4_IRQn);
+	NVIC_EnableIRQ(DMA2_Stream6_IRQn);
+	NVIC_EnableIRQ(TIM3_IRQn);
+	NVIC_EnableIRQ(FMPI2C1_EV_IRQn);
+	NVIC_EnableIRQ(USART1_IRQn);
+	NVIC_EnableIRQ(SysTick_IRQn);
+}
 
 /****************************************************************************************************
 ****************************         STATIC FUNTIONS         ****************************************
 *****************************************************************************************************/
-int main(void)
+
+
+/*			SysTick Timer	 									*/
+void SysTick_Handler( void )
 {
-	/* 	----------------------   		MCU Configuration				----------------------------
-		----------------------   Initialize all configured peripherals  ----------------------------*/
-	_init_Peripherals();
-	_init_ISR();
-	/* ----------------------   	  Modules Configuration 			----------------------------*/
-	SET_PIN( EXT_LDO_EN_PORT, EXT_LDO_EN_PIN);	//Enable the LDO power to turn the modules on
-	//Each module init will be a task...
-
-	/* Start the created tasks running. */
-	vTaskStartScheduler();
-
-	while (1)
+	//Blinking the Indicator LED
+	ledIndCnt--;
+	if(ledIndCnt == 0)
 	{
+		ledIndCnt = LED_IND_DELAY;
+		TGL_PIN( LED_IND_PORT, LED_IND_PIN);
 	}
 }
 
-void SystemClock_Config(void)
+/*			Power controller 									*/
+
+
+/*			Reset and clock control 							*/
+
+
+/*			General-purpose I/Os								*/
+
+
+/*			Direct memory access controller						*/
+void DMA1_Stream0_IRQHandler( void )
 {
-  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-  /** Configure the main internal regulator output voltage
-  */
-  __HAL_RCC_PWR_CLK_ENABLE();
-  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
-
-  /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    Error_Handler();
-  }
-
-  /** Initializes the CPU, AHB and APB buses clocks
-  */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
-  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
-
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
-  {
-    Error_Handler();
-  }
 }
 
-/**
-  * @brief  This function is executed in case of error occurrence.
-  * @retval None
-  */
-void Error_Handler(void)
+void DMA1_Stream1_IRQHandler( void )
 {
-  /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-  __disable_irq();
-  while (1)
-  {
-  }
-  /* USER CODE END Error_Handler_Debug */
+
 }
 
-#ifdef  USE_FULL_ASSERT
-/**
-  * @brief  Reports the name of the source file and the source line number
-  *         where the assert_param error has occurred.
-  * @param  file: pointer to the source file name
-  * @param  line: assert_param error line source number
-  * @retval None
-  */
-void assert_failed(uint8_t *file, uint32_t line)
+void DMA1_Stream2_IRQHandler( void )
 {
-  /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  /* USER CODE END 6 */
+
 }
-#endif /* USE_FULL_ASSERT */
+
+void DMA1_Stream3_IRQHandler( void )
+{
+
+}
+
+void DMA1_Stream4_IRQHandler( void )
+{
+	DMA1_Stream5->CR &= ~DMA_SxCR_TCIE;		// Disable Transfer complete interrupt.
+	FMPI2C1->CR2 |= FMPI2C_CR2_STOP;		//Upon completion sending the stop for releasing the line.
+	//this will give back the semaphore so we'll back to continue FMPI2CDataTx
+	xSemaphoreGiveFromISR( FMPI2CBinarySemaphore, pdFALSE);
+}
+
+void DMA1_Stream5_IRQHandler( void )
+{
+
+}
+
+void DMA1_Stream6_IRQHandler( void )
+{
+
+}
+
+void DMA2_Stream0_IRQHandler( void )
+{
+
+}
+
+void DMA2_Stream1_IRQHandler( void )
+{
+
+}
+
+void DMA2_Stream2_IRQHandler( void )
+{
+
+}
+
+void DMA2_Stream3_IRQHandler( void )
+{
+
+}
+
+void DMA2_Stream4_IRQHandler( void )
+{
+
+}
+
+void DMA2_Stream5_IRQHandler( void )
+{
+
+}
+
+void DMA2_Stream6_IRQHandler( void )
+{
+	DMA2->HIFCR |= DMA_HIFCR_CTCIF7;	// Clearing the flag by writing a one.
+	DMA2_Stream7->CR &= ~DMA_SxCR_TCIE;	// Disable Transfer complete interrupt.
+}
+
+/*			Analog-to-digital converter	1						*/
+
+
+/*			Analog-to-digital converter	2						*/
+
+
+/*			Analog-to-digital converter	3						*/
+
+
+/*			Digital-to-analog converter							*/
+
+
+/*			Advanced-control timers (TIM1)						*/
+
+
+/*			General-purpose timers (TIMER2)						*/
+
+
+/*			General-purpose timers (TIMER3)						*/
+void TIM3_IRQHandler( void ){
+	TIM3->SR &= ~TIM_SR_UIF;
+	xSemaphoreGiveFromISR( TIM3BinarySemaphore, pdFALSE);
+}
+
+/*			Real-time clock										*/
+
+
+/*			Inter-integrated circuit (I2C) interface			*/
+void FMPI2C1_EV_IRQHandler( void )
+{
+	if((FMPI2C1->ISR & FMPI2C_ISR_NACKF) == FMPI2C_ISR_NACKF)
+	{
+		//Disable the NACK interrupt for servicing it outside of ISR.
+		FMPI2C1->CR1 &= ~FMPI2C_CR1_NACKIE;
+		//this will give back the semaphore so we'll back to continue FMPI2CDataTx
+		xSemaphoreGiveFromISR( FMPI2CBinarySemaphore, pdFALSE);
+	}
+	else if((FMPI2C1->ISR & FMPI2C_ISR_TXIS) == FMPI2C_ISR_TXIS)
+	{
+		//Enabling the DMA for transferring the data via DMA
+		FMPI2C1->CR1 |= FMPI2C_CR1_TXDMAEN;
+		//No more needed after confirming the slave address. So we disable TXIE.
+		FMPI2C1->CR1 &= ~FMPI2C_CR1_TXIE;
+	}
+
+}
+
+void FMPI2C1_ER_IRQHandler( void )
+{
+
+}
+
+/*			Universal asynchronous receiver transmitter			*/
+void USART1_IRQHandler( void )
+{
+	USART1->CR1 &= ~USART_CR1_TCIE;							//disabling the USART interrupt
+	xSemaphoreGiveFromISR( USART1BinarySemaphore, pdFALSE);	//Giving back the semaphore
+}
+
+/*			Inter-IC sound										*/
+
+
+/*			SPDIF receiver interface							*/
+
+
 
 /***************************************************************************************************/
 /**********************************                             ************************************/
@@ -210,4 +308,3 @@ void assert_failed(uint8_t *file, uint32_t line)
 ****************************************************************************************************/
 
 /************************************     END OF THE FILE      *************************************/
-

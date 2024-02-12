@@ -50,8 +50,12 @@
 /****************************************************************************************************
 ****************************   CONST VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
-const uint32_t LED_IND_DELAY = 100;	// This is 100 milliseconds
-
+const uint32_t LED_IND_DELAY = 100;				// This is 100 milliseconds
+const uint32_t DMA1_Stream4_IRQ_PRIORITY = 10;
+const uint32_t DMA2_Stream6_IRQ_PRIORITY = 11;
+const uint32_t TIM3_IRQ_PRIORITY = 12;
+const uint32_t FMPI2C1_EV_IRQ_PRIORITY = 10;
+const uint32_t USART1_IRQ_PRIORITY = 13;
 
 /****************************************************************************************************
 ****************************   GLOB. VARIABLES DECLARATION    ***************************************
@@ -71,7 +75,19 @@ uint32_t ledIndCnt = LED_IND_DELAY;			// This is a counter to toggle the LED onc
 *****************************************************************************************************/
 void _init_ISR( void )
 {
-	NVIC_SetPriority();
+
+	NVIC_SetPriority(DMA1_Stream4_IRQn	, DMA1_Stream4_IRQ_PRIORITY);
+	NVIC_SetPriority(DMA2_Stream6_IRQn	, DMA2_Stream6_IRQ_PRIORITY);
+	NVIC_SetPriority(TIM3_IRQn			, TIM3_IRQ_PRIORITY);
+	NVIC_SetPriority(FMPI2C1_EV_IRQn	, FMPI2C1_EV_IRQ_PRIORITY);
+	NVIC_SetPriority(USART1_IRQn		, USART1_IRQ_PRIORITY);
+
+	NVIC_EnableIRQ(DMA1_Stream4_IRQn);
+	NVIC_EnableIRQ(DMA2_Stream6_IRQn);
+	NVIC_EnableIRQ(TIM3_IRQn);
+	NVIC_EnableIRQ(FMPI2C1_EV_IRQn);
+	NVIC_EnableIRQ(USART1_IRQn);
+	NVIC_EnableIRQ(SysTick_IRQn);
 }
 
 /****************************************************************************************************

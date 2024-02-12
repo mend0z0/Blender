@@ -70,11 +70,11 @@ void SystemClock_Config(void);
 *****************************************************************************************************/
 int main(void)
 {
-	/* 	----------------------   		MCU Configuration				----------------------------
-		----------------------   Initialize all configured peripherals  ----------------------------*/
-	_init_Peripherals();
-	_init_ISR();
-	/* ----------------------   	  Modules Configuration 			----------------------------*/
+	/* MCU Configuration--------------------------------------------------------*/
+
+	/* Initialize all configured peripherals */
+
+	/* Modules Configuration ---------------------------------------------------*/
 	SET_PIN( EXT_LDO_EN_PORT, EXT_LDO_EN_PIN);	//Enable the LDO power to turn the modules on
 	//Each module init will be a task...
 

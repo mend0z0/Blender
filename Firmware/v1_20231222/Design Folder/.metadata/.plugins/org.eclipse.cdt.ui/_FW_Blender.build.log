@@ -1,4 +1,4 @@
-00:03:58 **** Clean-only build of configuration Debug for project _FW_Blender ****
+13:06:19 **** Clean-only build of configuration Debug for project _FW_Blender ****
 make -j20 clean 
 rm -rf ./OS/FreeRTOS/Source/portable/MemMang/heap_4.cyclo ./OS/FreeRTOS/Source/portable/MemMang/heap_4.d ./OS/FreeRTOS/Source/portable/MemMang/heap_4.o ./OS/FreeRTOS/Source/portable/MemMang/heap_4.su
 rm -rf ./OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.cyclo ./OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.d ./OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.o ./OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.su
@@ -19,5 +19,5 @@ rm -rf ./App/Test/_app_test.cyclo ./App/Test/_app_test.d ./App/Test/_app_test.o 
 rm -rf _FW_Blender.elf _FW_Blender.list _FW_Blender.map default.size.stdout
  
 
-00:03:58 Build Finished. 0 errors, 0 warnings. (took 443ms)
+13:06:20 Build Finished. 0 errors, 0 warnings. (took 291ms)
 

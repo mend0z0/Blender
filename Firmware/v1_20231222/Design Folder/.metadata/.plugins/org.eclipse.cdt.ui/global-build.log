@@ -1475,3 +1475,392 @@ rm -rf ./Core/Code\ Template\ Source.cyclo ./Core/Code\ Template\ Source.d ./Cor
 rm -rf ./App/Test/_app_test.cyclo ./App/Test/_app_test.d ./App/Test/_app_test.o ./App/Test/_app_test.su
 rm -rf _FW_Blender.elf _FW_Blender.list _FW_Blender.map default.size.stdout
  
+13:05:49 **** Build of configuration Debug for project _FW_Blender ****
+make -j20 all 
+arm-none-eabi-gcc "../OS/FreeRTOS/Source/portable/MemMang/heap_4.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"OS/FreeRTOS/Source/portable/MemMang/heap_4.d" -MT"OS/FreeRTOS/Source/portable/MemMang/heap_4.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "OS/FreeRTOS/Source/portable/MemMang/heap_4.o"
+arm-none-eabi-gcc "../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.d" -MT"OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.o"
+arm-none-eabi-gcc "../OS/FreeRTOS/Source/croutine.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"OS/FreeRTOS/Source/croutine.d" -MT"OS/FreeRTOS/Source/croutine.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "OS/FreeRTOS/Source/croutine.o"
+arm-none-eabi-gcc "../OS/FreeRTOS/Source/event_groups.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"OS/FreeRTOS/Source/event_groups.d" -MT"OS/FreeRTOS/Source/event_groups.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "OS/FreeRTOS/Source/event_groups.o"
+arm-none-eabi-gcc "../OS/FreeRTOS/Source/list.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"OS/FreeRTOS/Source/list.d" -MT"OS/FreeRTOS/Source/list.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "OS/FreeRTOS/Source/list.o"
+arm-none-eabi-gcc "../OS/FreeRTOS/Source/queue.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"OS/FreeRTOS/Source/queue.d" -MT"OS/FreeRTOS/Source/queue.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "OS/FreeRTOS/Source/queue.o"
+arm-none-eabi-gcc "../OS/FreeRTOS/Source/stream_buffer.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"OS/FreeRTOS/Source/stream_buffer.d" -MT"OS/FreeRTOS/Source/stream_buffer.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "OS/FreeRTOS/Source/stream_buffer.o"
+arm-none-eabi-gcc "../OS/FreeRTOS/Source/task.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"OS/FreeRTOS/Source/task.d" -MT"OS/FreeRTOS/Source/task.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "OS/FreeRTOS/Source/task.o"
+arm-none-eabi-gcc "../OS/FreeRTOS/Source/timers.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"OS/FreeRTOS/Source/timers.d" -MT"OS/FreeRTOS/Source/timers.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "OS/FreeRTOS/Source/timers.o"
+arm-none-eabi-gcc "../Drivers/WS2812/_drv_WS2812.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/WS2812/_drv_WS2812.d" -MT"Drivers/WS2812/_drv_WS2812.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/WS2812/_drv_WS2812.o"
+arm-none-eabi-gcc "../Drivers/VGA/_drv_VGA.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/VGA/_drv_VGA.d" -MT"Drivers/VGA/_drv_VGA.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/VGA/_drv_VGA.o"
+arm-none-eabi-gcc "../Drivers/Toslink/_drv_Toslink.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Toslink/_drv_Toslink.d" -MT"Drivers/Toslink/_drv_Toslink.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Toslink/_drv_Toslink.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.o"
+../Drivers/WS2812/_drv_WS2812.c: In function 'WS2812UpdatePixels':
+../Drivers/WS2812/_drv_WS2812.c:131:9: warning: implicit declaration of function 'TIM3Enable' [-Wimplicit-function-declaration]
+  131 |         TIM3Enable();
+      |         ^~~~~~~~~~
+../Drivers/WS2812/_drv_WS2812.c:140:33: warning: implicit declaration of function 'TIM3UpdateCCR3' [-Wimplicit-function-declaration]
+  140 |                                 TIM3UpdateCCR3( WS2812_T1H );
+      |                                 ^~~~~~~~~~~~~~
+../Drivers/WS2812/_drv_WS2812.c:151:9: warning: implicit declaration of function 'TIM3Disable' [-Wimplicit-function-declaration]
+  151 |         TIM3Disable();
+      |         ^~~~~~~~~~~
+../Drivers/WS2812/_drv_WS2812.c:121:22: warning: unused variable 'colorBits' [-Wunused-variable]
+  121 |         __IO uint8_t colorBits[WS2812_COLOR_BITS];
+      |                      ^~~~~~~~~
+../Drivers/WS2812/_drv_WS2812.c:120:20: warning: unused variable 'semaphoreWatiTime' [-Wunused-variable]
+  120 |         TickType_t semaphoreWatiTime = pdMS_TO_TICKS(10);       // 10msec delay for semaphore to get created, if it didn't happen immediately!
+      |                    ^~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o"
+arm-none-eabi-gcc "../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.d" -MT"Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o"
+arm-none-eabi-gcc "../Drivers/SSD1306/_drv_SSD1306.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/SSD1306/_drv_SSD1306.d" -MT"Drivers/SSD1306/_drv_SSD1306.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/SSD1306/_drv_SSD1306.o"
+arm-none-eabi-gcc "../Drivers/Peripherals/_drv_peripherals.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Peripherals/_drv_peripherals.d" -MT"Drivers/Peripherals/_drv_peripherals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Peripherals/_drv_peripherals.o"
+arm-none-eabi-gcc "../Drivers/PCM1754/_drv_PCM1754.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/PCM1754/_drv_PCM1754.d" -MT"Drivers/PCM1754/_drv_PCM1754.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/PCM1754/_drv_PCM1754.o"
+arm-none-eabi-gcc "../Drivers/PAM8003/_drv_PAM8003.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/PAM8003/_drv_PAM8003.d" -MT"Drivers/PAM8003/_drv_PAM8003.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/PAM8003/_drv_PAM8003.o"
+arm-none-eabi-gcc "../Drivers/DMX/_drv_DMX.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/DMX/_drv_DMX.d" -MT"Drivers/DMX/_drv_DMX.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/DMX/_drv_DMX.o"
+arm-none-eabi-gcc -mcpu=cortex-m4 -g -DDEBUG -c -I"D:/Projects/STP/Blender/Firmware/v1_20231222/Design Folder/_FW_Blender/RTOS" -x assembler-with-cpp -MMD -MP -MF"Core/Startup/startup_stm32f446rctx.d" -MT"Core/Startup/startup_stm32f446rctx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Startup/startup_stm32f446rctx.o" "../Core/Startup/startup_stm32f446rctx.s"
+arm-none-eabi-gcc "../Core/Src/ISR.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/ISR.d" -MT"Core/Src/ISR.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/ISR.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/stm32f4xx_hal_msp.d" -MT"Core/Src/stm32f4xx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/syscalls.d" -MT"Core/Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/syscalls.o"
+arm-none-eabi-gcc "../Core/Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/sysmem.d" -MT"Core/Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/sysmem.o"
+arm-none-eabi-gcc "../Core/Src/system_stm32f4xx.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/system_stm32f4xx.d" -MT"Core/Src/system_stm32f4xx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/system_stm32f4xx.o"
+arm-none-eabi-gcc "../Core/Code Template Source.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Code Template Source.d" -MT"Core/Code Template Source.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Code Template Source.o"
+arm-none-eabi-gcc "../App/Test/_app_test.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"App/Test/_app_test.d" -MT"App/Test/_app_test.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "App/Test/_app_test.o"
+../Drivers/Peripherals/_drv_peripherals.c: In function 'DACUpdate':
+../Drivers/Peripherals/_drv_peripherals.c:148:14: error: unknown type name 'uint16'
+  148 |         __IO uint16 tempDACValue = dacValue * DAC_CONSTANT;
+      |              ^~~~~~
+../Drivers/Peripherals/_drv_peripherals.c: In function 'FMPI2C1DataTx':
+../Drivers/Peripherals/_drv_peripherals.c:194:48: warning: passing argument 2 of 'DMAEnable' makes pointer from integer without a cast [-Wint-conversion]
+  194 |                 DMAEnable( DMA1_FMPI2C1_TX_EN, *data, buffSize);        // Init DMA with data address and number of transfer and then enable it.
+      |                                                ^~~~~
+      |                                                |
+      |                                                uint8_t {aka unsigned char}
+../Drivers/Peripherals/_drv_peripherals.c:81:56: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'uint8_t' {aka 'unsigned char'}
+   81 | static void DMAEnable( uint8_t channelNumber, uint8_t *data, uint32_t numOfTransfer);
+      |                                               ~~~~~~~~~^~~~
+In file included from ../Drivers/Peripherals/_drv_peripherals.c:49:
+../Drivers/Peripherals/_drv_peripherals.h:82:57: warning: unsigned conversion from 'int' to 'uint8_t' {aka 'unsigned char'} changes value from '1521' to '241' [-Woverflow]
+   82 | #define DMA1_FMPI2C1_TX_DIS                             1521    //(DMA z / STREAM x / CHANNEL y / DMA z)
+      |                                                         ^~~~
+../Drivers/Peripherals/_drv_peripherals.c:205:29: note: in expansion of macro 'DMA1_FMPI2C1_TX_DIS'
+  205 |                 DMADisable( DMA1_FMPI2C1_TX_DIS );
+      |                             ^~~~~~~~~~~~~~~~~~~
+../Drivers/Peripherals/_drv_peripherals.c: In function 'UART1DataTx':
+../Drivers/Peripherals/_drv_peripherals.h:79:57: warning: unsigned conversion from 'int' to 'uint8_t' {aka 'unsigned char'} changes value from '274' to '18' [-Woverflow]
+   79 | #define DMA2_UART1_TX_EN                                274             //(DMA z / STREAM x / CHANNEL y)
+      |                                                         ^~~
+../Drivers/Peripherals/_drv_peripherals.c:239:28: note: in expansion of macro 'DMA2_UART1_TX_EN'
+  239 |                 DMAEnable( DMA2_UART1_TX_EN, *data, buffSize);  // Init DMA with data address and number of transfer and then enable it.
+      |                            ^~~~~~~~~~~~~~~~
+../Drivers/Peripherals/_drv_peripherals.c:239:46: warning: passing argument 2 of 'DMAEnable' makes pointer from integer without a cast [-Wint-conversion]
+  239 |                 DMAEnable( DMA2_UART1_TX_EN, *data, buffSize);  // Init DMA with data address and number of transfer and then enable it.
+      |                                              ^~~~~
+      |                                              |
+      |                                              uint8_t {aka unsigned char}
+../Drivers/Peripherals/_drv_peripherals.c:81:56: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'uint8_t' {aka 'unsigned char'}
+   81 | static void DMAEnable( uint8_t channelNumber, uint8_t *data, uint32_t numOfTransfer);
+      |                                               ~~~~~~~~~^~~~
+In file included from ../Drivers/Peripherals/_drv_peripherals.c:49:
+../Drivers/Peripherals/_drv_peripherals.h:83:57: warning: unsigned conversion from 'int' to 'uint8_t' {aka 'unsigned char'} changes value from '2742' to '182' [-Woverflow]
+   83 | #define DMA2_UART1_TX_DIS                               2742    //(DMA z / STREAM x / CHANNEL y / DMA z)
+      |                                                         ^~~~
+../Drivers/Peripherals/_drv_peripherals.c:245:29: note: in expansion of macro 'DMA2_UART1_TX_DIS'
+  245 |                 DMADisable( DMA2_UART1_TX_DIS );
+      |                             ^~~~~~~~~~~~~~~~~
+../Drivers/Peripherals/_drv_peripherals.c: In function '_init_GPIO':
+../Drivers/Peripherals/_drv_peripherals.c:427:20: error: assignment to expression with array type
+  427 |         GPIOA->AFR |=   GPIO_AFRL_AFSEL3_0   |                                                  //TIM2_CH4
+      |                    ^~
+../Drivers/Peripherals/_drv_peripherals.c:433:20: error: assignment to expression with array type
+  433 |         GPIOB->AFR |=   (GPIO_AFRL_AFSEL3_0 | GPIO_AFRL_AFSEL3_2) |             //I2S1_CK
+      |                    ^~
+../Drivers/Peripherals/_drv_peripherals.c:439:20: error: assignment to expression with array type
+  439 |         GPIOC->AFR |=   GPIO_AFRL_AFSEL6_2      |                                                       //FMPI2C1_SCL
+      |                    ^~
+../Drivers/Peripherals/_drv_peripherals.c: In function '_init_DMA':
+../Drivers/Peripherals/_drv_peripherals.c:460:27: warning: assignment to 'uint32_t' {aka 'long unsigned int'} from 'volatile uint32_t *' {aka 'volatile long unsigned int *'} makes integer from pointer without a cast [-Wint-conversion]
+  460 |         DMA1_Stream5->PAR = &FMPI2C1->TXDR;             // Assigning the TXD register of FMPI2C to DMA periph pointing address
+      |                           ^
+../Drivers/Peripherals/_drv_peripherals.c:467:27: warning: assignment to 'uint32_t' {aka 'long unsigned int'} from 'volatile uint32_t *' {aka 'volatile long unsigned int *'} makes integer from pointer without a cast [-Wint-conversion]
+  467 |         DMA2_Stream7->PAR = &USART1->DR;                // Assigning the Data register of USART1 to DMA periph pointer
+      |                           ^
+../Drivers/Peripherals/_drv_peripherals.c:475:27: warning: assignment to 'uint32_t' {aka 'long unsigned int'} from 'volatile uint32_t *' {aka 'volatile long unsigned int *'} makes integer from pointer without a cast [-Wint-conversion]
+  475 |         DMA2_Stream3->PAR = &SPI1->DR;                  // Assigning the Data register of SPI1 to DMA periph pointer.
+      |                           ^
+../Drivers/Peripherals/_drv_peripherals.c: In function 'DMAEnable':
+../Drivers/Peripherals/_drv_peripherals.c:496:9: warning: case label value exceeds maximum value for type [-Wswitch-outside-range]
+  496 |         case DMA2_UART1_TX_EN:
+      |         ^~~~
+../Drivers/Peripherals/_drv_peripherals.c: In function 'DMADisable':
+../Drivers/Peripherals/_drv_peripherals.c:521:9: warning: case label value exceeds maximum value for type [-Wswitch-outside-range]
+  521 |         case DMA1_FMPI2C1_TX_DIS:
+      |         ^~~~
+../Drivers/Peripherals/_drv_peripherals.c:527:9: warning: case label value exceeds maximum value for type [-Wswitch-outside-range]
+  527 |         case DMA2_SPI1_TX_DIS:
+      |         ^~~~
+../Drivers/Peripherals/_drv_peripherals.c:524:9: warning: case label value exceeds maximum value for type [-Wswitch-outside-range]
+  524 |         case DMA2_UART1_TX_DIS:
+      |         ^~~~
+../Drivers/PAM8003/_drv_PAM8003.c: In function '_init_PAM8003':
+../Drivers/PAM8003/_drv_PAM8003.c:71:22: error: 'PAM8003_UNMUTE' undeclared (first use in this function); did you mean 'PAM8003_CMD_MUTE'?
+   71 |         PAM8003Mute( PAM8003_UNMUTE );
+      |                      ^~~~~~~~~~~~~~
+      |                      PAM8003_CMD_MUTE
+../Drivers/PAM8003/_drv_PAM8003.c:71:22: note: each undeclared identifier is reported only once for each function it appears in
+../Drivers/SSD1306/_drv_SSD1306.c:1242:16: error: array type has incomplete element type 'uint16_t[]' {aka 'short unsigned int[]'}
+ 1242 | const uint16_t consolas_6ptDescriptors[][] =
+      |                ^~~~~~~~~~~~~~~~~~~~~~~
+../Drivers/SSD1306/_drv_SSD1306.c:1242:16: note: declaration of 'consolas_6ptDescriptors' as multidimensional array must have bounds for all dimensions except the first
+../Drivers/SSD1306/_drv_SSD1306.c: In function '_init_SSD1306':
+../Drivers/SSD1306/_drv_SSD1306.c:1400:29: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
+ 1400 |         ssd1306.mend0z0Logo = &mend0z0Logo_simpleBitmaps[0];
+      |                             ^
+../Drivers/SSD1306/_drv_SSD1306.c:1401:30: warning: assignment discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
+ 1401 |         ssd1306.consolas_6pt = &consolas_6ptBitmaps[0];
+      |                              ^
+../Drivers/PAM8003/_drv_PAM8003.c: In function 'PAM8003Mute':
+../Drivers/PAM8003/_drv_PAM8003.c:77:19: error: 'PAM8003_MUTE' undeclared (first use in this function); did you mean 'PAM8003Mute'?
+   77 |         if(cmd == PAM8003_MUTE)
+      |                   ^~~~~~~~~~~~
+      |                   PAM8003Mute
+../Drivers/SSD1306/_drv_SSD1306.c: In function 'SSD1306InitProcedure':
+../Drivers/SSD1306/_drv_SSD1306.c:1456:5: warning: implicit declaration of function 'CLR_PIN' [-Wimplicit-function-declaration]
+ 1456 |     CLR_PIN( SSD1306_PORT_RST, SSD1306_PIN_RST);
+      |     ^~~~~~~
+../Drivers/DMX/_drv_DMX.c: In function '_init_DMX':
+../Drivers/DMX/_drv_DMX.c:97:32: warning: passing argument 1 of 'DMXHeadUpdate' from incompatible pointer type [-Wincompatible-pointer-types]
+   97 |                 DMXHeadUpdate( &dmx_head[0].colorRed, (DMX_HEAD_MAX *3));
+      |                                ^~~~~~~~~~~~~~~~~~~~~
+      |                                |
+      |                                uint8_t * {aka unsigned char *}
+In file included from ../Drivers/DMX/_drv_DMX.c:49:
+../Drivers/DMX/_drv_DMX.h:68:33: note: expected 'uint32_t *' {aka 'long unsigned int *'} but argument is of type 'uint8_t *' {aka 'unsigned char *'}
+   68 | int8_t DMXHeadUpdate( uint32_t *colors, uint32_t numOfHead);
+      |                       ~~~~~~~~~~^~~~~~
+../Drivers/PAM8003/_drv_PAM8003.c:79:17: warning: implicit declaration of function 'SET_PIN' [-Wimplicit-function-declaration]
+   79 |                 SET_PIN( PAM8003_PORT_SHDN, PAM8003_PIN_SHDN );
+      |                 ^~~~~~~
+../Drivers/DMX/_drv_DMX.c: At top level:
+../Drivers/DMX/_drv_DMX.c:103:8: error: conflicting types for 'DMXHeadUpdate'; have 'int8_t(uint8_t *, uint32_t)' {aka 'signed char(unsigned char *, long unsigned int)'}
+  103 | int8_t DMXHeadUpdate( uint8_t *colors /* R G B */, uint32_t numOfHead /*it should be (numOfHead x 3)*/)
+      |        ^~~~~~~~~~~~~
+../Drivers/SSD1306/_drv_SSD1306.c:1461:5: warning: implicit declaration of function 'SET_PIN' [-Wimplicit-function-declaration]
+ 1461 |     SET_PIN( SSD1306_PORT_RST, SSD1306_PIN_RST);
+      |     ^~~~~~~
+In file included from ../Drivers/DMX/_drv_DMX.c:49:
+../Drivers/DMX/_drv_DMX.h:68:8: note: previous declaration of 'DMXHeadUpdate' with type 'int8_t(uint32_t *, uint32_t)' {aka 'signed char(long unsigned int *, long unsigned int)'}
+   68 | int8_t DMXHeadUpdate( uint32_t *colors, uint32_t numOfHead);
+      |        ^~~~~~~~~~~~~
+../Drivers/SSD1306/_drv_SSD1306.c: At top level:
+../Drivers/SSD1306/_drv_SSD1306.c:1467:15: error: conflicting types for 'SSD1306SendData'; have 'int8_t(uint8_t *, uint16_t)' {aka 'signed char(unsigned char *, short unsigned int)'}
+ 1467 | static int8_t SSD1306SendData( uint8_t *data, uint16_t buffSize){
+      |               ^~~~~~~~~~~~~~~
+../Drivers/SSD1306/_drv_SSD1306.c:1390:15: note: previous declaration of 'SSD1306SendData' with type 'int8_t(uint8_t *, uint32_t)' {aka 'signed char(unsigned char *, long unsigned int)'}
+ 1390 | static int8_t SSD1306SendData( uint8_t *data, uint32_t buffSize);
+      |               ^~~~~~~~~~~~~~~
+../Drivers/SSD1306/_drv_SSD1306.c: In function 'SSD1306SendData':
+../Drivers/SSD1306/_drv_SSD1306.c:1474:38: warning: statement with no effect [-Wunused-value]
+ 1474 |     for(cnt = buffSize; cnt > 1; cnt - 2)
+      |                                  ~~~~^~~
+../Drivers/SSD1306/_drv_SSD1306.c:1476:9: error: 'tempBuff' undeclared (first use in this function); did you mean 'tempBuffer'?
+ 1476 |         tempBuff[(cnt - 1)] = SSD1306_DATA_BYTE;
+      |         ^~~~~~~~
+      |         tempBuffer
+../Drivers/SSD1306/_drv_SSD1306.c:1476:9: note: each undeclared identifier is reported only once for each function it appears in
+../Drivers/PAM8003/_drv_PAM8003.c:81:25: error: 'PAM8003_UNMUTE' undeclared (first use in this function); did you mean 'PAM8003_CMD_MUTE'?
+   81 |         else if( cmd == PAM8003_UNMUTE )
+      |                         ^~~~~~~~~~~~~~
+      |                         PAM8003_CMD_MUTE
+../Drivers/DMX/_drv_DMX.c: In function 'DMXHeadUpdate':
+../Drivers/DMX/_drv_DMX.c:105:16: warning: implicit declaration of function 'UART1DataTx' [-Wimplicit-function-declaration]
+  105 |         return UART1DataTx( *colors, numOfHead);
+      |                ^~~~~~~~~~~
+../Drivers/PAM8003/_drv_PAM8003.c:83:17: warning: implicit declaration of function 'CLR_PIN' [-Wimplicit-function-declaration]
+   83 |                 CLR_PIN( PAM8003_PORT_SHDN, PAM8003_PIN_SHDN );
+      |                 ^~~~~~~
+../Core/Src/ISR.c: In function 'SysTick_Handler':
+../Drivers/SSD1306/_drv_SSD1306.c:1480:17: warning: implicit declaration of function 'FMPI2C1DataTx' [-Wimplicit-function-declaration]
+ 1480 |     i2cStatus = FMPI2C1DataTx( SSD1306_I2C_ADDR, tempBuffer, (buffSize * 2));
+      |                 ^~~~~~~~~~~~~
+../Core/Src/ISR.c:106:17: warning: implicit declaration of function 'TGL_PIN' [-Wimplicit-function-declaration]
+  106 |                 TGL_PIN( LED_IND_PORT, LED_IND_PIN);
+      |                 ^~~~~~~
+../Drivers/SSD1306/_drv_SSD1306.c: In function 'SSD1306SendCommand':
+../Drivers/SSD1306/_drv_SSD1306.c:1496:38: warning: statement with no effect [-Wunused-value]
+ 1496 |     for(cnt = buffSize; cnt > 1; cnt - 2)
+      |                                  ~~~~^~~
+../Drivers/SSD1306/_drv_SSD1306.c:1498:9: error: 'tempBuff' undeclared (first use in this function); did you mean 'tempBuffer'?
+ 1498 |         tempBuff[(cnt - 1)] = SSD1306_CTRL_BYTE;
+      |         ^~~~~~~~
+      |         tempBuffer
+../Drivers/SSD1306/_drv_SSD1306.c: In function 'SSD1306SetXY':
+../Drivers/SSD1306/_drv_SSD1306.c:1516:1: warning: no return statement in function returning non-void [-Wreturn-type]
+ 1516 | }
+      | ^
+../Drivers/SSD1306/_drv_SSD1306.c: At top level:
+../Drivers/SSD1306/_drv_SSD1306.c:1387:15: warning: 'SSD1306ScrollText' declared 'static' but never defined [-Wunused-function]
+ 1387 | static int8_t SSD1306ScrollText( void );
+      |               ^~~~~~~~~~~~~~~~~
+../Drivers/SSD1306/_drv_SSD1306.c:1388:15: warning: 'SSD1306ClearDisplay' declared 'static' but never defined [-Wunused-function]
+ 1388 | static int8_t SSD1306ClearDisplay( void );
+      |               ^~~~~~~~~~~~~~~~~~~
+../Drivers/SSD1306/_drv_SSD1306.c:1390:15: warning: 'SSD1306SendData' used but never defined
+ 1390 | static int8_t SSD1306SendData( uint8_t *data, uint32_t buffSize);
+      |               ^~~~~~~~~~~~~~~
+../Drivers/SSD1306/_drv_SSD1306.c: In function 'SSD1306TypeTxt':
+../Drivers/SSD1306/_drv_SSD1306.c:1415:1: warning: control reaches end of non-void function [-Wreturn-type]
+ 1415 | }
+      | ^
+../Drivers/SSD1306/_drv_SSD1306.c: In function 'SSD1306DisplayPic':
+../Drivers/PAM8003/_drv_PAM8003.c: In function 'PAM8003SetVolume':
+../Drivers/PAM8003/_drv_PAM8003.c:93:9: warning: implicit declaration of function 'DACUpdate' [-Wimplicit-function-declaration]
+   93 |         DACUpdate( value );
+      |         ^~~~~~~~~
+../Drivers/SSD1306/_drv_SSD1306.c:1421:1: warning: control reaches end of non-void function [-Wreturn-type]
+ 1421 | }
+      | ^
+make: *** [Drivers/Peripherals/subdir.mk:19: Drivers/Peripherals/_drv_peripherals.o] Error 1
+make: *** Waiting for unfinished jobs....
+At top level:
+../Drivers/SSD1306/_drv_SSD1306.c:1467:15: warning: 'SSD1306SendData' defined but not used [-Wunused-function]
+ 1467 | static int8_t SSD1306SendData( uint8_t *data, uint16_t buffSize){
+      |               ^~~~~~~~~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:75:9: warning: implicit declaration of function '_init_Peripherals' [-Wimplicit-function-declaration]
+   75 |         _init_Peripherals();
+      |         ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:76:9: warning: implicit declaration of function '_init_ISR' [-Wimplicit-function-declaration]
+   76 |         _init_ISR();
+      |         ^~~~~~~~~
+make: *** [Drivers/DMX/subdir.mk:19: Drivers/DMX/_drv_DMX.o] Error 1
+../Core/Src/main.c:78:9: warning: implicit declaration of function 'SET_PIN' [-Wimplicit-function-declaration]
+   78 |         SET_PIN( EXT_LDO_EN_PORT, EXT_LDO_EN_PIN);      //Enable the LDO power to turn the modules on
+      |         ^~~~~~~
+make: *** [Drivers/PAM8003/subdir.mk:19: Drivers/PAM8003/_drv_PAM8003.o] Error 1
+make: *** [Drivers/SSD1306/subdir.mk:19: Drivers/SSD1306/_drv_SSD1306.o] Error 1
+../Core/Src/main.c: In function 'SystemClock_Config':
+../Core/Src/main.c:91:3: error: unknown type name 'RCC_OscInitTypeDef'
+   91 |   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+      |   ^~~~~~~~~~~~~~~~~~
+../Core/Src/stm32f4xx_hal_msp.c: In function 'HAL_MspInit':
+../Core/Src/stm32f4xx_hal_msp.c:70:3: warning: implicit declaration of function '__HAL_RCC_SYSCFG_CLK_ENABLE' [-Wimplicit-function-declaration]
+   70 |   __HAL_RCC_SYSCFG_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:92:3: error: unknown type name 'RCC_ClkInitTypeDef'
+   92 |   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+      |   ^~~~~~~~~~~~~~~~~~
+../Core/Src/stm32f4xx_hal_msp.c:71:3: warning: implicit declaration of function '__HAL_RCC_PWR_CLK_ENABLE' [-Wimplicit-function-declaration]
+   71 |   __HAL_RCC_PWR_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:96:3: warning: implicit declaration of function '__HAL_RCC_PWR_CLK_ENABLE' [-Wimplicit-function-declaration]
+   96 |   __HAL_RCC_PWR_CLK_ENABLE();
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:97:3: warning: implicit declaration of function '__HAL_PWR_VOLTAGESCALING_CONFIG' [-Wimplicit-function-declaration]
+   97 |   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:97:35: error: 'PWR_REGULATOR_VOLTAGE_SCALE3' undeclared (first use in this function)
+   97 |   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE3);
+      |                                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:97:35: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:102:20: error: request for member 'OscillatorType' in something not a structure or union
+  102 |   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+      |                    ^
+../Core/Src/main.c:102:38: error: 'RCC_OSCILLATORTYPE_HSI' undeclared (first use in this function)
+  102 |   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+      |                                      ^~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:103:20: error: request for member 'HSIState' in something not a structure or union
+  103 |   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+      |                    ^
+../Core/Src/main.c:103:32: error: 'RCC_HSI_ON' undeclared (first use in this function); did you mean 'RCC_CR_HSION'?
+  103 |   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+      |                                ^~~~~~~~~~
+      |                                RCC_CR_HSION
+../Core/Src/main.c:104:20: error: request for member 'HSICalibrationValue' in something not a structure or union
+  104 |   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+      |                    ^
+../Core/Src/main.c:104:43: error: 'RCC_HSICALIBRATION_DEFAULT' undeclared (first use in this function)
+  104 |   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+      |                                           ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:105:20: error: request for member 'PLL' in something not a structure or union
+  105 |   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+      |                    ^
+../Core/Src/main.c:105:36: error: 'RCC_PLL_NONE' undeclared (first use in this function)
+  105 |   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+      |                                    ^~~~~~~~~~~~
+../Core/Src/main.c:106:7: warning: implicit declaration of function 'HAL_RCC_OscConfig' [-Wimplicit-function-declaration]
+  106 |   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+      |       ^~~~~~~~~~~~~~~~~
+../Core/Src/main.c:106:48: error: 'HAL_OK' undeclared (first use in this function)
+  106 |   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+      |                                                ^~~~~~
+../Core/Src/main.c:113:20: error: request for member 'ClockType' in something not a structure or union
+  113 |   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+      |                    ^
+../Core/Src/main.c:113:33: error: 'RCC_CLOCKTYPE_HCLK' undeclared (first use in this function)
+  113 |   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+      |                                 ^~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:113:52: error: 'RCC_CLOCKTYPE_SYSCLK' undeclared (first use in this function)
+  113 |   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+      |                                                    ^~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:114:32: error: 'RCC_CLOCKTYPE_PCLK1' undeclared (first use in this function)
+  114 |                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+      |                                ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:114:52: error: 'RCC_CLOCKTYPE_PCLK2' undeclared (first use in this function)
+  114 |                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+      |                                                    ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:115:20: error: request for member 'SYSCLKSource' in something not a structure or union
+  115 |   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+      |                    ^
+../Core/Src/main.c:115:36: error: 'RCC_SYSCLKSOURCE_HSI' undeclared (first use in this function)
+  115 |   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+      |                                    ^~~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:116:20: error: request for member 'AHBCLKDivider' in something not a structure or union
+  116 |   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+      |                    ^
+../Core/Src/main.c:116:37: error: 'RCC_SYSCLK_DIV1' undeclared (first use in this function)
+  116 |   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+      |                                     ^~~~~~~~~~~~~~~
+../Core/Src/main.c:117:20: error: request for member 'APB1CLKDivider' in something not a structure or union
+  117 |   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+      |                    ^
+../Core/Src/main.c:117:38: error: 'RCC_HCLK_DIV1' undeclared (first use in this function)
+  117 |   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+      |                                      ^~~~~~~~~~~~~
+../Core/Src/main.c:118:20: error: request for member 'APB2CLKDivider' in something not a structure or union
+  118 |   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+      |                    ^
+../Core/Src/main.c:120:7: warning: implicit declaration of function 'HAL_RCC_ClockConfig' [-Wimplicit-function-declaration]
+  120 |   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+      |       ^~~~~~~~~~~~~~~~~~~
+../Core/Src/main.c:120:47: error: 'FLASH_LATENCY_0' undeclared (first use in this function)
+  120 |   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+      |                                               ^~~~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:34: Core/Src/main.o] Error 1
+"make -j20 all" terminated with exit code 2. Build might be incomplete.
+13:06:19 **** Clean-only build of configuration Debug for project _FW_Blender ****
+make -j20 clean 
+rm -rf ./OS/FreeRTOS/Source/portable/MemMang/heap_4.cyclo ./OS/FreeRTOS/Source/portable/MemMang/heap_4.d ./OS/FreeRTOS/Source/portable/MemMang/heap_4.o ./OS/FreeRTOS/Source/portable/MemMang/heap_4.su
+rm -rf ./OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.cyclo ./OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.d ./OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.o ./OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.su
+rm -rf ./OS/FreeRTOS/Source/croutine.cyclo ./OS/FreeRTOS/Source/croutine.d ./OS/FreeRTOS/Source/croutine.o ./OS/FreeRTOS/Source/croutine.su ./OS/FreeRTOS/Source/event_groups.cyclo ./OS/FreeRTOS/Source/event_groups.d ./OS/FreeRTOS/Source/event_groups.o ./OS/FreeRTOS/Source/event_groups.su ./OS/FreeRTOS/Source/list.cyclo ./OS/FreeRTOS/Source/list.d ./OS/FreeRTOS/Source/list.o ./OS/FreeRTOS/Source/list.su ./OS/FreeRTOS/Source/queue.cyclo ./OS/FreeRTOS/Source/queue.d ./OS/FreeRTOS/Source/queue.o ./OS/FreeRTOS/Source/queue.su ./OS/FreeRTOS/Source/stream_buffer.cyclo ./OS/FreeRTOS/Source/stream_buffer.d ./OS/FreeRTOS/Source/stream_buffer.o ./OS/FreeRTOS/Source/stream_buffer.su ./OS/FreeRTOS/Source/task.cyclo ./OS/FreeRTOS/Source/task.d ./OS/FreeRTOS/Source/task.o ./OS/FreeRTOS/Source/task.su ./OS/FreeRTOS/Source/timers.cyclo ./OS/FreeRTOS/Source/timers.d ./OS/FreeRTOS/Source/timers.o ./OS/FreeRTOS/Source/timers.su
+rm -rf ./Drivers/WS2812/_drv_WS2812.cyclo ./Drivers/WS2812/_drv_WS2812.d ./Drivers/WS2812/_drv_WS2812.o ./Drivers/WS2812/_drv_WS2812.su
+rm -rf ./Drivers/VGA/_drv_VGA.cyclo ./Drivers/VGA/_drv_VGA.d ./Drivers/VGA/_drv_VGA.o ./Drivers/VGA/_drv_VGA.su
+rm -rf ./Drivers/Toslink/_drv_Toslink.cyclo ./Drivers/Toslink/_drv_Toslink.d ./Drivers/Toslink/_drv_Toslink.o ./Drivers/Toslink/_drv_Toslink.su
+rm -rf ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.su
+rm -rf ./Drivers/SSD1306/_drv_SSD1306.cyclo ./Drivers/SSD1306/_drv_SSD1306.d ./Drivers/SSD1306/_drv_SSD1306.o ./Drivers/SSD1306/_drv_SSD1306.su
+rm -rf ./Drivers/Peripherals/_drv_peripherals.cyclo ./Drivers/Peripherals/_drv_peripherals.d ./Drivers/Peripherals/_drv_peripherals.o ./Drivers/Peripherals/_drv_peripherals.su
+rm -rf ./Drivers/PCM1754/_drv_PCM1754.cyclo ./Drivers/PCM1754/_drv_PCM1754.d ./Drivers/PCM1754/_drv_PCM1754.o ./Drivers/PCM1754/_drv_PCM1754.su
+rm -rf ./Drivers/PAM8003/_drv_PAM8003.cyclo ./Drivers/PAM8003/_drv_PAM8003.d ./Drivers/PAM8003/_drv_PAM8003.o ./Drivers/PAM8003/_drv_PAM8003.su
+rm -rf ./Drivers/DMX/_drv_DMX.cyclo ./Drivers/DMX/_drv_DMX.d ./Drivers/DMX/_drv_DMX.o ./Drivers/DMX/_drv_DMX.su
+rm -rf ./Core/Startup/startup_stm32f446rctx.d ./Core/Startup/startup_stm32f446rctx.o
+rm -rf ./Core/Src/ISR.cyclo ./Core/Src/ISR.d ./Core/Src/ISR.o ./Core/Src/ISR.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/stm32f4xx_hal_msp.cyclo ./Core/Src/stm32f4xx_hal_msp.d ./Core/Src/stm32f4xx_hal_msp.o ./Core/Src/stm32f4xx_hal_msp.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32f4xx.cyclo ./Core/Src/system_stm32f4xx.d ./Core/Src/system_stm32f4xx.o ./Core/Src/system_stm32f4xx.su
+rm -rf ./Core/Code\ Template\ Source.cyclo ./Core/Code\ Template\ Source.d ./Core/Code\ Template\ Source.o ./Core/Code\ Template\ Source.su
+rm -rf ./App/Test/_app_test.cyclo ./App/Test/_app_test.d ./App/Test/_app_test.o ./App/Test/_app_test.su
+rm -rf _FW_Blender.elf _FW_Blender.list _FW_Blender.map default.size.stdout
+ 

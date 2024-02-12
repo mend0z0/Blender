@@ -4,7 +4,7 @@
 *   @Brief Description: Blending audio spec with light spectrum
 *   File Status:	    DRAFT   (DRAFT , PRELIMINARY, CHECKED, RELEASED)
 *
-*	File Name:	xxxx.c
+*	File Name:	xxxx.h
 *	Version:	01
 *	Revision:	01
 *	Date:		2023/01/dd
@@ -19,6 +19,7 @@
 *
 *	******************************** File Description *******************************************
 *	@Detailed Description:
+*
 *
 *
 *	*********************************  Hardware Info  **********************************************
@@ -39,116 +40,90 @@
 *	Enum = lower_case					Enum Members = SNAKE_CASE
 *	Pointer Variables = p_camelCase
 *	*********************************** Contact Info ***********************************************
-*	Author:	Siavash Taher Parvar
-*	Github: github.com/Mend0z0
+*	Author: Siavash Taher Parvar
+*	Github: www.github.com/Mend0z0
 ****************************************************************************************************/
-
+#ifndef _DRV_PERIPHERALS_H_
+#define _DRV_PERIPHERALS_H_
 /****************************************************************************************************
 ****************************       HEADERS DECLARATION       ****************************************
 *****************************************************************************************************/
-#include "_drv_PAM8003.h"
+#include "main.h"
 
 /****************************************************************************************************
-****************************   CONST VARIABLES DECLARATION    ***************************************
-*****************************************************************************************************/
-const uint8_t PAM8003_VOL_VAL_DEFAULT = 20;		//Default gain for volume is 20%
-const uint8_t PAM8003_VOL_VAL_MAX = 100;		//MAX volume value is 100%
-const uint8_t PAM8003_VOL_VAL_MIN = 0;			//MIN volume value is 0%
-
-/****************************************************************************************************
-****************************   GLOB. VARIABLES DECLARATION    ***************************************
+****************************        MACRO DECLARATION         ***************************************
 *****************************************************************************************************/
 
 /****************************************************************************************************
-***********************     STATIC/LOCAL FUNCTIONS DECLARATION      *********************************
+****************************   DEFINED VARIABLES DECLARATION    *************************************
 *****************************************************************************************************/
+#define	PAM8003_DEFAULT_VALUE_PIN_SHDN  0
+#define PAM8003_DEFAULT_VALUE_PIN_VOL	0
+
+#define PCM1754_DEFAULT_VALUE_PIN_DMP	0 	// (1 -> DMP ON, 0 -> DMP OFF)
+#define PCM1754_DEFAULT_VALUE_PIN_FMT	1	// (1 -> 16-bit right-justified, 0 -> 24-bit I2S format)
+#define PCM1754_DEFAULT_VALUE_PIN_MUTE	1	// (1 -> MUTE ON, 0 -> MUTE OFF)
+
+#define SSD1306_DEFAULT_VALUE_PIN_RES	0
+#define SSD1306_DEFAULT_VALUE_PIN_DC	0
+#define PWR_EN_DEFAULT_VALUE_PIN		0
+#define LED_IND_DEFAULT_VALUE_PIN 		0
+
+#define	SET_PIN( port, pin)				(port |= pin)
+#define	CLR_PIN( port, pin)				(port &= ~pin)
+#define	TGL_PIN( port, pin)				(port ^= pin)
+
+
+#define	DMA2_SPI1_TX_EN					253		//(DMA z / STREAM x / CHANNEL y)
+#define	DMA1_FMPI2C1_TX_EN				152		//(DMA z / STREAM x / CHANNEL y)
+#define	DMA2_UART1_TX_EN				274		//(DMA z / STREAM x / CHANNEL y)
+
+#define	DMA2_SPI1_TX_DIS				2532	//(DMA z / STREAM x / CHANNEL y / DMA z)
+#define	DMA1_FMPI2C1_TX_DIS				1521	//(DMA z / STREAM x / CHANNEL y / DMA z)
+#define	DMA2_UART1_TX_DIS				2742	//(DMA z / STREAM x / CHANNEL y / DMA z)
+#define	DMAx_TIM3_CH2_DIS				1551	//(DMA z / STREAM x / CHANNEL y / DMA z)
+
+#define FMPI2C_ERROR_NACK				-2
+#define	FMPI2C_ERROR_UNKNOWN			-3
+
+
 
 /****************************************************************************************************
-****************************         GLOBAL FUNTIONS         ****************************************
+**************************     GLOBAL FUNCTIONS DECLARATION      ************************************
 *****************************************************************************************************/
-void _init_PAM8003( void )
-{
-	PAM8003Mute( PAM8003_UNMUTE );
-	PAM8003SetVolume( PAM8003_VOL_VAL_DEFAULT );
-}
+void _init_Peripherals( void );
 
-void PAM8003Mute( uint8_t cmd )
-{
-	if(cmd == PAM8003_MUTE)
-	{
-		SET_PIN( PAM8003_PORT_SHDN, PAM8003_PIN_SHDN );
-	}
-	else if( cmd == PAM8003_UNMUTE )
-	{
-		CLR_PIN( PAM8003_PORT_SHDN, PAM8003_PIN_SHDN );
-	}
-}
+/*			General-purpose timers (TIM3)						*/
+void TIM3Enable( void );
+void TIM3Disable( void );
+void TIM3UpdateCCR3( uint32_t *ccrValue );
 
-void PAM8003SetVolume( uint8_t value /*Percent like 0% to 100%*/)
-{
-	//just checking the min and max of input.
-	if((value > PAM8003_VOL_VAL_MAX) || (value < PAM8003_VOL_VAL_MIN)){
-		return;
-	}
-	DACUpdate( value );
-}
+/*			Inter-integrated circuit (I2C) interface			*/
+int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize);
+
+/*			Universal asynchronous receiver transmitter			*/
+int32_t UART1DataTx( uint8_t *data, uint32_t buffSize);
+
+/*			Inter-IC sound										*/
+int8_t I2SDataTx( uint32_t *data);
+
+
+
+#endif /* _DRV_PERIPHERALS_H_  */
 
 /****************************************************************************************************
-****************************         STATIC FUNTIONS         ****************************************
-*****************************************************************************************************/
-
-/***************************************************************************************************/
-/**********************************                             ************************************/
-/********************                     END OF THE CODE                         ******************/
-/**********************************                             ************************************/
-/***************************************************************************************************/
-
-/*                                   GLOBAL FUNCTION TEMPLATE                                      */
-
-/****************************************************************************************************
-*   @Brief Description:
-*   Function Status: 	DRAFT   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
-*
-*	************************************************************************************************
-*	Function Name:
-*	Function Scope:			Global
-*	Function Parameters:
-*	Function Return Type:
-*	************************************************************************************************
-*	@Detailed Description: (Do numbering and tag the number to each part of code)
-*	(1)
-*	(2)
-*	(3)
-*	.
-*	.
-*	.
-*	************************************************************************************************
-*	Revision History (Description, author, date: yyyy/mm/dd)
+*	Revision History (Description (author, date: yyyy/mm/dd))
 *
 ****************************************************************************************************/
 
-/*                               STATIC/LOCAL FUNCTION TEMPLATE                                    */
-
+/*                                 FUNCTION DECLARATION TEMPLATE                                   */
 /****************************************************************************************************
 *   @Brief Description:
-*   Function Status: 	DRAFT   (DRAFT , PRELIMINARY, CHECKED, RELEASED)
 *
 *	************************************************************************************************
 *	Function Name:
-*	Function Scope:         Local(static)
 *	Function Parameters:
 *	Function Return Type:
-*	************************************************************************************************
-*	@Detailed Description: (Do numbering and tag the number to each part of code)
-*	(1)
-*	(2)
-*	(3)
-*	.
-*	.
-*	.
-*	************************************************************************************************
-*	Revision History (Description (author, date: yyyy/mm/dd))
-*
 ****************************************************************************************************/
 
 /************************************     END OF THE FILE      *************************************/

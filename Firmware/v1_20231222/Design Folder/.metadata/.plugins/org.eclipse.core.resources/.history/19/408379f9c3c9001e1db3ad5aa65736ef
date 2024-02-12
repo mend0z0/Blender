@@ -53,8 +53,6 @@
 *****************************************************************************************************/
 const uint32_t SysTickInputClock = (90000000 / 8);	//The AHB output is 90MHz and there is an extra 1/8 multiplier.
 
-const uint16_t DAC_CONSTANT = 40;	//The 100% output actual constant is 40.96, but I kept it 40 for not overflowing.
-
 /****************************************************************************************************
 ****************************   GLOB. VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
@@ -143,14 +141,9 @@ void _init_Peripherals( void ){
 /*			General-purpose I/Os								*/
 
 /*			Digital-to-analog converter							*/
-void DACUpdate( uint8_t dacValue /*It's a percent from 0% to 100%*/)
+void DACUpdate( uint8_t dacValue )
 {
-	__IO uint16 tempDACValue = dacValue * DAC_CONSTANT;
-	DAC1->DHR12R1 = tempDACValue;
-	DAC1->SWTRIGR |= DAC_SWTRIGR_SWTRIG1;	//This bit is cleared by hardware (one APB1 clock cycle later) once the DAC_DHR1 register value has been loaded into the DAC_DOR1 register
 
-	//No interrupt, it'll work probably :D
-	//I can read the DAC1->DOR1 to make sure it's been registered, but maybe later...
 }
 
 /*			Analog-to-digital converter							*/
@@ -360,8 +353,7 @@ static void _init_RCC( void )
 	//RCC->APB2ENR |= RCC_APB2ENR_ADC1EN;
 	//RCC->APB2ENR |= RCC_APB2ENR_ADC2EN;
 	//RCC->APB2ENR |= RCC_APB2ENR_ADC3EN;
-	//ENABLE DAC
-	RCC->APB1ENR |= RCC_APB1ENR_DACEN;
+	//ENABLE DAC (LATER...!!!)
 	//Enable TIM1
 	RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;
 	//Enable TIM2
@@ -554,10 +546,8 @@ static void _init_ADC3( void )
 /*			Digital-to-analog converter							*/
 static void _init_DAC( void )
 {
-	//There is not much of configuration, but the DAC will trigger by software.
-	DAC1->CR |= DAC_CR_EN1;					//Enabling DAC1
-	DAC1->DHR12R1 = 0;						//Reset value
-	DAC1->SWTRIGR |= DAC_SWTRIGR_SWTRIG1;	//Updating the output.
+
+	DAC1->CR |= DAC_CR_EN;	//Enabling DAC1
 }
 
 /*			Advanced-control timers (TIM1)						*/

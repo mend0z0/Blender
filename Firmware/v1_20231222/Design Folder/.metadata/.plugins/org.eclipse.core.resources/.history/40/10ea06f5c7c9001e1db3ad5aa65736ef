@@ -87,7 +87,8 @@ void PAM8003Mute( uint8_t cmd )
 void PAM8003SetVolume( uint8_t value /*Percent like 0% to 100%*/)
 {
 	//just checking the min and max of input.
-	if((value > PAM8003_VOL_VAL_MAX) || (value < PAM8003_VOL_VAL_MIN)){
+	put a constant for min and max
+	if((value > 100) || (value < 0)){
 		return;
 	}
 	DACUpdate( value );

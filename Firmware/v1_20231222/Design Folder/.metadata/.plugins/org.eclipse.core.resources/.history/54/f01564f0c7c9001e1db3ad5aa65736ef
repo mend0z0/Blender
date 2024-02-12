@@ -53,7 +53,7 @@
 *****************************************************************************************************/
 const uint8_t PAM8003_VOL_VAL_DEFAULT = 20;		//Default gain for volume is 20%
 const uint8_t PAM8003_VOL_VAL_MAX = 100;		//MAX volume value is 100%
-const uint8_t PAM8003_VOL_VAL_MIN = 0;			//MIN volume value is 0%
+const uint8_t PAM8003_VOL_VAL_MIN = 0;			//Min volume value is 0%
 
 /****************************************************************************************************
 ****************************   GLOB. VARIABLES DECLARATION    ***************************************
@@ -87,7 +87,8 @@ void PAM8003Mute( uint8_t cmd )
 void PAM8003SetVolume( uint8_t value /*Percent like 0% to 100%*/)
 {
 	//just checking the min and max of input.
-	if((value > PAM8003_VOL_VAL_MAX) || (value < PAM8003_VOL_VAL_MIN)){
+	put a constant for min and max
+	if((value > 100) || (value < 0)){
 		return;
 	}
 	DACUpdate( value );

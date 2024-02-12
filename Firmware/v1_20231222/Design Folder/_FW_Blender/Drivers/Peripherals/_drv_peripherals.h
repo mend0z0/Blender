@@ -93,6 +93,9 @@
 *****************************************************************************************************/
 void _init_Peripherals( void );
 
+/*			Digital-to-analog converter							*/
+void DACUpdate( uint8_t dacValue /*It's a percent from 0% to 100%*/);
+
 /*			General-purpose timers (TIM3)						*/
 void TIM3Enable( void );
 void TIM3Disable( void );

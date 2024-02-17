@@ -45,7 +45,7 @@ __Digital Signal Processing (DSP)__
 ### Mechanical
 
 - **CAD:** Solid Edge
-- **Printing Method:** 3D Printing
+- **Manufacturing Method:** 3D Printing
 
 
 

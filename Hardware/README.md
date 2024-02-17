@@ -1,7 +1,20 @@
-# Version History
+# _SUB_Hardware_Project
 
-Blender hardware project version history
+- What is this board? 
+- How will this board communicate?
+- Where would be located?
+## Features
 
-## Roadmap
+- __MCU :__ 
+- __Inputs :__ 
+- __Outputs :__ 
+- __Board Osc. Freq. :__ 
+- __Working Voltage :__
+- __Current Consumption :__
+- __Board Dimensions :__
 
-- __v1_20230918 :__ first release.
+## Picture
+
+![Latest Version_Top](https://github.com/mend0z0)
+
+![Latest Version_Bottom](https://github.com/mend0z0)

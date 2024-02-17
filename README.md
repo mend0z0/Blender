@@ -84,9 +84,6 @@ __Digital Signal Processing (DSP)__
 ### Final Device
 ![_BLENDER](https://github.com/mend0z0)
 
-### Application
-![App Screenshot](https://github.com/mend0z0)
-
 
 ## Demo
 

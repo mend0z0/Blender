@@ -1,15 +1,6 @@
 ## This readme file explains the folder structure of this released version.
 
-#### 1. 3D File: The 3D file of the project will be in this folder.
-
-	1. 3D View Picture: The 3D view of exported from KiCAD 3D view
-		1. _3DView_Top_Prj_vXY.png
-		2. _3DView_Bottom_Prj_vXY.png
-
-	2. STEP: The exported .stp file from 3D view of KiCAD
-		1. _STEP_Prj_vXY.stp
-
-#### 2. Board Assembly: Any document that is related to assembly will be in this folder
+#### 1. Board Assembly: Any document that is related to assembly will be in this folder
 
 	1. Assembly Guide:
 		1. _MASM_Prj_vXY.html	--> This is for hand assembly
@@ -26,6 +17,16 @@
 
 	5. Pick And Place:
 		1. _PNP_Prj_vXY.csv
+
+#### 2. Media Content: Any document that is related to assembly will be in this folder
+	
+	1. Picutre
+		1. _3DView_Prj_vXY.png
+		2. _3DView_Bottom_Prj_vXY.png
+		3. _3DView_Top_Prj_vXY.png
+
+	2. Video
+		1. _Video_Prj_vXY_Title.mp4
 
 #### 3. PCB Manufacturing: Any document that is related to manufacturing the board will be in this folder
 
@@ -58,4 +59,5 @@
 
 #### 5. Source files: All the sources except the history files.
 
-#### 6. Tests: Any test that is related to this version and release number will be stored here. It mainly contains .png or .mp4 files.
+#### 6. STEP: The 3D Model file of the project will be in this folder.
+	1. _STEP_Prj_vXY.stp

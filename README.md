@@ -59,9 +59,9 @@ __Digital Signal Processing (DSP)__
 
 ### Assembled Hardware
 
-![_ASMView_Top](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/Assembled%20Hardware/_ASMView_Top_Blender_v1.0.jpeg)
+![_ASMView_Top](https://github.com/mend0z0/Blender/blob/main/Document/Tests/Assembled%20Hardware/Assembled%20PCB/_ASMView_Top_Blender_v1.0.jpeg)
 
-![_ASMView_Bottom](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/Assembled%20Hardware/_ASMView_Bottom_Blender_v1.0.jpeg)
+![_ASMView_Bottom](https://github.com/mend0z0/Blender/blob/main/Document/Tests/Assembled%20Hardware/Assembled%20PCB/_ASMView_Bottom_Blender_v1.0.jpeg)
 
 ### Final Device
 

@@ -47,41 +47,24 @@ __Digital Signal Processing (DSP)__
 - **CAD:** Solid Edge
 - **Manufacturing Method:** 3D Printing
 
-
-
-## Block Diagrams
+## Block Diagram
 
 ![SystemDesign](https://github.com/mend0z0/Blender/blob/main/Document/Block%20Diagrams/_FBD_SYS_Blender_v1.0.svg)
 
-![Hardware](https://github.com/mend0z0/Blender/blob/main/Document/Block%20Diagrams/_FBD_HW_Blender_v1.0.svg)
 
 ![Firmware](https://github.com/mend0z0/Blender/blob/main/Document/Block%20Diagrams/_FBD_FW_Blender_v1.0.svg)
 
 
 ## Screenshots
 
-### Hardware
-
-#### Hardware CAD View
-
-![_CADView_HW](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/CAD%20View%20Hardware/_CADView_HW_Blender_v1.0.svg)
-
-#### 3D_View
-
-![_3DView_Top](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/3D%20View/_3DView_Top_Blender_v1.0.png)
-
-![_3DView_Bottom](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/3D%20View/_3DView_Bottom_Blender_v1.0.png)
- 
-#### Assembled Hardware
+### Assembled Hardware
 
 ![_ASMView_Top](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/Assembled%20Hardware/_ASMView_Top_Blender_v1.0.jpeg)
 
 ![_ASMView_Bottom](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/Assembled%20Hardware/_ASMView_Bottom_Blender_v1.0.jpeg)
 
-### Mechanical CAD View
-![_CADView_MECH](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/CAD%20View%20Mechanical/_CADView_MECH_Blender_v1.0.png)
-
 ### Final Device
+
 ![_BLENDER](https://github.com/mend0z0)
 
 

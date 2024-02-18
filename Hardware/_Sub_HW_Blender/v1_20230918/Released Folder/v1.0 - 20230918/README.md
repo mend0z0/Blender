@@ -24,6 +24,7 @@
 		1. _3DView_Prj_vXY.png
 		2. _3DView_Bottom_Prj_vXY.png
 		3. _3DView_Top_Prj_vXY.png
+		4. _CADView_Prj_vXY.png
 
 	2. Video
 		1. _Video_Prj_vXY_Title.mp4

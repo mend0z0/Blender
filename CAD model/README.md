@@ -12,4 +12,4 @@
 
 ### Mechanical CAD View (Latest Version)
 
-![_CADView_MECH_vX-YYYYMMDD](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/CAD%20View%20Mechanical/_CADView_MECH_Blender_v1.0.png)
+![_CADView_MECH_v1-20240218](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/CAD%20View%20Mechanical/_CADView_MECH_Blender_v1.0.png)

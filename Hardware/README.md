@@ -17,6 +17,6 @@
 
 ![Hardware](https://github.com/mend0z0/Blender/blob/main/Document/Block%20Diagrams/_FBD_HW_Blender_v1.0.svg)
 
-### 3D View (Latest Release)
+### 3D View (Latest Version and Release)
 
-![_3DView_vX_YYYYMMDD](https://github.com/mend0z0)
+![_3DView_v1_20230918](https://github.com/mend0z0/Blender/blob/main/Hardware/_Sub_HW_Blender/v1_20230918/Released%20Folder/v1.0%20-%2020230918/Media%20Content/Picture/_3DView_Blender_v1.0.png)

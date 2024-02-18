@@ -5,12 +5,11 @@
 
 ## Features
 
-- __Material:__ ABS
-- __How to be build:__ 3D Printer
+- __Material:__ PLA
 - __Overall Dimensions:__
+- __Manufacturing Method:__ 3D Printer
 
-## Picture
 
-![Latest Version_Top](https://github.com/mend0z0)
+### Mechanical CAD View (Latest Version)
 
-![Latest Version_Bottom](https://github.com/mend0z0)
+![_CADView_MECH_vX-YYYYMMDD](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/CAD%20View%20Mechanical/_CADView_MECH_Blender_v1.0.png)

@@ -36,12 +36,6 @@ __Digital Signal Processing (DSP)__
 - **Programming Language:** C
 - **IDE:** STM32CubeIDE
 
-### Application
-
-- **IDE:** N/A
-- **Operating System:** N/A
-- **Device:** N/A
-
 ### Mechanical
 
 - **CAD:** Solid Edge

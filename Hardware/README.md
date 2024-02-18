@@ -13,8 +13,10 @@
 - __Current Consumption :__ 
 - __Board Dimensions :__ 50*50 mm
 
-## Picture (Latest version)
+## Block Diagram (Latest Version)
 
-![_3DView_Top](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/3D%20View/_3DView_Top_Blender_v1.0.png)
+![Hardware](https://github.com/mend0z0/Blender/blob/main/Document/Block%20Diagrams/_FBD_HW_Blender_v1.0.svg)
 
-![_3DView_Bottom](https://github.com/mend0z0/Blender/blob/main/Document/Media%20Content/Hardware%20Pictures/3D%20View/_3DView_Bottom_Blender_v1.0.png)
+### 3D View (Latest Release)
+
+![_3DView_vX_YYYYMMDD](https://github.com/mend0z0)

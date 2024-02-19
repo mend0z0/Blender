@@ -88,9 +88,9 @@ struct dmx_colors{										// A structure of RGB (8/8/8) colors for DMX receive
 *	(3) Shifting 1 bit to the left (simply changing the value) of the color R
 *	(4) Shifting 1 bit to the left (simply changing the value) of the color G
 *	(5) Shifting 1 bit to the left (simply changing the value) of the color B
-*	(6) Decrementing the head counter by 1
-*	(7) Check if we the counter reached zero (it's an unsigned variable and shouldn't go negative or overflow)
-*	(8) If we've reached 0, we'll feed the counter with the maximum number of DMX head we have
+*	(6) Increment the head index counter by 1
+*	(7) Check if the head index counter reached the maximum head index
+*	(8) If we've reached the max, we reset counter with 0.
 *	(9) Feeding the DMXHeadUpdate with new value to be updated for each head.
 *	(10) Creating a 100 milliseconds delay and starting over from line 3
 *	.
@@ -104,29 +104,29 @@ void _init_DMX( void *pvParameters)
 	struct dmx_colors dmx_head[DMX_MAX_HEAD];	// Creating 7 different DMX receiver
 
 	//	(1)
-	for(cnt = DMX_MAX_HEAD; cnt > 0; --cnt)
+	for(cnt = 0; cnt < DMX_MAX_HEAD; ++cnt)
 	{
-		dmx_head[(cnt - 1)].colorRed = DMX_RESET_VALUE_R;
-		dmx_head[(cnt - 1)].colorGreen = DMX_RESET_VALUE_G;
-		dmx_head[(cnt - 1)].colorBlue = DMX_RESET_VALUE_B;
+		dmx_head[cnt].colorRed = DMX_RESET_VALUE_R;
+		dmx_head[cnt].colorGreen = DMX_RESET_VALUE_G;
+		dmx_head[cnt].colorBlue = DMX_RESET_VALUE_B;
 	}
 
-	while(1)																							// (2)
+	while(1)																				// (2)
 	{
-		dmx_head[(cnt - 1)].colorRed = (dmx_head[(cnt - 1)].colorRed << 1) | DMX_CONSTANT_VALUE_R;		// (3)
-		dmx_head[(cnt - 1)].colorGreen = (dmx_head[(cnt - 1)].colorGreen << 1) | DMX_CONSTANT_VALUE_G;	// (4)
-		dmx_head[(cnt - 1)].colorBlue = (dmx_head[(cnt - 1)].colorBlue << 1) | DMX_CONSTANT_VALUE_B;	// (5)
+		dmx_head[cnt].colorRed = (dmx_head[cnt].colorRed << 1) | DMX_CONSTANT_VALUE_R;		// (3)
+		dmx_head[cnt].colorGreen = (dmx_head[cnt].colorGreen << 1) | DMX_CONSTANT_VALUE_G;	// (4)
+		dmx_head[cnt].colorBlue = (dmx_head[cnt].colorBlue << 1) | DMX_CONSTANT_VALUE_B;	// (5)
 
-		cnt--;																							// (6)
+		cnt++;																				// (6)
 
-		if(cnt == 0)																					// (7)
+		if(cnt == DMX_MAX_HEAD)																// (7)
 		{
-			cnt = DMX_MAX_HEAD;																			// (8)
+			cnt = 0;																		// (8)
 		}
 
-		DMXHeadUpdate( &dmx_head[0].colorRed, (DMX_MAX_HEAD *3));										// (9)
+		DMXHeadUpdate( &dmx_head[0].colorRed, (DMX_MAX_HEAD *3));							// (9)
 
-		vTaskDelay(xDelay100ms);																		// (10)
+		vTaskDelay(xDelay100ms);															// (10)
 	}
 }
 

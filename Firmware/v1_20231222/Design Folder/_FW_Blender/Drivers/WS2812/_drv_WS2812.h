@@ -79,9 +79,29 @@
 **************************     GLOBAL FUNCTIONS DECLARATION      ************************************
 *****************************************************************************************************/
 
+/****************************************************************************************************
+*   @Brief Description:	Start up and standby routine for the onboard WS2812 pixels
+*   Function Status: 	PRILIMINARY   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
+*
+*	************************************************************************************************
+*	Function Name:			_init_WS2812()
+*	Function Scope:			Global
+*	Function Parameters:	void *pvParameters
+*	Function Return Type:	void
+*	************************************************************************************************/
 void _init_WS2812( void *pvParameters );
 
-int8_t WS2812UpdatePixels( uint32_t *colors /*G R B*/, uint32_t numOfPixels);
+/****************************************************************************************************
+*   @Brief Description:	Updating the ws2812 pixels with new values.
+*   Function Status: 	PRILIMINARY   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
+*
+*	************************************************************************************************
+*	Function Name:			WS2812UpdatePixels()
+*	Function Scope:			Global
+*	Function Parameters:	uint32_t *colors (G R B), uint32_t numOfPixels
+*	Function Return Type:	int8_t
+*	************************************************************************************************/
+int8_t WS2812UpdatePixels( uint32_t *colors, uint32_t numOfPixels);
 
 
 #endif /* _DRV_WS2812_H_  */
@@ -89,16 +109,6 @@ int8_t WS2812UpdatePixels( uint32_t *colors /*G R B*/, uint32_t numOfPixels);
 /****************************************************************************************************
 *	Revision History (Description (author, date: yyyy/mm/dd))
 *
-****************************************************************************************************/
-
-/*                                 FUNCTION DECLARATION TEMPLATE                                   */
-/****************************************************************************************************
-*   @Brief Description:
-*
-*	************************************************************************************************
-*	Function Name:
-*	Function Parameters:
-*	Function Return Type:
 ****************************************************************************************************/
 
 /************************************     END OF THE FILE      *************************************/

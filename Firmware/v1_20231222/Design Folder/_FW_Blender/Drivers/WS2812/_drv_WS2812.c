@@ -155,7 +155,7 @@ void _init_WS2812( void *pvParameters )
 *	@Detailed Description: (Do numbering and tag the number to each part of code)
 *	(1) Creating semaphore for TIM3
 *	(2) Checking if the semaphore created successfully.
-*	(3) Returning pdFALSE (0) as unsuccessful creation of sempahore.
+*	(3) Returning pdFALSE (0) as unsuccessful creation of semaphore.
 *	(4) Enabling TIM3 in output compare mode
 *	(5) Creating a loop to go through all the ws2812 pixels
 *	(6) Uploading the selected ws2812 pixel color to a temporary variable

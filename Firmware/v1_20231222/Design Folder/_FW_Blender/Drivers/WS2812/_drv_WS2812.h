@@ -2,12 +2,12 @@
 *
 *   Project Name:       Blender
 *   @Brief Description: Blending audio spec with light spectrum
-*   File Status:	    DRAFT   (DRAFT , PRELIMINARY, CHECKED, RELEASED)
+*   File Status:	    PRELIMINARY   (DRAFT , PRELIMINARY, CHECKED, RELEASED)
 *
-*	File Name:	xxxx.h
+*	File Name:	_drv_WS2812.h
 *	Version:	01
 *	Revision:	01
-*	Date:		2023/01/dd
+*	Date:		2024/02/19
 *	License:	Open-source
 *	******************************** Project Description *******************************************
 *	@Detailed Description: The Blender project's purpose is to extract digitalized sound characteristics
@@ -54,19 +54,33 @@
 ****************************        MACRO DECLARATION         ***************************************
 *****************************************************************************************************/
 
+#define	RGB_TO_GRB(red, green, blue)	((green <<  16) | (red << 8) | blue)		// Converting RGB standard to the order of GRB
+
 /****************************************************************************************************
 ****************************   DEFINED VARIABLES DECLARATION    *************************************
 *****************************************************************************************************/
-#define	WS2812_COLOR_BITS		24
-#define	WS2812_T0H				18	// (0.40us)
-#define	WS2812_T1H				36	// (0.80us)
+#define	WS2812_COLOR_BITS				24U
+#define	WS2812_T0H						18U		// (0.40us)
+#define	WS2812_T1H						36U		// (0.80us)
+#define	WS2812_TRES						0U		// (0 uS)
+#define	WS2812_RES						40U		// It's the number of bits. RESET signal = 50 uSec (1.25 us * 40 = 50 uSeconds)
 
-#define	WS2812_TEST_PIXEL_NO	7	// There is 7 WS2812 on the board.
+#define	WS2812_RESET_VALUE_RED			1U		//
+#define	WS2812_RESET_VALUE_GREEN		1U		//
+#define	WS2812_RESET_VALUE_BLUE			1U		//
+
+#define	WS2812_CONSTANT_VALUE_RED		0x01	//
+#define	WS2812_CONSTANT_VALUE_GREEN		0x02	//
+#define	WS2812_CONSTANT_VALUE_BLUE		0x04	//
+
+#define	WS2812_MAX_PIXEL_ONBOARD		7U		// There is 7 WS2812 on the board.
 
 /****************************************************************************************************
 **************************     GLOBAL FUNCTIONS DECLARATION      ************************************
 *****************************************************************************************************/
-void _init_WS2812( void );
+
+void _init_WS2812( void *pvParameters );
+
 int8_t WS2812UpdatePixels( uint32_t *colors /*G R B*/, uint32_t numOfPixels);
 
 

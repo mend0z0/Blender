@@ -2,12 +2,12 @@
 *
 *   Project Name:       Blender
 *   @Brief Description: Blending audio spec with light spectrum
-*   File Status:	    DRAFT   (DRAFT , PRELIMINARY, CHECKED, RELEASED)
+*   File Status:	    PRELIMINARY   (DRAFT , PRELIMINARY, CHECKED, RELEASED)
 *
-*	File Name:	xxxx.h
+*	File Name:	_drv_DMX.h
 *	Version:	01
 *	Revision:	01
-*	Date:		2023/01/dd
+*	Date:		2024/02/19
 *	License:	Open-source
 *	******************************** Project Description *******************************************
 *	@Detailed Description: The Blender project's purpose is to extract digitalized sound characteristics
@@ -57,15 +57,45 @@
 /****************************************************************************************************
 ****************************   DEFINED VARIABLES DECLARATION    *************************************
 *****************************************************************************************************/
-#define	DMX_HEAD_MAX	7
+
+#define	DMX_RESET_VALUE_R		1U		// Reset value for the color R that the variable will be set with
+#define	DMX_RESET_VALUE_G		1U		// Reset value for the color G that the variable will be set with
+#define	DMX_RESET_VALUE_B		1U		// Reset value for the color B that the variable will be set with
+
+#define	DMX_CONSTANT_VALUE_R	0x01	// Constant value for the color R to be added to the variable value
+#define	DMX_CONSTANT_VALUE_G	0x02	// Constant value for the color G to be added to the variable value
+#define	DMX_CONSTANT_VALUE_B	0x04	// Constant value for the color B to be added to the variable value
+
+#define	DMX_MAX_HEAD			7U		// Maximum number of DMX receivers (Head light)
 
 
 /****************************************************************************************************
 **************************     GLOBAL FUNCTIONS DECLARATION      ************************************
 *****************************************************************************************************/
 
-void _init_DMX( void );
-int8_t DMXHeadUpdate( uint32_t *colors, uint32_t numOfHead);
+/****************************************************************************************************
+*   @Brief Description:	DMX Standby mode, simply just rolling different color on line
+*   Function Status: 	PRILIMINARY   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
+*
+*	************************************************************************************************
+*	Function Name:			_init_DMX()
+*	Function Scope:			Global
+*	Function Parameters:	void *pvParameters
+*	Function Return Type:	void
+*	************************************************************************************************/
+void _init_DMX( void *pvParameters );
+
+/****************************************************************************************************
+*   @Brief Description:	Feeding the UART Buffer to transfer the values on DMX line.
+*   Function Status: 	PRILIMINARY   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
+*
+*	************************************************************************************************
+*	Function Name:			DMXHeadUpdate()
+*	Function Scope:			Global
+*	Function Parameters:	uint8_t *colors  (R G B), uint32_t numOfHead (it should be (numOfHead x 3))
+*	Function Return Type:	void
+*	************************************************************************************************/
+int8_t DMXHeadUpdate( uint8_t *colors, uint32_t numOfHead);
 
 
 #endif /* _DRV_DMX_H_  */
@@ -73,16 +103,6 @@ int8_t DMXHeadUpdate( uint32_t *colors, uint32_t numOfHead);
 /****************************************************************************************************
 *	Revision History (Description (author, date: yyyy/mm/dd))
 *
-****************************************************************************************************/
-
-/*                                 FUNCTION DECLARATION TEMPLATE                                   */
-/****************************************************************************************************
-*   @Brief Description:
-*
-*	************************************************************************************************
-*	Function Name:
-*	Function Parameters:
-*	Function Return Type:
 ****************************************************************************************************/
 
 /************************************     END OF THE FILE      *************************************/

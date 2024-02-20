@@ -55,12 +55,20 @@ extern "C" {
 *****************************************************************************************************/
 #include "stm32f446xx.h"
 #include "stdbool.h"
+#include "STM32F4xx.H"
 
 /*	FreeRTOS Libraries	*/
 #include "FreeRTOS.h"
 #include "task.h"
 #include "queue.h"
 #include "semphr.h"
+
+#include "isr.h"
+#include "_drv_dmx.h"
+#include "_drv_ws2812.h"
+#include "_drv_peripherals.h"
+#include "_drv_pam8003.h"
+#include "_drv_ssd1306.h"
 
 /****************************************************************************************************
 ****************************        MACRO DECLARATION         ***************************************
@@ -70,10 +78,10 @@ extern "C" {
 ****************************   DEFINED VARIABLES DECLARATION    *************************************
 *****************************************************************************************************/
 #define	LED_IND_PIN		GPIO_ODR_OD2
-#define	LED_IND_PORT	GPIOD
+#define	LED_IND_PORT	GPIOD->ODR
 
 #define	EXT_LDO_EN_PIN	GPIO_ODR_OD0
-#define	EXT_LDO_EN_PORT	GPIOC
+#define	EXT_LDO_EN_PORT	GPIOC->ODR
 
 
 /****************************************************************************************************

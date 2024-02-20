@@ -54,57 +54,132 @@
 ****************************        MACRO DECLARATION         ***************************************
 *****************************************************************************************************/
 
+#define	SET_PIN( port, pin)				port |= pin
+#define	CLR_PIN( port, pin)				port &= ~pin
+#define	TGL_PIN( port, pin)				port ^= pin
+
 /****************************************************************************************************
 ****************************   DEFINED VARIABLES DECLARATION    *************************************
 *****************************************************************************************************/
-#define	PAM8003_DEFAULT_VALUE_PIN_SHDN  0
-#define PAM8003_DEFAULT_VALUE_PIN_VOL	0
+#define	PAM8003_DEFAULT_VALUE_PIN_SHDN  0U
+#define PAM8003_DEFAULT_VALUE_PIN_VOL	0U
 
-#define PCM1754_DEFAULT_VALUE_PIN_DMP	0 	// (1 -> DMP ON, 0 -> DMP OFF)
-#define PCM1754_DEFAULT_VALUE_PIN_FMT	1	// (1 -> 16-bit right-justified, 0 -> 24-bit I2S format)
-#define PCM1754_DEFAULT_VALUE_PIN_MUTE	1	// (1 -> MUTE ON, 0 -> MUTE OFF)
+#define PCM1754_DEFAULT_VALUE_PIN_DMP	0U 		// (1 -> DMP ON, 0 -> DMP OFF)
+#define PCM1754_DEFAULT_VALUE_PIN_FMT	1U		// (1 -> 16-bit right-justified, 0 -> 24-bit I2S format)
+#define PCM1754_DEFAULT_VALUE_PIN_MUTE	1U		// (1 -> MUTE ON, 0 -> MUTE OFF)
 
-#define SSD1306_DEFAULT_VALUE_PIN_RES	0
-#define SSD1306_DEFAULT_VALUE_PIN_DC	0
-#define PWR_EN_DEFAULT_VALUE_PIN		0
-#define LED_IND_DEFAULT_VALUE_PIN 		0
+#define SSD1306_DEFAULT_VALUE_PIN_RES	0U		//
+#define SSD1306_DEFAULT_VALUE_PIN_DC	0U		//
+#define PWR_EN_DEFAULT_VALUE_PIN		0U		//
+#define LED_IND_DEFAULT_VALUE_PIN 		0U		//
 
-#define	SET_PIN( port, pin)				(port |= pin)
-#define	CLR_PIN( port, pin)				(port &= ~pin)
-#define	TGL_PIN( port, pin)				(port ^= pin)
+#define	DMA2_SPI1_TX_EN					1U		//
+#define	DMA1_FMPI2C1_TX_EN				2U		//
+#define	DMA2_UART1_TX_EN				3U		//
 
+#define	DMA2_SPI1_TX_DIS				4U		//
+#define	DMA1_FMPI2C1_TX_DIS				5U		//
+#define	DMA2_UART1_TX_DIS				6U		//
 
-#define	DMA2_SPI1_TX_EN					253		//(DMA z / STREAM x / CHANNEL y)
-#define	DMA1_FMPI2C1_TX_EN				152		//(DMA z / STREAM x / CHANNEL y)
-#define	DMA2_UART1_TX_EN				274		//(DMA z / STREAM x / CHANNEL y)
-
-#define	DMA2_SPI1_TX_DIS				2532	//(DMA z / STREAM x / CHANNEL y / DMA z)
-#define	DMA1_FMPI2C1_TX_DIS				1521	//(DMA z / STREAM x / CHANNEL y / DMA z)
-#define	DMA2_UART1_TX_DIS				2742	//(DMA z / STREAM x / CHANNEL y / DMA z)
-#define	DMAx_TIM3_CH2_DIS				1551	//(DMA z / STREAM x / CHANNEL y / DMA z)
-
-#define FMPI2C_ERROR_NACK				-2
-#define	FMPI2C_ERROR_UNKNOWN			-3
+#define FMPI2C_ERROR_NACK				-2		//
+#define	FMPI2C_ERROR_UNKNOWN			-3		//
 
 
 
 /****************************************************************************************************
 **************************     GLOBAL FUNCTIONS DECLARATION      ************************************
 *****************************************************************************************************/
+
+/****************************************************************************************************
+*   @Brief Description:	This functions holds all the functions that will initialize all the peripherals registers.
+*   Function Status: 	PRILIMINARY   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
+*
+*	************************************************************************************************
+*	Function Name:			_init_Peripherals()
+*	Function Scope:			Global
+*	Function Parameters:	void
+*	Function Return Type:	void
+*	************************************************************************************************/
 void _init_Peripherals( void );
 
 /*			Digital-to-analog converter							*/
-void DACUpdate( uint8_t dacValue /*It's a percent from 0% to 100%*/);
+
+/****************************************************************************************************
+*   @Brief Description:	Updating the DAC output value based on percents not real output voltage.
+*   Function Status: 	PRILIMINARY   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
+*
+*	************************************************************************************************
+*	Function Name:			DACUpdate()
+*	Function Scope:			Global
+*	Function Parameters:	uint8_t dacValue (It's a percent from 0% to 100%)
+*	Function Return Type:	void
+*	************************************************************************************************/
+void DACUpdate( uint8_t dacValue);
 
 /*			General-purpose timers (TIM3)						*/
+
+/****************************************************************************************************
+*   @Brief Description:	Preset the TIM3 counter register and enabling the timer
+*   Function Status: 	PRILIMINARY   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
+*
+*	************************************************************************************************
+*	Function Name:			TIM3Enable()
+*	Function Scope:			Global
+*	Function Parameters:	void
+*	Function Return Type:	void
+*	************************************************************************************************/
 void TIM3Enable( void );
+
+/****************************************************************************************************
+*   @Brief Description: Disable Timer3
+*   Function Status: 	PRILIMINARY   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
+*
+*	************************************************************************************************
+*	Function Name:			TIM3Disable()
+*	Function Scope:			Global
+*	Function Parameters:	void
+*	Function Return Type:	void
+*	************************************************************************************************/
 void TIM3Disable( void );
-void TIM3UpdateCCR3( uint32_t *ccrValue );
+
+/****************************************************************************************************
+*   @Brief Description:	Update CCR3 register of Timer 3
+*   Function Status: 	PRILIMINARY   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
+*
+*	************************************************************************************************
+*	Function Name:			TIM3UpdateCCR3()
+*	Function Scope:			Global
+*	Function Parameters:	uint32_t ccrValue
+*	Function Return Type:	void
+*	************************************************************************************************/
+void TIM3UpdateCCR3( uint32_t ccrValue );
 
 /*			Inter-integrated circuit (I2C) interface			*/
+
+/****************************************************************************************************
+*   @Brief Description:	Sending an array of data over FMPI2C1
+*   Function Status: 	PRILIMINARY   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
+*
+*	************************************************************************************************
+*	Function Name:			FMPI2C1DataTx()
+*	Function Scope:			Global
+*	Function Parameters:	uint8_t slaveAddr, uint8_t *data, uint32_t buffSize
+*	Function Return Type:	int32_t
+*	************************************************************************************************/
 int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize);
 
 /*			Universal asynchronous receiver transmitter			*/
+
+/****************************************************************************************************
+*   @Brief Description: Sending out an array of data over UART
+*   Function Status: 	PRILIMINARY   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
+*
+*	************************************************************************************************
+*	Function Name:			UART1DataTx()
+*	Function Scope:			Global
+*	Function Parameters:	uint8_t *data, uint32_t buffSize
+*	Function Return Type:	int32_t
+*	************************************************************************************************/
 int32_t UART1DataTx( uint8_t *data, uint32_t buffSize);
 
 /*			Inter-IC sound										*/
@@ -117,16 +192,6 @@ int8_t I2SDataTx( uint32_t *data);
 /****************************************************************************************************
 *	Revision History (Description (author, date: yyyy/mm/dd))
 *
-****************************************************************************************************/
-
-/*                                 FUNCTION DECLARATION TEMPLATE                                   */
-/****************************************************************************************************
-*   @Brief Description:
-*
-*	************************************************************************************************
-*	Function Name:
-*	Function Parameters:
-*	Function Return Type:
 ****************************************************************************************************/
 
 /************************************     END OF THE FILE      *************************************/

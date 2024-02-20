@@ -58,7 +58,7 @@
 ****************************   DEFINED VARIABLES DECLARATION    *************************************
 *****************************************************************************************************/
 #define	PAM8003_PIN_SHDN	GPIO_ODR_OD6	//This pin is Active LOW
-#define	PAM8003_PORT_SHDN	GPIOA
+#define	PAM8003_PORT_SHDN	GPIOA->ODR
 
 #define	PAM8003_CMD_MUTE	1
 #define	PAM8003_CMD_UNMUTE	0

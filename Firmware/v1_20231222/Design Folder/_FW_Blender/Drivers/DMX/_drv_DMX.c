@@ -56,7 +56,7 @@
 ****************************   CONST VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
 
-const TickType_t xDelay100ms = pdMS_TO_TICKS( 100UL );	// a 100 milliseconds delay
+static const TickType_t xDelay100ms = pdMS_TO_TICKS( 100UL );	// a 100 milliseconds delay
 
 struct dmx_colors{										// A structure of RGB (8/8/8) colors for DMX receivers.
 		uint8_t colorRed;
@@ -126,7 +126,7 @@ void _init_DMX( void *pvParameters)
 
 		DMXHeadUpdate( &dmx_head[0].colorRed, (DMX_MAX_HEAD *3));							// (9)
 
-		vTaskDelay(xDelay100ms);															// (10)
+		vTaskDelay( xDelay100ms );														// (10)
 	}
 }
 

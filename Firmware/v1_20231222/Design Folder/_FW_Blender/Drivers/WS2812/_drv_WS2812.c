@@ -57,15 +57,14 @@ SemaphoreHandle_t TIM3BinarySemaphore;		//The semaphore has been created in this
 /****************************************************************************************************
 ****************************   CONST VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
- const TickType_t xDelay100ms = pdMS_TO_TICKS( 100UL );			// Defining a 100 milliseconds delay
- const TickType_t semaphoreWatiTime10ms = pdMS_TO_TICKS(10);	// 10msec delay for semaphore to get created, if it didn't happen immediately!
+static const TickType_t xDelay100ms = pdMS_TO_TICKS( 100UL );	// Defining a 100 milliseconds delay
 
- struct ws2812_color{											// Creating a structure of RGB (8/8/8) for WS2812 pixels.
+struct ws2812_color{											// Creating a structure of RGB (8/8/8) for WS2812 pixels.
  			uint32_t pixelColor;
  			uint8_t red;
  			uint8_t green;
  			uint8_t blue;
- };
+};
 
 /****************************************************************************************************
 ***********************     STATIC/LOCAL FUNCTIONS DECLARATION      *********************************

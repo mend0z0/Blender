@@ -68,19 +68,19 @@ const uint8_t PAM8003_VOL_VAL_MIN = 0;			//MIN volume value is 0%
 *****************************************************************************************************/
 void _init_PAM8003( void )
 {
-	PAM8003Mute( PAM8003_UNMUTE );
+	PAM8003Mute( PAM8003_CMD_UNMUTE );
 	PAM8003SetVolume( PAM8003_VOL_VAL_DEFAULT );
 }
 
 void PAM8003Mute( uint8_t cmd )
 {
-	if(cmd == PAM8003_MUTE)
+	if(cmd == PAM8003_CMD_MUTE)
 	{
-		SET_PIN( PAM8003_PORT_SHDN, PAM8003_PIN_SHDN );
+		SET_BIT( PAM8003_PORT_SHDN, PAM8003_PIN_SHDN );
 	}
-	else if( cmd == PAM8003_UNMUTE )
+	else if( cmd == PAM8003_CMD_UNMUTE )
 	{
-		CLR_PIN( PAM8003_PORT_SHDN, PAM8003_PIN_SHDN );
+		CLEAR_BIT( PAM8003_PORT_SHDN, PAM8003_PIN_SHDN );
 	}
 }
 

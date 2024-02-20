@@ -2,7 +2,7 @@
 *
 *   Project Name:       Blender
 *   @Brief Description: Blending audio spec with light spectrum
-*   File Status:	    DRAFT   (DRAFT , PRELIMINARY, CHECKED, RELEASED)
+*   File Status:	    PRELIMINARY   (DRAFT , PRELIMINARY, CHECKED, RELEASED)
 *
 *	File Name:	_drv_pheripherals.c
 *	Version:	01
@@ -51,11 +51,9 @@
 /****************************************************************************************************
 ****************************   CONST VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
-const uint32_t SysTickInputClock = (90000000 / 8);	//The AHB output is 90MHz and there is an extra 1/8 multiplier.
-
-const uint16_t DAC_CONSTANT = 40U;					//The 100% output actual constant is 40.96, but I kept it 40 for not overflowing.
-
-const TickType_t semaphoreWatiTime10ms = pdMS_TO_TICKS(10);	// 10msec delay for semaphore to get created, if it didn't happen immediately!
+const uint32_t SysTickInputClock = (90000000 / 8);			// The AHB output is 90MHz and there is an extra 1/8 multiplier.
+const uint16_t DAC_CONSTANT = 40U;							// The 100% output actual constant is 40.96, but I kept it 40 for not overflowing.
+static const TickType_t semaphoreWatiTime10ms = pdMS_TO_TICKS(10);	// 10msec delay for semaphore to get created, if it didn't happen immediately!
 
 /****************************************************************************************************
 ****************************   GLOB. VARIABLES DECLARATION    ***************************************
@@ -305,40 +303,40 @@ int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize)
 {
 	__IO int32_t status = 0;
 
-	FMPI2CBinarySemaphore = xSemaphoreCreateBinary();				// (1)
+	FMPI2CBinarySemaphore = xSemaphoreCreateBinary();					// (1)
 
-	if(FMPI2CBinarySemaphore == NULL){								// (2)
-		status = pdFALSE;											// (3)
+	if(FMPI2CBinarySemaphore == NULL){									// (2)
+		status = pdFALSE;												// (3)
 	}
 	else{
-		DMAEnable( DMA1_FMPI2C1_TX_EN, *data, buffSize);			// (4)
-		FMPI2C1->CR1 |= FMPI2C_CR1_TXIE 	| 						// (5)
-						FMPI2C_CR1_NACKIE							// (6)
+		DMAEnable( DMA1_FMPI2C1_TX_EN, *data, buffSize);				// (4)
+		FMPI2C1->CR1 |= FMPI2C_CR1_TXIE 	| 							// (5)
+						FMPI2C_CR1_NACKIE								// (6)
 						;
-		FMPI2C1->CR2 |= ((slaveAddr & 0X7F) << 1);					// (7)
-		FMPI2C1->CR2 &= ~FMPI2C_CR2_RD_WRN;							// (8)
-		FMPI2C1->CR2 |=	FMPI2C_CR2_START;							// (9)
+		FMPI2C1->CR2 |= ((slaveAddr & 0X7F) << 1);						// (7)
+		FMPI2C1->CR2 &= ~FMPI2C_CR2_RD_WRN;								// (8)
+		FMPI2C1->CR2 |=	FMPI2C_CR2_START;								// (9)
 
-		xSemaphoreTake( FMPI2CBinarySemaphore, semaphoreWatiTime );	// (10)
+		xSemaphoreTake( FMPI2CBinarySemaphore, semaphoreWatiTime10ms );		// (10)
 
-		DMADisable( DMA1_FMPI2C1_TX_DIS );							// (11)
+		DMADisable( DMA1_FMPI2C1_TX_DIS );								// (11)
 
-		if((FMPI2C1->ISR & FMPI2C_ISR_NACKF) == FMPI2C_ISR_NACKF)	// (12)
+		if((FMPI2C1->ISR & FMPI2C_ISR_NACKF) == FMPI2C_ISR_NACKF)		// (12)
 		{
-			FMPI2C1->ICR |= FMPI2C_ICR_NACKCF;		 				// (13)
-			status = FMPI2C_ERROR_NACK;				 				// (14)
+			FMPI2C1->ICR |= FMPI2C_ICR_NACKCF;		 					// (13)
+			status = FMPI2C_ERROR_NACK;				 					// (14)
 		}
-		else if((DMA1->HISR & DMA_HISR_TCIF5) == DMA_HISR_TCIF5)	// (15)
+		else if((DMA1->HISR & DMA_HISR_TCIF5) == DMA_HISR_TCIF5)		// (15)
 		{
-			DMA1->HIFCR |= DMA_HIFCR_CTCIF5;						// (16)
-			status = (int32_t)buffSize;								// (17)
+			DMA1->HIFCR |= DMA_HIFCR_CTCIF5;							// (16)
+			status = (int32_t)buffSize;									// (17)
 		}
 		else{
-			status = FMPI2C_ERROR_UNKNOWN;							// (18)
+			status = FMPI2C_ERROR_UNKNOWN;								// (18)
 		}
 	}
 
-	return status;													// (19)
+	return status;														// (19)
 }
 
 /*			Universal asynchronous receiver transmitter			*/
@@ -388,7 +386,7 @@ int32_t UART1DataTx( uint8_t *data, uint32_t buffSize)
 		USART1->CR1 |= USART_CR1_TCIE;									// (5)
 		USART1->CR1 |= USART_CR1_UE;									// (6)
 
-		xSemaphoreTake( USART1BinarySemaphore, semaphoreWatiTime);		// (7)
+		xSemaphoreTake( USART1BinarySemaphore, semaphoreWatiTime10ms);	// (7)
 
 		DMADisable( DMA2_UART1_TX_DIS );								// (8)
 
@@ -708,7 +706,7 @@ static void _init_GPIO( void )
 					);
 
 	GPIOB->MODER |= (	GPIO_MODER_MODER13_0 |													// (11)
-						GPIO_IO_MODER_MODER14_0 |												// (12)
+						GPIO_MODER_MODER14_0 |													// (12)
 						GPIO_MODER_MODER15_0 |													// (13)
 						GPIO_MODER_MODER3_1  |													// (14)
 						GPIO_MODER_MODER5_1  |													// (15)

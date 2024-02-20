@@ -1239,7 +1239,7 @@ const uint8_t consolas_6ptBitmaps[] =
 
 // Character descriptors for Consolas 6pt
 // { [Char width in bits], [Offset into consolas_6ptCharBitmaps in bytes] }
-const uint16_t consolas_6ptDescriptors[][] =
+const uint16_t consolas_6ptDescriptors[][2] =
 {
 	{1, 0}, 		// !
 	{3, 9}, 		// "
@@ -1464,9 +1464,9 @@ static void SSD1306InitProcedure( void )
     SSD1306SendCommand( initCmd, 20);
 }
 
-static int8_t SSD1306SendData( uint8_t *data, uint16_t buffSize){
+static int8_t SSD1306SendData( uint8_t *data, uint32_t buffSize){
     uint16_t cnt = 0;
-    uint8_t tempBuffer[DATA_TEMP_BUFF];
+    uint8_t tempBuff[DATA_TEMP_BUFF];
     int8_t i2cStatus = 0;
 
     // We need to define the type of data for each data byte,
@@ -1477,7 +1477,7 @@ static int8_t SSD1306SendData( uint8_t *data, uint16_t buffSize){
         tempBuff[(cnt - 2)] = *data++;				//load the tempBuff and increase the pointer value by 1
     }
 
-    i2cStatus = FMPI2C1DataTx( SSD1306_I2C_ADDR, tempBuffer, (buffSize * 2));
+    i2cStatus = FMPI2C1DataTx( SSD1306_I2C_ADDR, tempBuff, (buffSize * 2));
 
     //if we received NACk, we'll try to init OLED repeatedly until it backs to normal condition.
     if(i2cStatus < pdFALSE){
@@ -1489,7 +1489,7 @@ static int8_t SSD1306SendData( uint8_t *data, uint16_t buffSize){
 
 static int8_t SSD1306SendCommand( uint8_t *command, uint8_t buffSize){
     uint8_t cnt = 0;
-    uint8_t tempBuffer[CMD_TEMP_BUFF];
+    uint8_t tempBuff[CMD_TEMP_BUFF];
 
     // We need to define the type of data for each data byte,
     // So in this for loop we fill each byte with it's type.
@@ -1503,7 +1503,7 @@ static int8_t SSD1306SendCommand( uint8_t *command, uint8_t buffSize){
     {
     	//we'll keep sending the data, if a value more than 0
     	//(which means the number of data that has been sent) returned. It means the data has been sent and it was successful.
-    	if(FMPI2C1DataTx( SSD1306_I2C_ADDR, tempBuffer, (buffSize * 2)) > 0){
+    	if(FMPI2C1DataTx( SSD1306_I2C_ADDR, tempBuff, (buffSize * 2)) > 0){
     		break;
     	}
     }

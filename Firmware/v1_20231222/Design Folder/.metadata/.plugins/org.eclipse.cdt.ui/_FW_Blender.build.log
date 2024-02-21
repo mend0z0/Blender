@@ -1,23 +1,23 @@
-20:11:48 **** Incremental Build of configuration Debug for project _FW_Blender ****
+01:39:04 **** Incremental Build of configuration Debug for project _FW_Blender ****
 make -j20 all 
-arm-none-eabi-gcc "../Core/Src/ISR.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/ISR.d" -MT"Core/Src/ISR.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/ISR.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc -o "_FW_Blender.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\Projects\STP\Blender\Firmware\v1_20231222\Design Folder\_FW_Blender\STM32F446RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="_FW_Blender.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: _FW_Blender.elf
  
 arm-none-eabi-size  _FW_Blender.elf 
 arm-none-eabi-objdump -h -S _FW_Blender.elf  > "_FW_Blender.list"
    text	   data	    bss	    dec	    hex	filename
-  15744	    104	  17680	  33528	   82f8	_FW_Blender.elf
+   7020	     96	  18464	  25580	   63ec	_FW_Blender.elf
 arm-none-eabi-objcopy  -O ihex _FW_Blender.elf  "_FW_Blender.hex"
 arm-none-eabi-objcopy  -O binary _FW_Blender.elf  "_FW_Blender.bin"
 Finished building: default.size.stdout
  
 Finished building: _FW_Blender.hex
+ 
 Finished building: _FW_Blender.bin
- 
- 
 Finished building: _FW_Blender.list
  
+ 
 
-20:11:49 Build Finished. 0 errors, 0 warnings. (took 490ms)
+01:39:05 Build Finished. 0 errors, 0 warnings. (took 438ms)
 

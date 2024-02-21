@@ -58,8 +58,8 @@ static const TickType_t semaphoreWatiTime10ms = pdMS_TO_TICKS(10);	// 10msec del
 /****************************************************************************************************
 ****************************   GLOB. VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
-SemaphoreHandle_t FMPI2CBinarySemaphore;			//
-SemaphoreHandle_t USART1BinarySemaphore;			//
+SemaphoreHandle_t FMPI2CBinarySemaphore = pdFALSE;			//
+SemaphoreHandle_t USART1BinarySemaphore = pdFALSE;			//
 
 /****************************************************************************************************
 ***********************     STATIC/LOCAL FUNCTIONS DECLARATION      *********************************
@@ -345,14 +345,13 @@ int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize)
 *   @Brief Description: Sending out an array of data over UART
 *   Function Status: 	PRILIMINARY   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
 *
-*	************************************************************************************************
+*************************************************************************************************
 *	Function Name:			UART1DataTx()
 *	Function Scope:			Global
 *	Function Parameters:	uint8_t *data, uint32_t buffSize
 *	Function Return Type:	int32_t
-*	************************************************************************************************
+*************************************************************************************************
 *	@Detailed Description: (Do numbering and tag the number to each part of code)
-*	(1) Creating semaphore for UART1
 *	(2) If NULL is returned, then the semaphore cannot be created then
 *	(3) Updating the status value with pdFALSE (0)
 *	(4) Init DMA with data address and number of transfer and then enable it.
@@ -366,42 +365,37 @@ int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize)
 *	(12) Otherwise if we received the semaphore as a result of other ISR, we'll set the status to pdFALSE (0)
 *	(13) Disable the UART peripheral.
 *	(14) Return the status.
-*	************************************************************************************************
+*************************************************************************************************
 *	Revision History (Description, author, date: yyyy/mm/dd)
 *
 ****************************************************************************************************/
 int32_t UART1DataTx( uint8_t *data, uint32_t buffSize)
 {
-	__IO int32_t status = 0;
+  __IO int32_t status = 0;
 
-	USART1BinarySemaphore = xSemaphoreCreateBinary();					// (1)
 
-	if(USART1BinarySemaphore == NULL)									// (2)
+  DMAEnable( DMA2_UART1_TX_EN, *data, buffSize);			// (4)
+  USART1->CR1 |= USART_CR1_TCIE;					// (5)
+  USART1->CR1 |= USART_CR1_UE;						// (6)
+
+  while(1)
+    {
+      if(xSemaphoreTake( USART1BinarySemaphore, portMAX_DELAY))		// (7)
 	{
-		status = pdFALSE;												// (3)
+	  DMADisable( DMA2_UART1_TX_DIS );				// (8)
+	  if((USART1->SR & USART_SR_TC) == USART_SR_TC)			// (9)
+	    {
+	      USART1->SR &= ~USART_SR_TC;				// (10)
+	      status = (int32_t)buffSize;				// (11)
+	    }
+	  else
+	    {
+	      status = pdFALSE;						// (12)
+	    }
 	}
-	else
-	{
-		DMAEnable( DMA2_UART1_TX_EN, *data, buffSize);					// (4)
-		USART1->CR1 |= USART_CR1_TCIE;									// (5)
-		USART1->CR1 |= USART_CR1_UE;									// (6)
-
-		xSemaphoreTake( USART1BinarySemaphore, semaphoreWatiTime10ms);	// (7)
-
-		DMADisable( DMA2_UART1_TX_DIS );								// (8)
-
-		if((USART1->SR & USART_SR_TC) == USART_SR_TC)					// (9)
-		{
-			USART1->SR &= ~USART_SR_TC;									// (10)
-			status = (int32_t)buffSize;									// (11)
-		}
-		else
-		{
-			status = pdFALSE;											// (12)
-		}
-	}
-	USART1->CR1 &= ~USART_CR1_UE;										// (13)
-	return status;														// (14)
+    }
+  USART1->CR1 &= ~USART_CR1_UE;						// (13)
+  return status;							// (14)
 }
 
 /*			Inter-IC sound										*/
@@ -987,12 +981,12 @@ static void _init_TIM2( void )
 *   @Brief Description: Init TIM3
 *   Function Status: 	PRELIMINARY   (DRAFT , PRELIMINARY, CHECKED, RELEASED)
 *
-*	************************************************************************************************
+*************************************************************************************************
 *	Function Name:			_init_TIM3()
 *	Function Scope:         Local(static)
 *	Function Parameters:	void
 *	Function Return Type:	static void
-*	************************************************************************************************
+*************************************************************************************************
 *	@Detailed Description: (Do numbering and tag the number to each part of code)
 *	(1) Toggle - OC1REF toggles when TIMx_CNT=TIMx_CCR1
 *	(2) Preload register on TIMx_CCR1 enabled.
@@ -1001,21 +995,21 @@ static void _init_TIM2( void )
 *	(5) Initializing with 0 as compare value. Technically turning it off.
 *	(6) Only counter overflow/underflow will generate an update request
 *	(7) Update Interrupt Enable.
-*	************************************************************************************************
+*************************************************************************************************
 *	Revision History (Description (author, date: yyyy/mm/dd))
 *
 ****************************************************************************************************/
 static void _init_TIM3( void )
 {
-	TIM3->CCMR2 |= 	( TIM_CCMR2_OC3M_0 | TIM_CCMR2_OC3M_1 |		// (1)
-						TIM_CCMR2_OC3PE							// (2)
-					);
+  TIM3->CCMR2 |= (TIM_CCMR2_OC3M_0 | TIM_CCMR2_OC3M_1 |		// (1)
+		  TIM_CCMR2_OC3PE				// (2)
+  );
 
-	TIM3->CCER |= TIM_CCER_CC3E;								// (3)
-	TIM3->ARR = 56;												// (4)
-	TIM3->CCR3 = 0;												// (5)
-	TIM3->CR1 |= TIM_CR1_URS;									// (6)
-	TIM3->DIER |= TIM_DIER_UIE;									// (7)
+  TIM3->CCER |= TIM_CCER_CC3E;					// (3)
+  TIM3->ARR = 56;												// (4)
+  TIM3->CCR3 = 0;												// (5)
+  TIM3->CR1 |= TIM_CR1_URS;					// (6)
+  TIM3->DIER |= TIM_DIER_UIE;					// (7)
 }
 
 /*			Real-time clock										*/
@@ -1081,27 +1075,30 @@ static void _init_FMPI2C1( void )
 *   @Brief Description: Init UART1
 *   Function Status: 	PRELIMINARY   (DRAFT , PRELIMINARY, CHECKED, RELEASED)
 *
-*	************************************************************************************************
+*************************************************************************************************
 *	Function Name:			_init_UART1()
 *	Function Scope:         Local(static)
 *	Function Parameters:	void
 *	Function Return Type:	void
-*	************************************************************************************************
+*************************************************************************************************
 *	@Detailed Description: (Do numbering and tag the number to each part of code)
 *	(1) Configuring the baud rate for 250000 => ((176MHz/2) / (16* 22(USART_DIV)))
 *	(2) Selecting 2 stop bits
 *	(3) Enabling DMA for Transmitter
 *	(4) Enabling the Transmitter
-*	************************************************************************************************
+*	(1) Creating semaphore for UART1
+*************************************************************************************************
 *	Revision History (Description (author, date: yyyy/mm/dd))
 *
 ****************************************************************************************************/
 static void _init_UART1( void )
 {
-	USART1->BRR |= (0X16 << 4);			// (1)
-	USART1->CR2 |= USART_CR2_STOP_1;	// (2)
-	USART1->CR3 |= USART_CR3_DMAT;		// (3)
-	USART1->CR1 |= USART_CR1_TE;		// (4)
+  USART1->BRR |= (0X16 << 4);				// (1)
+  USART1->CR2 |= USART_CR2_STOP_1;			// (2)
+  USART1->CR3 |= USART_CR3_DMAT;			// (3)
+  USART1->CR1 |= USART_CR1_TE;				// (4)
+  USART1BinarySemaphore = xSemaphoreCreateBinary();	// (1)
+  //xSemaphoreGive(USART1BinarySemaphore);		//once the binary semaphore is created with vSemaphore.. we should give the semaphore first.
 }
 
 /*			Inter-IC sound										*/

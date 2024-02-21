@@ -53,11 +53,11 @@
 *****************************************************************************************************/
 const uint32_t LED_IND_DELAY = 1000;			// This is 1000 milliseconds
 
-const uint32_t DMA1_Stream4_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY;		//
-const uint32_t DMA2_Stream6_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY;		//
-const uint32_t TIM3_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY;			//
-const uint32_t FMPI2C1_EV_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY;		//
-const uint32_t USART1_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY;		//
+const uint32_t DMA1_Stream4_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 5;		//
+const uint32_t DMA2_Stream6_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 5;		//
+const uint32_t TIM3_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 5;			//
+const uint32_t FMPI2C1_EV_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 5;		//
+const uint32_t USART1_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 5;			//
 
 /****************************************************************************************************
 ****************************   GLOB. VARIABLES DECLARATION    ***************************************
@@ -78,11 +78,11 @@ uint32_t ledIndCnt = LED_IND_DELAY;			// This is a counter to toggle the LED onc
 void _init_ISR( void )
 {
 	// Set Interrupts priority.
-	NVIC_SetPriority(DMA1_Stream4_IRQn	, DMA1_Stream4_IRQ_PRIORITY + 5);
-	NVIC_SetPriority(DMA2_Stream6_IRQn	, DMA2_Stream6_IRQ_PRIORITY + 5);
-	NVIC_SetPriority(TIM3_IRQn		, TIM3_IRQ_PRIORITY + 5);
-	NVIC_SetPriority(FMPI2C1_EV_IRQn	, FMPI2C1_EV_IRQ_PRIORITY + 5);
-	NVIC_SetPriority(USART1_IRQn		, USART1_IRQ_PRIORITY + 5);
+	NVIC_SetPriority(DMA1_Stream4_IRQn	, DMA1_Stream4_IRQ_PRIORITY);
+	NVIC_SetPriority(DMA2_Stream6_IRQn	, DMA2_Stream6_IRQ_PRIORITY);
+	NVIC_SetPriority(TIM3_IRQn		, TIM3_IRQ_PRIORITY);
+	NVIC_SetPriority(FMPI2C1_EV_IRQn	, FMPI2C1_EV_IRQ_PRIORITY);
+	NVIC_SetPriority(USART1_IRQn		, USART1_IRQ_PRIORITY);
 
 	// Enable Required Interrupts.
 	NVIC_EnableIRQ(DMA1_Stream4_IRQn);
@@ -95,7 +95,7 @@ void _init_ISR( void )
 	//If you are using an STM32 with the STM32 driver library then ensure
 	//all the priority bits are assigned to be preempt priority bits by
 	//calling NVIC_PriorityGroupConfig( NVIC_PriorityGroup_4 ); before the RTOS is started.
-	NVIC_SetPriorityGrouping( 4 );
+	//NVIC_SetPriorityGrouping( 4 );
 }
 
 
@@ -300,8 +300,12 @@ void DMA2_Stream6_IRQHandler( void )
 *
 ****************************************************************************************************/
 void TIM3_IRQHandler( void ){
+  BaseType_t xHigherPriorityTaskWoken = pdFALSE;
   TIM3->SR &= ~TIM_SR_UIF;				// (1)
-  xSemaphoreGiveFromISR( TIM3BinarySemaphore, pdFALSE);	// (2)
+  xSemaphoreGiveFromISR( TIM3BinarySemaphore, &xHigherPriorityTaskWoken);	// (2)
+  /* Yield if xHigherPriorityTaskWoken is true.  The
+    actual macro used here is port specific. */
+  portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
 }
 
 /*			Real-time clock										*/
@@ -370,8 +374,12 @@ void FMPI2C1_ER_IRQHandler( void )
 ****************************************************************************************************/
 void USART1_IRQHandler( void )
 {
+  BaseType_t xHigherPriorityTaskWoken = pdFALSE;
   USART1->CR1 &= ~USART_CR1_TCIE;				// (1)
-  xSemaphoreGiveFromISR( USART1BinarySemaphore, pdFALSE);	// (2)
+  xSemaphoreGiveFromISR( USART1BinarySemaphore, &xHigherPriorityTaskWoken);	// (2)
+  /* Yield if xHigherPriorityTaskWoken is true.  The
+      actual macro used here is port specific. */
+  portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
 }
 
 /*			Inter-IC sound										*/

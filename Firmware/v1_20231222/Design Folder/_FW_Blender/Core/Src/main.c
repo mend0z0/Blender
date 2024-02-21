@@ -76,22 +76,23 @@ int main(void)
   /* ----------------------   	  Modules Configuration 			----------------------------*/
   SET_BIT( EXT_LDO_EN_PORT, EXT_LDO_EN_PIN);	//Enable the LDO power to turn the modules on
   _init_PAM8003();
-  //while(1);
+  while(1);
   //Each module init will be a task...
+
   xTaskCreate( 	_init_DMX, 	// Pointer to the function that implements the task.
 		"DMX", 		// Text name for the task.
-		128,		// Stack depth.
+		1000,		// Stack depth.
 		NULL,		// This example does not use the task parameter.
-		3,			// This task will run at priority 2.
+		2,		// This task will run at priority 2.
 		NULL		// This example does not use the task handle.
   );
 
   xTaskCreate(	_init_WS2812, 	// Pointer to the function that implements the task.
-		"WS2812", 		// Text name for the task.
-		200,			// Stack depth.
-		NULL,			// This example does not use the task parameter.
-		3,				// This task will run at priority 2.
-		NULL			// This example does not use the task handle.
+		"WS2812", 	// Text name for the task.
+		500,		// Stack depth.
+		NULL,		// This example does not use the task parameter.
+		2,		// This task will run at priority 2.
+		NULL		// This example does not use the task handle.
   );
 
   //xTaskCreate( 	_init_SSD1306, 	// Pointer to the function that implements the task.

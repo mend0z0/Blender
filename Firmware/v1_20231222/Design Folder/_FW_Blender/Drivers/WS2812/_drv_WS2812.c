@@ -52,7 +52,7 @@
 ****************************   GLOB. VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
 
-SemaphoreHandle_t TIM3BinarySemaphore;		//The semaphore has been created in this .c file so it's the original variable.
+SemaphoreHandle_t TIM3BinarySemaphore = pdFALSE;		//The semaphore has been created in this .c file so it's the original variable.
 
 /****************************************************************************************************
 ****************************   CONST VARIABLES DECLARATION    ***************************************
@@ -78,13 +78,14 @@ struct ws2812_color{											// Creating a structure of RGB (8/8/8) for WS2812
 *   @Brief Description:	Start up and standby routine for the onboard WS2812 pixels
 *   Function Status: 	PRILIMINARY   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
 *
-*	************************************************************************************************
-*	Function Name:			_init_WS2812()
-*	Function Scope:			Global
+*************************************************************************************************
+*	Function Name:		_init_WS2812()
+*	Function Scope:		Global
 *	Function Parameters:	void *pvParameters
 *	Function Return Type:	void
-*	************************************************************************************************
+*************************************************************************************************
 *	@Detailed Description: (Do numbering and tag the number to each part of code)
+*	(1) Creating semaphore for TIM3
 *	(1) Initializing the structure variables with defined reset values.
 *	(2) Creating an infinite loop to run the color patterns and the task executes.
 *	(3) Shift the color Red to the left and add a constant to the value.
@@ -96,65 +97,66 @@ struct ws2812_color{											// Creating a structure of RGB (8/8/8) for WS2812
 *	(9) Reset the pixel index counter to 0.
 *	(10) Updating the pixels
 *	(11) A delay of 100ms
-*	************************************************************************************************
+*************************************************************************************************
 *	Revision History (Description, author, date: yyyy/mm/dd)
 *
 ****************************************************************************************************/
 void _init_WS2812( void *pvParameters )
 {
-	uint8_t cnt = 0;												// A counter for counting the ws2812 pixel indexes.
-	struct ws2812_color ws2812_pixel[WS2812_MAX_PIXEL_ONBOARD];		// Creating 7 pixels of ws2812.
-	__IO uint32_t ws2812Pixel[WS2812_MAX_PIXEL_ONBOARD];
+  uint8_t cnt = 0;								// A counter for counting the ws2812 pixel indexes.
+  struct ws2812_color ws2812_pixel[WS2812_MAX_PIXEL_ONBOARD];			// Creating 7 pixels of ws2812.
+  __IO uint32_t ws2812Pixel[WS2812_MAX_PIXEL_ONBOARD];
 
-	// (1)
-	for(cnt = 0; cnt < WS2812_MAX_PIXEL_ONBOARD; ++cnt){
-		ws2812_pixel[cnt].red = WS2812_RESET_VALUE_RED;
-		ws2812_pixel[cnt].green = WS2812_RESET_VALUE_GREEN;
-		ws2812_pixel[cnt].blue = WS2812_RESET_VALUE_BLUE;
+  TIM3BinarySemaphore = xSemaphoreCreateBinary();							// (1)
+  //xSemaphoreGive(TIM3BinarySemaphore);		//once the binary semaphore is created with vSemaphore.. we should give the semaphore first.
 
-		ws2812Pixel[cnt] = RGB_TO_GRB(	ws2812_pixel[cnt].red,
-										ws2812_pixel[cnt].green,
-										ws2812_pixel[cnt].blue
-										);
-	}
+  // (1)
+  for(cnt = 0; cnt < WS2812_MAX_PIXEL_ONBOARD; ++cnt){
+      ws2812_pixel[cnt].red = WS2812_RESET_VALUE_RED;
+      ws2812_pixel[cnt].green = WS2812_RESET_VALUE_GREEN;
+      ws2812_pixel[cnt].blue = WS2812_RESET_VALUE_BLUE;
 
-	while(1){																						// (2)
+      ws2812Pixel[cnt] = RGB_TO_GRB(	ws2812_pixel[cnt].red,
+					ws2812_pixel[cnt].green,
+					ws2812_pixel[cnt].blue
+      );
+  }
 
-		ws2812_pixel[cnt].red = ((ws2812_pixel[cnt].red << 1) | WS2812_CONSTANT_VALUE_RED);			// (3)
-		ws2812_pixel[cnt].green = ((ws2812_pixel[cnt].green << 1) | WS2812_CONSTANT_VALUE_GREEN);	// (4)
-		ws2812_pixel[cnt].blue = ((ws2812_pixel[cnt].blue << 1) | WS2812_CONSTANT_VALUE_BLUE);		// (5)
+  while(1)											// (2)
+    {
 
-		ws2812Pixel[cnt] = RGB_TO_GRB(	ws2812_pixel[cnt].red,							// (6)
-										ws2812_pixel[cnt].green,
-										ws2812_pixel[cnt].blue
-										);
+      ws2812_pixel[cnt].red = ((ws2812_pixel[cnt].red << 1) | WS2812_CONSTANT_VALUE_RED);	// (3)
+      ws2812_pixel[cnt].green = ((ws2812_pixel[cnt].green << 1) | WS2812_CONSTANT_VALUE_GREEN);	// (4)
+      ws2812_pixel[cnt].blue = ((ws2812_pixel[cnt].blue << 1) | WS2812_CONSTANT_VALUE_BLUE);	// (5)
 
-		cnt++;																						// (7)
+      ws2812Pixel[cnt] = RGB_TO_GRB(	ws2812_pixel[cnt].red,					// (6)
+					ws2812_pixel[cnt].green,
+					ws2812_pixel[cnt].blue
+      );
 
-		if(cnt == WS2812_MAX_PIXEL_ONBOARD){														// (8)
-			cnt = 0;																				// (9)
-		}
+      cnt++;											// (7)
 
-		WS2812UpdatePixels( ws2812Pixel, WS2812_MAX_PIXEL_ONBOARD);					// (10)
+      if(cnt == WS2812_MAX_PIXEL_ONBOARD){							// (8)
+	  cnt = 0;										// (9)
+      }
 
-		vTaskDelay( xDelay100ms );																	// (11)
-	}
+      WS2812UpdatePixels( ws2812Pixel, WS2812_MAX_PIXEL_ONBOARD);				// (10)
+
+      vTaskDelay( xDelay100ms );								// (11)
+    }
 }
 
 /****************************************************************************************************
 *   @Brief Description:	Updating the ws2812 pixels with new values.
 *   Function Status: 	PRILIMINARY   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
 *
-*	************************************************************************************************
-*	Function Name:			WS2812UpdatePixels()
-*	Function Scope:			Global
+*************************************************************************************************
+*	Function Name:		WS2812UpdatePixels()
+*	Function Scope:		Global
 *	Function Parameters:	__IO uint32_t *colors (G R B), uint32_t numOfPixels
 *	Function Return Type:	int8_t
-*	************************************************************************************************
+*************************************************************************************************
 *	@Detailed Description: (Do numbering and tag the number to each part of code)
-*	(1) Creating semaphore for TIM3
-*	(2) Checking if the semaphore created successfully.
-*	(3) Returning pdFALSE (0) as unsuccessful creation of semaphore.
 *	(4) Enabling TIM3 in output compare mode
 *	(5) Creating a loop to go through all the ws2812 pixels
 *	(6) Uploading the selected ws2812 pixel color to a temporary variable
@@ -168,54 +170,58 @@ void _init_WS2812( void *pvParameters )
 *	(14) Waiting to give back the semaphore that we've taken.
 *	(15) Disabling TIM3
 *	(16) Returning pdTRUE (1) as of successful update of WS2812 pixels.
-*	.
-*	************************************************************************************************
+*************************************************************************************************
 *	Revision History (Description, author, date: yyyy/mm/dd)
 *
 ****************************************************************************************************/
 int8_t WS2812UpdatePixels( __IO uint32_t *colors, uint32_t numOfPixels)
 {
-	uint32_t ledIndexCnt = 0;
-	uint8_t colorBitCnt = 0;
-	__IO uint32_t tempColor = 0;
+  uint32_t ledIndexCnt = 0;
+  uint8_t colorBitCnt = 0;
+  __IO uint32_t tempColor = 0;
 
-	TIM3BinarySemaphore = xSemaphoreCreateBinary();								// (1)
+  TIM3Enable();									// (4)
 
-	if(TIM3BinarySemaphore == NULL){											// (2)
-		return pdFALSE;															// (3)
-	}
+  for(ledIndexCnt = 0; ledIndexCnt < numOfPixels; ++ledIndexCnt)		// (5)
+    {
+      tempColor = *(colors + ledIndexCnt);					// (6)
 
-	TIM3Enable();																// (4)
-
-	for(ledIndexCnt = 0; ledIndexCnt < numOfPixels; ++ledIndexCnt)				// (5)
+      for(colorBitCnt = 0; colorBitCnt < WS2812_COLOR_BITS; ++colorBitCnt)	// (7)
 	{
-		tempColor = *(colors + ledIndexCnt);									// (6)
+	  if((tempColor & (1 << 23)) == (1 << 23))				// (8)
+	    {
+	      TIM3UpdateCCR3( WS2812_T1H );					// (9)
+	    }
+	  else
+	    {
+	      TIM3UpdateCCR3( WS2812_T0H );					// (10)
+	    }
 
-		for(colorBitCnt = 0; colorBitCnt < WS2812_COLOR_BITS; ++colorBitCnt)	// (7)
+	  while(1)
+	    {
+	      if(xSemaphoreTake( TIM3BinarySemaphore, portMAX_DELAY))		// (11)
 		{
-			if((tempColor & (1 << 23)) == (1 << 23))							// (8)
-			{
-				TIM3UpdateCCR3( WS2812_T1H );									// (9)
-			}
-			else
-			{
-				TIM3UpdateCCR3( WS2812_T0H );									// (10)
-			}
-
-			xSemaphoreTake( TIM3BinarySemaphore, 0);							// (11)
+		  break;
 		}
+	    }
 	}
+    }
+  for(colorBitCnt = 0; colorBitCnt < WS2812_RES; ++colorBitCnt)			// (12)
+    {
+      TIM3UpdateCCR3( WS2812_TRES );						// (13)
 
-	for(colorBitCnt = 0; colorBitCnt < WS2812_RES; ++colorBitCnt)				// (12)
+      while(1)
 	{
-		TIM3UpdateCCR3( WS2812_TRES );											// (13)
-
-		xSemaphoreTake( TIM3BinarySemaphore, 0);								// (14)
+	  if(xSemaphoreTake( TIM3BinarySemaphore, portMAX_DELAY))		// (14)
+	    {
+	      break;
+	    }
 	}
+    }
 
-	TIM3Disable();																// (15)
+  TIM3Disable();								// (15)
 
-	return pdTRUE; 																// (16)
+  return pdTRUE; 								// (16)
 }
 
 

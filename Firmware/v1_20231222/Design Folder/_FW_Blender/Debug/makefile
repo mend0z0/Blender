@@ -65,6 +65,12 @@ default.size.stdout \
 OBJDUMP_LIST += \
 _FW_Blender.list \
 
+OBJCOPY_HEX += \
+_FW_Blender.hex \
+
+OBJCOPY_BIN += \
+_FW_Blender.bin \
+
 
 # All Target
 all: main-build
@@ -88,12 +94,22 @@ _FW_Blender.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+_FW_Blender.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "_FW_Blender.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
+_FW_Blender.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "_FW_Blender.bin"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) _FW_Blender.elf _FW_Blender.list _FW_Blender.map default.size.stdout
+	-$(RM) _FW_Blender.bin _FW_Blender.elf _FW_Blender.hex _FW_Blender.list _FW_Blender.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX) $(OBJCOPY_BIN)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'

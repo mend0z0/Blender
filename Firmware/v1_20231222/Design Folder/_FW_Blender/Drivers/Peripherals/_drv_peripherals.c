@@ -138,7 +138,7 @@ static void _init_SPDIF( void );
 *
 ****************************************************************************************************/
 void _init_Peripherals( void ){
-	_init_PWR();
+	//_init_PWR();
 	_init_RCC();
 	_init_GPIO();
 	_init_DMA();

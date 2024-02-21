@@ -1,0 +1,3 @@
+../Drivers/PAM8003/_drv_PAM8003.c:69:6:_init_PAM8003	1
+../Drivers/PAM8003/_drv_PAM8003.c:75:6:PAM8003Mute	3
+../Drivers/PAM8003/_drv_PAM8003.c:87:6:PAM8003SetVolume	3

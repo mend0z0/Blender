@@ -1,0 +1,281 @@
+/****************************************************************************************************
+*
+*   Project Name:       Blender
+*   @Brief Description: Blending audio spec with light spectrum
+*   File Status:	    PRELIMINARY   (DRAFT , PRELIMINARY, CHECKED, RELEASED)
+*
+*	File Name:	_drv_WS2812.c
+*	Version:	01
+*	Revision:	01
+*	Date:		2024/02/19
+*	License:	Open-source
+*	******************************** Project Description *******************************************
+*	@Detailed Description: The Blender project's purpose is to extract digitalized sound characteristics
+*   like amplitude and frequency, which are transferring through the S/PDIF protocol, and display the amplitude
+*   of different frequencies by the dominant color of the input VGA received signal. So the base color will be
+*   determined by VGA input, and a spectrum of that color will be displayed over/on the DMX/WS2812 chip. Also,
+*   the specification of the sound will be displayed on an OLED, and the sound will be played by a chip that has
+*   an integrated DAC in it. The data to DAC will be transferred via the I2S protocol.
+*
+*	******************************** File Description *******************************************
+*	@Detailed Description:
+*
+*
+*	*********************************  Hardware Info  **********************************************
+*   Name:       _HW_Blender
+*   Version:    v1.0
+*	*********************************  Processor Info **********************************************
+*	Processor:          STM32F446RCT6 32-Bits
+*	Clock Frequency:    180.000	MHz
+*	RAM/SRAM Size:      128.00	KBytes
+*	Flash Size:         256.00	KBytes
+*	***********************************  Case Style  ***********************************************
+*	Local Variables = camelCase			Global Variables = g_camelCase
+*	Headers = SCREAMIN_SNAKE_CASE
+*   Macros = SCREAMING_SNAKE_CASE
+*   Const Variables = SCREAMING_SNAKE_CASE
+*	Functions = PascalCase				Initialize Functions = _lower_case
+*	Struct = lower_case					Struct.members = camelCase
+*	Enum = lower_case					Enum Members = SNAKE_CASE
+*	Pointer Variables = p_camelCase
+*	*********************************** Contact Info ***********************************************
+*	Author:	Siavash Taher Parvar
+*	Github: github.com/Mend0z0
+****************************************************************************************************/
+
+/****************************************************************************************************
+****************************       HEADERS DECLARATION       ****************************************
+*****************************************************************************************************/
+#include "_drv_ws2812.h"
+
+/****************************************************************************************************
+****************************   GLOB. VARIABLES DECLARATION    ***************************************
+*****************************************************************************************************/
+
+SemaphoreHandle_t TIM3BinarySemaphore;		//The semaphore has been created in this .c file so it's the original variable.
+
+/****************************************************************************************************
+****************************   CONST VARIABLES DECLARATION    ***************************************
+*****************************************************************************************************/
+ const TickType_t xDelay100ms = pdMS_TO_TICKS( 100UL );			// Defining a 100 milliseconds delay
+ const TickType_t semaphoreWatiTime10ms = pdMS_TO_TICKS(10);	// 10msec delay for semaphore to get created, if it didn't happen immediately!
+
+ struct ws2812_color{											// Creating a structure of RGB (8/8/8) for WS2812 pixels.
+ 			uint32_t pixelColor;
+ 			uint8_t red;
+ 			uint8_t green;
+ 			uint8_t blue;
+ };
+
+/****************************************************************************************************
+***********************     STATIC/LOCAL FUNCTIONS DECLARATION      *********************************
+*****************************************************************************************************/
+uint32_t WS2812ColorConverter( uint8_t red, uint8_t green, uint8_t blue);
+
+/****************************************************************************************************
+****************************         GLOBAL FUNTIONS         ****************************************
+*****************************************************************************************************/
+
+/****************************************************************************************************
+*   @Brief Description:	Start up and standby routine for the onboard WS2812 pixels
+*   Function Status: 	PRILIMINARY   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
+*
+*	************************************************************************************************
+*	Function Name:			_init_WS2812()
+*	Function Scope:			Global
+*	Function Parameters:	void *pvParameters
+*	Function Return Type:	void
+*	************************************************************************************************
+*	@Detailed Description: (Do numbering and tag the number to each part of code)
+*	(1) Initializing the structure variables with defined reset values.
+*	(2) Creating an infinite loop to run the color patterns and the task executes.
+*	(3) Shift the color Red to the left and add a constant to the value.
+*	(4) Shift the color Green to the left and add a constant to the value.
+*	(5) Shift the color Blue to the left and add a constant to the value.
+*	(6) Uploading the pixelColor with the new colors value.
+*	(7) Adding the pixel index counter by 1
+*	(8) Check if we reached to the maximum pixel index.
+*	(9) Reset the pixel index counter to 0.
+*	(10) Updating the pixels
+*	(11) A delay of 100ms
+*	************************************************************************************************
+*	Revision History (Description, author, date: yyyy/mm/dd)
+*
+****************************************************************************************************/
+void _init_WS2812( void *pvParameters )
+{
+	uint8_t cnt = 0;
+	struct ws2812_color ws2812_pixel[WS2812_MAX_PIXEL_ONBOARD];
+
+	// (1)
+	for(cnt = 0; cnt < WS2812_MAX_PIXEL_ONBOARD; ++cnt){
+		ws2812_pixel[cnt].red = WS2812_RESET_VALUE_RED;
+		ws2812_pixel[cnt].green = WS2812_RESET_VALUE_GREEN;
+		ws2812_pixel[cnt].blue = WS2812_RESET_VALUE_BLUE;
+
+		ws2812_pixel[cnt].pixelColor = WS2812ColorConverter( 	ws2812_pixel[cnt].green,
+																ws2812_pixel[cnt].red,
+																ws2812_pixel[cnt].blue
+																);
+	}
+
+	while(1){																						// (2)
+
+		ws2812_pixel[cnt].red = ((ws2812_pixel[cnt].red << 1) | WS2812_CONSTANT_VALUE_RED);			// (3)
+		ws2812_pixel[cnt].green = ((ws2812_pixel[cnt].green << 1) | WS2812_CONSTANT_VALUE_GREEN);	// (4)
+		ws2812_pixel[cnt].blue = ((ws2812_pixel[cnt].blue << 1) | WS2812_CONSTANT_VALUE_BLUE);		// (5)
+
+		ws2812_pixel[cnt].pixelColor = WS2812ColorConverter(	ws2812_pixel[cnt].red,				// (6)
+																ws2812_pixel[cnt].green,
+																ws2812_pixel[cnt].blue
+																);
+
+		cnt++;																						// (7)
+
+		if(cnt == WS2812_MAX_PIXEL_ONBOARD){														// (8)
+			cnt = 0;																				// (9)
+		}
+
+		WS2812UpdatePixels( &ws2812_pixel[0].pixelColor, WS2812_MAX_PIXEL_ONBOARD);					// (10)
+
+		vTaskDelay( xDelay100ms );																	// (11)
+	}
+}
+
+/****************************************************************************************************
+*   @Brief Description:	Updating the ws2812 pixels with new values.
+*   Function Status: 	PRILIMINARY   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
+*
+*	************************************************************************************************
+*	Function Name:			WS2812UpdatePixels()
+*	Function Scope:			Global
+*	Function Parameters:	uint32_t *colors (G R B), uint32_t numOfPixels
+*	Function Return Type:	int8_t
+*	************************************************************************************************
+*	@Detailed Description: (Do numbering and tag the number to each part of code)
+*	(1) Creating semaphore for TIM3
+*	(2) Checking if the semaphore created successfully.
+*	(3) Returning pdFALSE (0) as unsuccessful creation of sempahore.
+*	(4) Enabling TIM3 in output compare mode
+*	(5) Creating a loop to go through all the ws2812 pixels
+*	(6) Uploading the selected ws2812 pixel color to a temporary variable
+*	(7) Creating a loop for counting bits of ws2812 pixel (which is 24) and sending out bit values one by one
+*	(8) Check if the 23rd bits is one
+*	(9) Then updating TIM3 CCR value with WS2812_T1H constant
+*	(10) Otherwise the 23rd bit is zero and we'll update TIM3 register with WS2812_T0H value
+*	(11) Waiting the ISR triggers and give back us the semaphore so we'll upload new value to TIM3 register.
+*	(12) Disabling TIM3
+*	(13) Returning pdTRUE (1) as of successful update of WS2812 pixels.
+*	.
+*	.
+*	.
+*	************************************************************************************************
+*	Revision History (Description, author, date: yyyy/mm/dd)
+*
+****************************************************************************************************/
+int8_t WS2812UpdatePixels( uint32_t *colors, uint32_t numOfPixels)
+{
+	uint32_t ledIndexCnt = 0;
+	uint8_t colorBitCnt = 0;
+	__IO uint8_t colorBits[WS2812_COLOR_BITS];
+	__IO uint32_t tempColor = 0;
+
+	TIM3BinarySemaphore = xSemaphoreCreateBinary();								// (1)
+
+	if(TIM3BinarySemaphore == NULL){											// (2)
+		return pdFALSE;															// (3)
+	}
+
+	TIM3Enable();																// (4)
+
+	for(ledIndexCnt = 0; ledIndexCnt < numOfPixels; ++ledIndexCnt)				// (5)
+	{
+		tempColor = *(colors + ledIndexCnt);									// (6)
+
+		for(colorBitCnt = 0; colorBitCnt < WS2812_COLOR_BITS; ++colorBitCnt)	// (7)
+		{
+			if((tempColor & (1 << 23)) == (1 << 23))							// (8)
+			{
+				TIM3UpdateCCR3( WS2812_T1H );									// (9)
+			}
+			else
+			{
+				TIM3UpdateCCR3( WS2812_T0H );									// (10)
+			}
+
+			xSemaphoreTake( TIM3BinarySemaphore, 0);							// (11)
+		}
+	}
+
+	TIM3Disable();																// (12)
+
+	//put a delay of 50us second. from FreeRTOS library
+
+	return pdTRUE; //as it's completed the update of string.					// (13)
+}
+
+
+/****************************************************************************************************
+****************************         STATIC FUNTIONS         ****************************************
+*****************************************************************************************************/
+
+uint32_t WS2812ColorConverter( uint8_t red, uint8_t green, uint8_t blue)
+{
+	return ((green <<  16) | (red << 8) | blue);
+}
+
+/***************************************************************************************************/
+/**********************************                             ************************************/
+/********************                     END OF THE CODE                         ******************/
+/**********************************                             ************************************/
+/***************************************************************************************************/
+
+/*                                   GLOBAL FUNCTION TEMPLATE                                      */
+
+/****************************************************************************************************
+*   @Brief Description:
+*   Function Status: 	DRAFT   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
+*
+*	************************************************************************************************
+*	Function Name:
+*	Function Scope:			Global
+*	Function Parameters:
+*	Function Return Type:
+*	************************************************************************************************
+*	@Detailed Description: (Do numbering and tag the number to each part of code)
+*	(1)
+*	(2)
+*	(3)
+*	.
+*	.
+*	.
+*	************************************************************************************************
+*	Revision History (Description, author, date: yyyy/mm/dd)
+*
+****************************************************************************************************/
+
+/*                               STATIC/LOCAL FUNCTION TEMPLATE                                    */
+
+/****************************************************************************************************
+*   @Brief Description:
+*   Function Status: 	DRAFT   (DRAFT , PRELIMINARY, CHECKED, RELEASED)
+*
+*	************************************************************************************************
+*	Function Name:
+*	Function Scope:         Local(static)
+*	Function Parameters:
+*	Function Return Type:
+*	************************************************************************************************
+*	@Detailed Description: (Do numbering and tag the number to each part of code)
+*	(1)
+*	(2)
+*	(3)
+*	.
+*	.
+*	.
+*	************************************************************************************************
+*	Revision History (Description (author, date: yyyy/mm/dd))
+*
+****************************************************************************************************/
+
+/************************************     END OF THE FILE      *************************************/

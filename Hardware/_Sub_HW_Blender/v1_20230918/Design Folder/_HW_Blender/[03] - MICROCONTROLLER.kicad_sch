@@ -2045,6 +2045,10 @@
     (effects (font (size 1.905 1.905)) (justify left bottom))
     (uuid bcc2a251-cbf2-407c-9733-e26b60954126)
   )
+  (text "Changing the NRST Circuit to a Buffer circuit..." (at 146.05 91.44 0)
+    (effects (font (size 7.62 7.62)) (justify left bottom))
+    (uuid d89ec0a7-ca2d-46f2-a42e-acbb3d79bfcc)
+  )
   (text "I've connected the 3.3V of programmer \nto the ~{NRST} pin which I think is \nrequired for reseting the MCU!\nIt didn't work without doing so!"
     (at 199.39 325.12 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))

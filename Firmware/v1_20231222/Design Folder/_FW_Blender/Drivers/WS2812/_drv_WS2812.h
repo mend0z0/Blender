@@ -101,7 +101,7 @@ void _init_WS2812( void *pvParameters );
 *	Function Parameters:	uint32_t *colors (G R B), uint32_t numOfPixels
 *	Function Return Type:	int8_t
 *	************************************************************************************************/
-int8_t WS2812UpdatePixels( uint32_t *colors, uint32_t numOfPixels);
+int8_t WS2812UpdatePixels( __IO uint32_t *colors, uint32_t numOfPixels);
 
 
 #endif /* _DRV_WS2812_H_  */

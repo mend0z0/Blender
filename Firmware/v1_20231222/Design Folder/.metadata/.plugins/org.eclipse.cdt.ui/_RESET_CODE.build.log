@@ -1,0 +1,10 @@
+16:18:40 **** Incremental Build of configuration Debug for project _RESET_CODE ****
+make -j20 all 
+arm-none-eabi-size  _RESET_CODE.elf 
+   text	   data	    bss	    dec	    hex	filename
+   6328	     20	   1572	   7920	   1ef0	_RESET_CODE.elf
+Finished building: default.size.stdout
+ 
+
+16:18:40 Build Finished. 0 errors, 0 warnings. (took 133ms)
+

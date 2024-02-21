@@ -1393,7 +1393,7 @@ static int8_t SSD1306SendCommand( uint8_t *command, uint8_t buffSize);
 /****************************************************************************************************
 ****************************         GLOBAL FUNTIONS         ****************************************
 *****************************************************************************************************/
-void _init_SSD1306( void )
+TaskFunction_t _init_SSD1306( void * const pvParameters)
 {
 	const TickType_t xDelay500ms = pdMS_TO_TICKS( 500UL );
 
@@ -1453,12 +1453,12 @@ static void SSD1306InitProcedure( void )
 	initCmd[19] = SET_DISPLAY_ON;
 
     //Keep the module in reset state
-    CLR_PIN( SSD1306_PORT_RST, SSD1306_PIN_RST);
+    CLEAR_BIT( SSD1306_PORT_RST, SSD1306_PIN_RST);
 
     vTaskDelay( xDelay500ms );
 
     //Enable the module by pulling high the reset pin.
-    SET_PIN( SSD1306_PORT_RST, SSD1306_PIN_RST);
+    SET_BIT( SSD1306_PORT_RST, SSD1306_PIN_RST);
 
     //Configure the internal registers of SSD1306
     SSD1306SendCommand( initCmd, 20);

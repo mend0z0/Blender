@@ -1,0 +1,100 @@
+/****************************************************************************************************
+*
+*   Project Name:       Blender
+*   @Brief Description: Blending audio spec with light spectrum
+*   File Status:	    PRELIMINARY   (DRAFT , PRELIMINARY, CHECKED, RELEASED)
+*
+*	File Name:	_drv_WS2812.h
+*	Version:	01
+*	Revision:	01
+*	Date:		2024/02/19
+*	License:	Open-source
+*	******************************** Project Description *******************************************
+*	@Detailed Description: The Blender project's purpose is to extract digitalized sound characteristics
+*   like amplitude and frequency, which are transferring through the S/PDIF protocol, and display the amplitude
+*   of different frequencies by the dominant color of the input VGA received signal. So the base color will be
+*   determined by VGA input, and a spectrum of that color will be displayed over/on the DMX/WS2812 chip. Also,
+*   the specification of the sound will be displayed on an OLED, and the sound will be played by a chip that has
+*   an integrated DAC in it. The data to DAC will be transferred via the I2S protocol.
+*
+*	******************************** File Description *******************************************
+*	@Detailed Description:
+*
+*
+*
+*	*********************************  Hardware Info  **********************************************
+*   Name:       _HW_Blender
+*   Version:    v1.0
+*	*********************************  Processor Info **********************************************
+*	Processor:          STM32F446RCT6 32-Bits
+*	Clock Frequency:    180.000	MHz
+*	RAM/SRAM Size:      128.00	KBytes
+*	Flash Size:         256.00	KBytes
+*	***********************************  Case Style  ***********************************************
+*	Local Variables = camelCase			Global Variables = g_camelCase
+*	Headers = SCREAMIN_SNAKE_CASE
+*   Macros = SCREAMING_SNAKE_CASE
+*   Const Variables = SCREAMING_SNAKE_CASE
+*	Functions = PascalCase				Initialize Functions = _lower_case
+*	Struct = lower_case					Struct.members = camelCase
+*	Enum = lower_case					Enum Members = SNAKE_CASE
+*	Pointer Variables = p_camelCase
+*	*********************************** Contact Info ***********************************************
+*	Author: Siavash Taher Parvar
+*	Github: www.github.com/Mend0z0
+****************************************************************************************************/
+#ifndef _DRV_WS2812_H_
+#define _DRV_WS2812_H_
+/****************************************************************************************************
+****************************       HEADERS DECLARATION       ****************************************
+*****************************************************************************************************/
+#include "main.h"
+
+/****************************************************************************************************
+****************************        MACRO DECLARATION         ***************************************
+*****************************************************************************************************/
+
+/****************************************************************************************************
+****************************   DEFINED VARIABLES DECLARATION    *************************************
+*****************************************************************************************************/
+#define	WS2812_COLOR_BITS				24U
+#define	WS2812_T0H						18U		// (0.40us)
+#define	WS2812_T1H						36U		// (0.80us)
+
+#define	WS2812_RESET_VALUE_RED			1U		//
+#define	WS2812_RESET_VALUE_GREEN		1U		//
+#define	WS2812_RESET_VALUE_BLUE			1U		//
+
+#define	WS2812_CONSTANT_VALUE_RED		0x01	//
+#define	WS2812_CONSTANT_VALUE_GREEN		0x02	//
+#define	WS2812_CONSTANT_VALUE_BLUE		0x04	//
+
+#define	WS2812_MAX_PIXEL_ONBOARD		7U		// There is 7 WS2812 on the board.
+
+/****************************************************************************************************
+**************************     GLOBAL FUNCTIONS DECLARATION      ************************************
+*****************************************************************************************************/
+
+void _init_WS2812( void *pvParameters );
+
+int8_t WS2812UpdatePixels( uint32_t *colors /*G R B*/, uint32_t numOfPixels);
+
+
+#endif /* _DRV_WS2812_H_  */
+
+/****************************************************************************************************
+*	Revision History (Description (author, date: yyyy/mm/dd))
+*
+****************************************************************************************************/
+
+/*                                 FUNCTION DECLARATION TEMPLATE                                   */
+/****************************************************************************************************
+*   @Brief Description:
+*
+*	************************************************************************************************
+*	Function Name:
+*	Function Parameters:
+*	Function Return Type:
+****************************************************************************************************/
+
+/************************************     END OF THE FILE      *************************************/

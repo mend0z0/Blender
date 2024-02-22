@@ -54,6 +54,7 @@
 #endif
 #ifndef CMSIS_device_header
 #define CMSIS_device_header "stm32f4xx.h"
+
 #endif /* CMSIS_device_header */
 
 #define configENABLE_FPU                         1
@@ -77,7 +78,9 @@
 #define configUSE_RECURSIVE_MUTEXES              1
 #define configUSE_COUNTING_SEMAPHORES            1
 #define configUSE_PORT_OPTIMISED_TASK_SELECTION  0
+
 /* USER CODE BEGIN MESSAGE_BUFFER_LENGTH_TYPE */
+
 /* Defaults to size_t for backward compatibility, but can be changed
    if lengths will always be less than the number of bytes in a size_t. */
 #define configMESSAGE_BUFFER_LENGTH_TYPE         size_t
@@ -120,18 +123,18 @@ to exclude the API function. */
 #define INCLUDE_xTaskGetCurrentTaskHandle    1
 #define INCLUDE_eTaskGetState                1
 
-  /* FreeRTOS MPU specific definitions. */
-  #define configINCLUDE_APPLICATION_DEFINED_PRIVILEGED_FUNCTIONS 0
-  #define configTOTAL_MPU_REGIONS                                8 /* Default value. */
-  #define configTEX_S_C_B_FLASH                                  0x07UL /* Default value. */
-  #define configTEX_S_C_B_SRAM                                   0x07UL /* Default value. */
-  #define configENFORCE_SYSTEM_CALLS_FROM_KERNEL_ONLY            1
-  #define configALLOW_UNPRIVILEGED_CRITICAL_SECTIONS             1
-  #define configENABLE_ERRATA_837070_WORKAROUND                  1
-  #define configUSE_MPU_WRAPPERS_V1                              0
-  #define configPROTECTED_KERNEL_OBJECT_POOL_SIZE                10
-  #define configSYSTEM_CALL_STACK_SIZE                           128
-  #define configENABLE_ACCESS_CONTROL_LIST                       1
+/* FreeRTOS MPU specific definitions. */
+#define configINCLUDE_APPLICATION_DEFINED_PRIVILEGED_FUNCTIONS 0
+#define configTOTAL_MPU_REGIONS                                8 /* Default value. */
+#define configTEX_S_C_B_FLASH                                  0x07UL /* Default value. */
+#define configTEX_S_C_B_SRAM                                   0x07UL /* Default value. */
+#define configENFORCE_SYSTEM_CALLS_FROM_KERNEL_ONLY            1
+#define configALLOW_UNPRIVILEGED_CRITICAL_SECTIONS             1
+#define configENABLE_ERRATA_837070_WORKAROUND                  1
+#define configUSE_MPU_WRAPPERS_V1                              0
+#define configPROTECTED_KERNEL_OBJECT_POOL_SIZE                10
+#define configSYSTEM_CALL_STACK_SIZE                           128
+#define configENABLE_ACCESS_CONTROL_LIST                       1
 
 
 
@@ -176,8 +179,8 @@ header file. */
 
 /* Definitions that map the FreeRTOS port interrupt handlers to their CMSIS
 standard names. */
-#define vPortSVCHandler    SVC_Handler
-#define xPortPendSVHandler PendSV_Handler
+#define vPortSVCHandler    	SVC_Handler
+#define xPortPendSVHandler 	PendSV_Handler
 
 /* IMPORTANT: After 10.3.1 update, Systick_Handler comes from NVIC (if SYS timebase = systick), otherwise from cmsis_os2.c */
 

@@ -55,51 +55,59 @@ const uint32_t SysTickInputClock = (90000000 / 8);			// The AHB output is 90MHz 
 const uint16_t DAC_CONSTANT = 40U;							// The 100% output actual constant is 40.96, but I kept it 40 for not overflowing.
 static const TickType_t semaphoreWatiTime10ms = pdMS_TO_TICKS(10);	// 10msec delay for semaphore to get created, if it didn't happen immediately!
 
+const uint32_t DMA1_Stream5_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 5;	//
+const uint32_t DMA2_Stream7_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 5;	//
+const uint32_t TIM3_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 5;		//
+const uint32_t FMPI2C1_EV_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 5;	//
+const uint32_t USART1_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 5;		//
+
 /****************************************************************************************************
 ****************************   GLOB. VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
-SemaphoreHandle_t FMPI2CBinarySemaphore = pdFALSE;			//
-SemaphoreHandle_t USART1BinarySemaphore = pdFALSE;			//
+SemaphoreHandle_t xBinarySemaphoreDMA1Stream5 = pdFALSE;	//
+SemaphoreHandle_t xBinarySemaphoreTIM3 = pdFALSE;		// The semaphore has been created in this .c file so it's the original variable.
+SemaphoreHandle_t xBinarySemaphoreFMPI2C = pdFALSE;		//
+SemaphoreHandle_t xBinarySemaphoreUSART1 = pdFALSE;		//
 
 /****************************************************************************************************
 ***********************     STATIC/LOCAL FUNCTIONS DECLARATION      *********************************
 *****************************************************************************************************/
-/*			SysTick Timer	 									*/
+/*			SysTick Timer	 						*/
 static void _init_SysTick( void );
 
-/*			Power controller 									*/
+/*			Power controller 						*/
 static void _init_PWR( void );
 
-/*			Reset and clock control 							*/
+/*			Reset and clock control 					*/
 static void _init_RCC( void );
 
-/*			General-purpose I/Os								*/
+/*			General-purpose I/Os						*/
 static void _init_GPIO( void );
 
-/*			Direct memory access controller						*/
+/*			Direct memory access controller					*/
 static void _init_DMA( void );
 static void DMAEnable( uint8_t channelNumber, uint8_t *data, uint32_t numOfTransfer);
 static void DMADisable( uint8_t channelNumber );
 
-/*			Analog-to-digital converter	1						*/
+/*			Analog-to-digital converter	1				*/
 static void _init_ADC1( void );
 
-/*			Analog-to-digital converter	2						*/
+/*			Analog-to-digital converter	2				*/
 static void _init_ADC2( void );
 
-/*			Analog-to-digital converter	3						*/
+/*			Analog-to-digital converter	3				*/
 static void _init_ADC3( void );
 
-/*			Digital-to-analog converter							*/
+/*			Digital-to-analog converter					*/
 static void _init_DAC( void );
 
-/*			Advanced-control timers (TIM1)						*/
+/*			Advanced-control timers (TIM1)					*/
 static void _init_TIM1( void );
 
-/*			General-purpose timers (TIMER2)						*/
+/*			General-purpose timers (TIMER2)					*/
 static void _init_TIM2( void );
 
-/*			General-purpose timers (TIMER3)						*/
+/*			General-purpose timers (TIMER3)					*/
 static void _init_TIM3( void );
 
 /*			Real-time clock										*/
@@ -111,10 +119,10 @@ static void _init_FMPI2C1( void );
 /*			Universal asynchronous receiver transmitter			*/
 static void _init_UART1( void );
 
-/*			Inter-IC sound										*/
+/*			Inter-IC sound							*/
 static void _init_I2S( void );
 
-/*			SPDIF receiver interface							*/
+/*			SPDIF receiver interface					*/
 static void _init_SPDIF( void );
 
 /****************************************************************************************************
@@ -141,33 +149,33 @@ void _init_Peripherals( void ){
 	//_init_PWR();
 	_init_RCC();
 	_init_GPIO();
-	_init_DMA();
-	_init_ADC1();
-	_init_ADC2();
-	_init_ADC3();
-	_init_DAC();
-	_init_TIM1();
-	_init_TIM2();
-	_init_TIM3();
-	_init_RTC();
-	_init_FMPI2C1();
-	_init_UART1();
-	_init_I2S();
-	_init_SPDIF();
+	//_init_DMA();
+	//_init_ADC1();
+	//_init_ADC2();
+	//_init_ADC3();
+	//_init_DAC();
+	//_init_TIM1();
+	//_init_TIM2();
+	//_init_TIM3();
+	//_init_RTC();
+	//_init_FMPI2C1();
+	//_init_UART1();
+	//_init_I2S();
+	//_init_SPDIF();
 	_init_SysTick();
 }
 
-/*			General-purpose I/Os								*/
+/*			General-purpose I/Os						*/
 
-/*			Digital-to-analog converter							*/
+/*			Digital-to-analog converter					*/
 
 /****************************************************************************************************
 *   @Brief Description:	Updating the DAC output value based on percents not real output voltage.
 *   Function Status: 	PRILIMINARY   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
 *
-*	************************************************************************************************
-*	Function Name:			DACUpdate()
-*	Function Scope:			Global
+*************************************************************************************************
+*	Function Name:		DACUpdate()
+*	Function Scope:		Global
 *	Function Parameters:	uint8_t dacValue (It's a percent from 0% to 100%)
 *	Function Return Type:	void
 *	************************************************************************************************
@@ -176,25 +184,27 @@ void _init_Peripherals( void ){
 *	(2) Uploading the new value into DAC1 register.
 *	(3) Update new value and this bit will clear by hardware (one APB1 clock cycle later) once
 *		the DAC_DHR1 register value has been loaded into the DAC_DOR1 register
-*	************************************************************************************************
+*************************************************************************************************
 *	Revision History (Description, author, date: yyyy/mm/dd)
 *
 ****************************************************************************************************/
 void DACUpdate( uint8_t dacValue)
 {
 	__IO uint16_t tempDACValue = dacValue * DAC_CONSTANT;	// (1)
-	DAC1->DHR12R1 = tempDACValue;							// (2)
-	DAC1->SWTRIGR |= DAC_SWTRIGR_SWTRIG1;					// (3)
+	_init_DAC();
+	DAC1->DHR12R1 = tempDACValue;				// (2)
+	DAC1->SWTRIGR |= DAC_SWTRIGR_SWTRIG1;			// (3)
 
 	//No interrupt, it'll work probably :D
 	//I can read the DAC1->DOR1 to make sure it's been registered, but maybe later...
 }
 
-/*			Analog-to-digital converter							*/
 
-/*			Advanced-control timers (TIM1)						*/
+/*			Analog-to-digital converter					*/
 
-/*			General-purpose timers (TIM3)						*/
+/*			Advanced-control timers (TIM1)					*/
+
+/*			General-purpose timers (TIM3)					*/
 
 /****************************************************************************************************
 *   @Brief Description:	Preset the TIM3 counter register and enabling the timer
@@ -215,9 +225,11 @@ void DACUpdate( uint8_t dacValue)
 ****************************************************************************************************/
 void TIM3Enable( void )
 {
-	TIM3->CNT = 0;				// (1)
-	TIM3->CR1 |= TIM_CR1_CEN;	// (2)
+  _init_TIM3();			// Init TIM3
+  TIM3->CNT = 0;		// (1)
+  TIM3->CR1 |= TIM_CR1_CEN;	// (2)
 }
+
 
 /****************************************************************************************************
 *   @Brief Description: Disable Timer3
@@ -244,24 +256,32 @@ void TIM3Disable( void )
 *   @Brief Description:	Update CCR3 register of Timer 3
 *   Function Status: 	PRILIMINARY   (DRAFT , PRILIMINARY, CHECKED, RELEASED)
 *
-*	************************************************************************************************
-*	Function Name:			TIM3UpdateCCR3()
-*	Function Scope:			Global
+*************************************************************************************************
+*	Function Name:		TIM3UpdateCCR3()
+*	Function Scope:		Global
 *	Function Parameters:	uint32_t ccrValue
 *	Function Return Type:	void
-*	************************************************************************************************
+*************************************************************************************************
 *	@Detailed Description: (Do numbering and tag the number to each part of code)
 *	(1)	Update TIM3
-*	************************************************************************************************
+*	(11) Waiting the ISR triggers and give back us the semaphore so we'll upload new value to TIM3 register.
+*************************************************************************************************
 *	Revision History (Description, author, date: yyyy/mm/dd)
 *
 ****************************************************************************************************/
 void TIM3UpdateCCR3( uint32_t ccrValue )
 {
-	TIM3->CCR3 = ccrValue;	// (1)
+  TIM3->CCR3 = ccrValue;					// (1)
+  while(1)
+    {
+      if(xSemaphoreTake( xBinarySemaphoreTIM3, portMAX_DELAY))	// (11)
+	{
+	  break;
+	}
+    }
 }
 
-/*			Real-time clock										*/
+/*			Real-time clock							*/
 
 /*			Inter-integrated circuit (I2C) interface			*/
 
@@ -301,42 +321,55 @@ void TIM3UpdateCCR3( uint32_t ccrValue )
 ****************************************************************************************************/
 int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize)
 {
-	__IO int32_t status = 0;
+  __IO int32_t status = 0;
+  BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 
-	FMPI2CBinarySemaphore = xSemaphoreCreateBinary();					// (1)
+  _init_FMPI2C1();
 
-	if(FMPI2CBinarySemaphore == NULL){									// (2)
-		status = pdFALSE;												// (3)
+  DMAEnable(DMA1_FMPI2C1_TX_EN, *data, buffSize);			// (4)
+  FMPI2C1->CR1 |= (	FMPI2C_CR1_TXIE 	| 			// (5)
+			FMPI2C_CR1_NACKIE				// (6)
+  );
+  FMPI2C1->CR2 |= ((slaveAddr & 0X7F) << 1);				// (7)
+  FMPI2C1->CR2 &= ~FMPI2C_CR2_RD_WRN;					// (8)
+  FMPI2C1->CR2 |=	FMPI2C_CR2_START;				// (9)
+
+
+  while(1)
+    {
+      if(xSemaphoreTake( xBinarySemaphoreFMPI2C, portMAX_DELAY ))		// (10)
+	{
+	  xSemaphoreGiveFromISR( xBinarySemaphoreDMA1Stream5, &xHigherPriorityTaskWoken);	// This is to inactive the taken semaphore
+	  DMADisable( DMA1_FMPI2C1_TX_DIS );					// (11)
+	  if((FMPI2C1->ISR & FMPI2C_ISR_NACKF) == FMPI2C_ISR_NACKF)
+	    {
+	      FMPI2C1->ICR |= FMPI2C_ICR_NACKCF;		 		// (13)
+	      status = FMPI2C_ERROR_NACK;				 	// (14)
+	    }
+	  else
+	    {
+	      status = FMPI2C_ERROR_UNKNOWN;					// (18)
+	    }
+	  break;
 	}
-	else{
-		DMAEnable( DMA1_FMPI2C1_TX_EN, *data, buffSize);				// (4)
-		FMPI2C1->CR1 |= FMPI2C_CR1_TXIE 	| 							// (5)
-						FMPI2C_CR1_NACKIE								// (6)
-						;
-		FMPI2C1->CR2 |= ((slaveAddr & 0X7F) << 1);						// (7)
-		FMPI2C1->CR2 &= ~FMPI2C_CR2_RD_WRN;								// (8)
-		FMPI2C1->CR2 |=	FMPI2C_CR2_START;								// (9)
-
-		xSemaphoreTake( FMPI2CBinarySemaphore, semaphoreWatiTime10ms );		// (10)
-
-		DMADisable( DMA1_FMPI2C1_TX_DIS );								// (11)
-
-		if((FMPI2C1->ISR & FMPI2C_ISR_NACKF) == FMPI2C_ISR_NACKF)		// (12)
-		{
-			FMPI2C1->ICR |= FMPI2C_ICR_NACKCF;		 					// (13)
-			status = FMPI2C_ERROR_NACK;				 					// (14)
-		}
-		else if((DMA1->HISR & DMA_HISR_TCIF5) == DMA_HISR_TCIF5)		// (15)
-		{
-			DMA1->HIFCR |= DMA_HIFCR_CTCIF5;							// (16)
-			status = (int32_t)buffSize;									// (17)
-		}
-		else{
-			status = FMPI2C_ERROR_UNKNOWN;								// (18)
-		}
+      else if(xSemaphoreTake( xBinarySemaphoreDMA1Stream5, portMAX_DELAY ))	// (xx)
+	{
+	  xSemaphoreGiveFromISR( xBinarySemaphoreFMPI2C, &xHigherPriorityTaskWoken);	// This is to inactive the taken semaphore
+	  DMADisable( DMA1_FMPI2C1_TX_DIS );					// (11)
+	  if((DMA1->HISR & DMA_HISR_TCIF5) == DMA_HISR_TCIF5)
+	    {
+	      DMA1->HIFCR |= DMA_HIFCR_CTCIF5;					// (16)
+	      status = (int32_t)buffSize;					// (17)
+	    }
+	  else
+	    {
+	      status = FMPI2C_ERROR_UNKNOWN;					// (18)
+	    }
+	  break;
 	}
+    }
 
-	return status;														// (19)
+  return status;													// (19)
 }
 
 /*			Universal asynchronous receiver transmitter			*/
@@ -373,6 +406,7 @@ int32_t UART1DataTx( uint8_t *data, uint32_t buffSize)
 {
   __IO int32_t status = 0;
 
+  _init_UART1();
 
   DMAEnable( DMA2_UART1_TX_EN, *data, buffSize);			// (4)
   USART1->CR1 |= USART_CR1_TCIE;					// (5)
@@ -392,13 +426,15 @@ int32_t UART1DataTx( uint8_t *data, uint32_t buffSize)
 	    {
 	      status = pdFALSE;						// (12)
 	    }
+	  break;
 	}
     }
   USART1->CR1 &= ~USART_CR1_UE;						// (13)
   return status;							// (14)
 }
 
-/*			Inter-IC sound										*/
+
+/*			Inter-IC sound							*/
 
 /****************************************************************************************************
 *   @Brief Description:
@@ -429,12 +465,13 @@ int8_t I2SDataTx( uint32_t *data)
 	return 0;
 }
 
-/*			SPDIF receiver interface							*/
+
+/*			SPDIF receiver interface					*/
 
 /****************************************************************************************************
 ****************************         STATIC FUNTIONS         ****************************************
 *****************************************************************************************************/
-/*			SysTick Timer	 									*/
+/*			SysTick Timer	 						*/
 
 /****************************************************************************************************
 *   @Brief Description: Init Systick peripheral with clock value
@@ -455,9 +492,11 @@ int8_t I2SDataTx( uint32_t *data)
 static void _init_SysTick( void )
 {
 	SysTick_Config(SysTickInputClock / 1000);		// (1)
+	NVIC_EnableIRQ(SysTick_IRQn);				// Enable Interrupts.
 }
 
-/*			Power controller 									*/
+
+/*			Power controller 						*/
 
 /****************************************************************************************************
 *   @Brief Description:	Configure the power peripheral.
@@ -496,7 +535,8 @@ static void _init_PWR( void )
 	}
 }
 
-/*			Reset and clock control 							*/
+
+/*			Reset and clock control 					*/
 
 /****************************************************************************************************
 *   @Brief Description: Initialize and config the RCC peripheral.
@@ -551,65 +591,67 @@ static void _init_PWR( void )
 ****************************************************************************************************/
 static void _init_RCC( void )
 {
-	////--------------Enabling the HSE
-	RCC->CR |= RCC_CR_HSEON;								// (1)
-	while((RCC->CR & RCC_CR_HSERDY) == 0)					// (2)
-	{
-		//maybe add a time out later
-	}
+  ////--------------Enabling the HSE
+  RCC->CR |= RCC_CR_HSEON;				// (1)
+  while((RCC->CR & RCC_CR_HSERDY) == 0)			// (2)
+    {
+      //maybe add a time out later
+    }
 
-	////--------------Configuration for PLLs
-	RCC->PLLCFGR |= RCC_PLLCFGR_PLLSRC;						// (3)
+  ////--------------Configuration for PLLs
+  RCC->PLLCFGR |= RCC_PLLCFGR_PLLSRC;			// (3)
 
-	RCC->PLLCFGR |= ((	RCC_PLLCFGR_PLLN_2 	|				// (4)
-						RCC_PLLCFGR_PLLN_4 	|
-						RCC_PLLCFGR_PLLN_5 	|
-						RCC_PLLCFGR_PLLN_7) |
-						RCC_PLLCFGR_PLLM_3);
+  RCC->PLLCFGR |= ((	RCC_PLLCFGR_PLLN_2 	|	// (4)
+			RCC_PLLCFGR_PLLN_4 	|
+			RCC_PLLCFGR_PLLN_5 	|
+			RCC_PLLCFGR_PLLN_7) |
+			RCC_PLLCFGR_PLLM_3
+  );
 
-	RCC->PLLCFGR |= RCC_PLLCFGR_PLLR_1;						// (5)
+  RCC->PLLCFGR |= RCC_PLLCFGR_PLLR_1;			// (5)
 
-	RCC->CR |= RCC_CR_PLLON;								// (6)
-	while((RCC->CR & RCC_CR_PLLRDY) == 0)					// (7)
-	{
-		//maybe add a time out later
-	}
+  RCC->CR |= RCC_CR_PLLON;				// (6)
+  while((RCC->CR & RCC_CR_PLLRDY) == 0)			// (7)
+    {
+      //maybe add a time out later
+    }
 
-	RCC->CFGR |= RCC_CFGR_SW_1;								// (8)
-	while((RCC->CFGR & RCC_CFGR_SWS_1) != RCC_CFGR_SWS_1)	// (9)
-	{
-		//maybe add a time out later
-	}
+  RCC->CFGR |= RCC_CFGR_SW_1;				// (8)
+  while((RCC->CFGR & RCC_CFGR_SWS_1) != RCC_CFGR_SWS_1)	// (9)
+    {
+      //maybe add a time out later
+    }
 
-	RCC->CFGR |= RCC_CFGR_HPRE_3;							// (10)
-	RCC->CFGR |= RCC_CFGR_PPRE1_0 | RCC_CFGR_PPRE1_2; 		// (11)
-	RCC->CFGR |= RCC_CFGR_PPRE2_2;							// (12)
+  RCC->CFGR |= RCC_CFGR_HPRE_3;				// (10)
+  RCC->CFGR |= RCC_CFGR_PPRE1_0 | RCC_CFGR_PPRE1_2; 	// (11)
+  RCC->CFGR |= RCC_CFGR_PPRE2_2;			// (12)
 
 
-	RCC->AHB1ENR |= (	RCC_AHB1ENR_GPIOAEN |				// (13)
-						RCC_AHB1ENR_GPIOBEN |				// (14)
-						RCC_AHB1ENR_GPIOCEN |				// (15)
-						RCC_AHB1ENR_GPIODEN					// (16)
-					);
-	;
-	RCC->AHB1ENR |= (	RCC_AHB1ENR_DMA1EN	| 				// (17)
-					 	RCC_AHB1ENR_DMA2EN					// (18)
-					);
-	//RCC->APB2ENR |= RCC_APB2ENR_ADC1EN;					// (19)
-	//RCC->APB2ENR |= RCC_APB2ENR_ADC2EN;					// (20)
-	//RCC->APB2ENR |= RCC_APB2ENR_ADC3EN;					// (21)
-	RCC->APB1ENR |= RCC_APB1ENR_DACEN;						// (22)
-	RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;						// (23)
-	RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;						// (24)
-	RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;						// (25)
-	RCC->APB1ENR |= RCC_APB1ENR_FMPI2C1EN;					// (26)
-	RCC->APB2ENR |= RCC_APB2ENR_USART1EN;					// (27)
-	RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;						// (28)
-	RCC->DCKCFGR2 &= ~RCC_DCKCFGR2_SPDIFRXSEL;				// (29)
-	RCC->APB1ENR |= RCC_APB1ENR_SPDIFRXEN;					// (30)
+  RCC->AHB1ENR |= (	RCC_AHB1ENR_GPIOAEN |		// (13)
+			RCC_AHB1ENR_GPIOBEN |		// (14)
+			RCC_AHB1ENR_GPIOCEN |		// (15)
+			RCC_AHB1ENR_GPIODEN		// (16)
+  );
+
+  RCC->AHB1ENR |= (	RCC_AHB1ENR_DMA1EN	| 	// (17)
+			RCC_AHB1ENR_DMA2EN		// (18)
+  );
+  //RCC->APB2ENR |= RCC_APB2ENR_ADC1EN;			// (19)
+  //RCC->APB2ENR |= RCC_APB2ENR_ADC2EN;			// (20)
+  //RCC->APB2ENR |= RCC_APB2ENR_ADC3EN;			// (21)
+  RCC->APB1ENR |= RCC_APB1ENR_DACEN;			// (22)
+  RCC->APB2ENR |= RCC_APB2ENR_TIM1EN;			// (23)
+  RCC->APB1ENR |= RCC_APB1ENR_TIM2EN;			// (24)
+  RCC->APB1ENR |= RCC_APB1ENR_TIM3EN;			// (25)
+  RCC->APB1ENR |= RCC_APB1ENR_FMPI2C1EN;		// (26)
+  RCC->APB2ENR |= RCC_APB2ENR_USART1EN;			// (27)
+  RCC->APB2ENR |= RCC_APB2ENR_SPI1EN;			// (28)
+  RCC->DCKCFGR2 &= ~RCC_DCKCFGR2_SPDIFRXSEL;		// (29)
+  RCC->APB1ENR |= RCC_APB1ENR_SPDIFRXEN;		// (30)
 }
 
-/*			General-purpose I/Os								*/
+
+/*			General-purpose I/Os						*/
 
 /****************************************************************************************************
 *   @Brief Description:	Configure the pins of each GPIO port.
@@ -686,80 +728,81 @@ static void _init_RCC( void )
 ****************************************************************************************************/
 static void _init_GPIO( void )
 {
-	/*		MODER REGs		*/
-	GPIOA->MODER |= (	GPIO_MODER_MODER4_0  | GPIO_MODER_MODER4_1 |							// (1)
-						GPIO_MODER_MODER6_0  |													// (2)
-						GPIO_MODER_MODER0_0  | GPIO_MODER_MODER0_1 |  							// (3)
-						GPIO_MODER_MODER1_0  | GPIO_MODER_MODER1_1 |  							// (4)
-						GPIO_MODER_MODER2_0  | GPIO_MODER_MODER2_1 |  							// (5)
-						GPIO_MODER_MODER9_1  |													// (6)
-						GPIO_MODER_MODER10_1 |													// (7)
-						GPIO_MODER_MODER3_1  |													// (8)
-						GPIO_MODER_MODER5_1  |													// (9)
-						GPIO_MODER_MODER15_1													// (10)
-					);
+  /*		MODER REGs		*/
+  GPIOA->MODER |= (	GPIO_MODER_MODER4_0  | GPIO_MODER_MODER4_1 |				// (1)
+			GPIO_MODER_MODER6_0  |							// (2)
+			GPIO_MODER_MODER0_0  | GPIO_MODER_MODER0_1 |  				// (3)
+			GPIO_MODER_MODER1_0  | GPIO_MODER_MODER1_1 |  				// (4)
+			GPIO_MODER_MODER2_0  | GPIO_MODER_MODER2_1 |  				// (5)
+			GPIO_MODER_MODER9_1  |							// (6)
+			GPIO_MODER_MODER10_1 |							// (7)
+			GPIO_MODER_MODER3_1  |							// (8)
+			GPIO_MODER_MODER5_1  |							// (9)
+			GPIO_MODER_MODER15_1							// (10)
+  );
 
-	GPIOB->MODER |= (	GPIO_MODER_MODER13_0 |													// (11)
-						GPIO_MODER_MODER14_0 |													// (12)
-						GPIO_MODER_MODER15_0 |													// (13)
-						GPIO_MODER_MODER3_1  |													// (14)
-						GPIO_MODER_MODER5_1  |													// (15)
-						GPIO_MODER_MODER0_1	 |													// (16)
-						GPIO_MODER_MODER1_1  |													// (17)
-						GPIO_MODER_MODER7_1	 													// (18)
-					);
+  GPIOB->MODER |= (	GPIO_MODER_MODER13_0 |							// (11)
+			GPIO_MODER_MODER14_0 |							// (12)
+			GPIO_MODER_MODER15_0 |							// (13)
+			GPIO_MODER_MODER3_1  |							// (14)
+			GPIO_MODER_MODER5_1  |							// (15)
+			GPIO_MODER_MODER0_1  |							// (16)
+			GPIO_MODER_MODER1_1  |							// (17)
+			GPIO_MODER_MODER7_1	 						// (18)
+  );
 
-	GPIOC->MODER |= (	GPIO_MODER_MODER0_0  |													// (19)
-						GPIO_MODER_MODER8_0  |													// (20)
-						GPIO_MODER_MODER9_0  |													// (21)
-						GPIO_MODER_MODER4_1  |													// (22)
-						GPIO_MODER_MODER6_1	 |													// (23)
-						GPIO_MODER_MODER7_1														// (24)
-					);
+  GPIOC->MODER |= (	GPIO_MODER_MODER0_0  |							// (19)
+			GPIO_MODER_MODER8_0  |							// (20)
+			GPIO_MODER_MODER9_0  |							// (21)
+			GPIO_MODER_MODER4_1  |							// (22)
+			GPIO_MODER_MODER6_1	 |						// (23)
+			GPIO_MODER_MODER7_1							// (24)
+  );
 
-	GPIOD->MODER |= GPIO_MODER_MODER2_0;														// (25)
+  GPIOD->MODER |= GPIO_MODER_MODER2_0;								// (25)
 
-	/*		OSPEEDR	REGs	*/
-	GPIOA->OSPEEDR |=	(	GPIO_OSPEEDR_OSPEED3_0	|											// (26)
-							GPIO_OSPEEDR_OSPEED5_0	|											// (27)
-							GPIO_OSPEEDR_OSPEED15_0												// (28)
-						);
+  /*		OSPEEDR	REGs	*/
+  GPIOA->OSPEEDR |= (	GPIO_OSPEEDR_OSPEED3_0	|						// (26)
+			GPIO_OSPEEDR_OSPEED5_0	|						// (27)
+			GPIO_OSPEEDR_OSPEED15_0							// (28)
+  );
 
-	GPIOB->OSPEEDR |=	(	GPIO_OSPEEDR_OSPEED3_0	|											// (29)
-							GPIO_OSPEEDR_OSPEED5_0	|											// (30)
-							GPIO_OSPEEDR_OSPEED0_0	|											// (31)
-							GPIO_OSPEEDR_OSPEED1_0	|											// (32)
-							GPIO_OSPEEDR_OSPEED7_0												// (33)
-						);
-	/*		AFRL REGs		*/
-	GPIOA->AFR[0] |= 	(	GPIO_AFRL_AFSEL3_0   |												// (34)
-							GPIO_AFRL_AFSEL5_0	 												// (35)
-						);
+  GPIOB->OSPEEDR |= (	GPIO_OSPEEDR_OSPEED3_0	|						// (29)
+			GPIO_OSPEEDR_OSPEED5_0	|						// (30)
+			GPIO_OSPEEDR_OSPEED0_0	|						// (31)
+			GPIO_OSPEEDR_OSPEED1_0	|						// (32)
+			GPIO_OSPEEDR_OSPEED7_0							// (33)
+  );
+  /*		AFRL REGs		*/
+  GPIOA->AFR[0] |= (	GPIO_AFRL_AFSEL3_0   |							// (34)
+			GPIO_AFRL_AFSEL5_0	 						// (35)
+  );
 
-	GPIOA->AFR[1] |= 	(	(GPIO_AFRH_AFSEL9_0  | GPIO_AFRH_AFSEL9_1 | GPIO_AFRH_AFSEL9_2) |	// (36)
-							(GPIO_AFRH_AFSEL10_0 | GPIO_AFRH_AFSEL10_1 | GPIO_AFRH_AFSEL10_2) |	// (37)
-							(GPIO_AFRH_AFSEL15_0 | GPIO_AFRH_AFSEL15_2)							// (38)
-						);
+  GPIOA->AFR[1] |= (	(GPIO_AFRH_AFSEL9_0  | GPIO_AFRH_AFSEL9_1 | GPIO_AFRH_AFSEL9_2) |	// (36)
+			(GPIO_AFRH_AFSEL10_0 | GPIO_AFRH_AFSEL10_1 | GPIO_AFRH_AFSEL10_2) |	// (37)
+			(GPIO_AFRH_AFSEL15_0 | GPIO_AFRH_AFSEL15_2)				// (38)
+  );
 
-	GPIOB->AFR[0] |= 	(	(GPIO_AFRL_AFSEL3_0 | GPIO_AFRL_AFSEL3_2) |							// (39)
-							(GPIO_AFRL_AFSEL5_0 | GPIO_AFRL_AFSEL5_2) |							// (40)
-							GPIO_AFRL_AFSEL0_1 	|												// (41)
-							GPIO_AFRL_AFSEL1_1 	|												// (42)
-							GPIO_AFRL_AFSEL7_3													// (43)
-						);
+  GPIOB->AFR[0] |= (	(GPIO_AFRL_AFSEL3_0 | GPIO_AFRL_AFSEL3_2) |				// (39)
+			(GPIO_AFRL_AFSEL5_0 | GPIO_AFRL_AFSEL5_2) |				// (40)
+			GPIO_AFRL_AFSEL0_1 	|						// (41)
+			GPIO_AFRL_AFSEL1_1 	|						// (42)
+			GPIO_AFRL_AFSEL7_3							// (43)
+  );
 
-	GPIOC->AFR[0] |= 	(	GPIO_AFRL_AFSEL6_2	|												// (44)
-							GPIO_AFRL_AFSEL7_2													// (45)
-						);
+  GPIOC->AFR[0] |= (	GPIO_AFRL_AFSEL6_2	|						// (44)
+			GPIO_AFRL_AFSEL7_2							// (45)
+  );
 
-	/*	RESET VALUE	*/
-	GPIOA->ODR = 0;																				// (46)
-	GPIOB->ODR = 0;																				// (47)
-	GPIOC->ODR = 0;																				// (48)
-	GPIOD->ODR = 0;																				// (49)
+  /*	RESET VALUE	*/
+  GPIOA->ODR = 0;																				// (46)
+  GPIOB->ODR = 0;																				// (47)
+  GPIOC->ODR = 0;																				// (48)
+  GPIOD->ODR = 0;																				// (49)
 }
 
-/*			Direct memory access controller						*/
+
+/*			Direct memory access controller					*/
 
 /****************************************************************************************************
 *   @Brief Description: Initialize DMA peripheral
@@ -794,31 +837,46 @@ static void _init_GPIO( void )
 ****************************************************************************************************/
 static void _init_DMA( void )
 {
-	// (1)
-	DMA1_Stream5->CR |= (	DMA_SxCR_CHSEL_1 |						// (2)
-							DMA_SxCR_MINC	 |						// (3)
-							DMA_SxCR_DIR_0	 |						// (4)
-							DMA_SxCR_PFCTRL							// (5)
-						);
+  static bool initFlag = pdFALSE;	// To check if it's already initialized!
+  if(initFlag == pdTRUE)		// if it's been initialized
+    {
+      return;				// simply return from the function
+    }
+  // (1)
+  DMA1_Stream5->CR |= (	DMA_SxCR_CHSEL_1 |				// (2)
+			DMA_SxCR_MINC	 |				// (3)
+			DMA_SxCR_DIR_0	 |				// (4)
+			DMA_SxCR_PFCTRL					// (5)
+  );
 
-	DMA1_Stream5->PAR = &FMPI2C1->TXDR;								// (6)
+  DMA1_Stream5->PAR = &FMPI2C1->TXDR;					// (6)
+  NVIC_SetPriority(DMA1_Stream5_IRQn	, DMA1_Stream5_IRQ_PRIORITY);	// Set Interrupts priority.
+  NVIC_EnableIRQ(DMA1_Stream5_IRQn);					// Enable Required Interrupts.
+  /check nvic grouping as well...
 
-	DMA2_Stream7->CR |= (	DMA_SxCR_CHSEL_2 |						// (7)
-							DMA_SxCR_MINC	 |						// (8)
-							DMA_SxCR_DIR_0	 |						// (9)
-							DMA_SxCR_PFCTRL	 						// (10)
-						);
+  xBinarySemaphoreDMA1Stream5 = xSemaphoreCreateBinary();		//
 
-	DMA2_Stream7->PAR = &USART1->DR;								// (11)
+  DMA2_Stream7->CR |= (	DMA_SxCR_CHSEL_2 |				// (7)
+			DMA_SxCR_MINC	 |				// (8)
+			DMA_SxCR_DIR_0	 |				// (9)
+			DMA_SxCR_PFCTRL	 				// (10)
+  );
+
+  DMA2_Stream7->PAR = &USART1->DR;					// (11)
+  NVIC_SetPriority(DMA2_Stream7_IRQn	, DMA2_Stream67_IRQ_PRIORITY);	// Set Interrupts priority.
+  NVIC_EnableIRQ(DMA2_Stream7_IRQn);					// Enable Required Interrupts.
+  /check nvic grouping as well...
 
 
-	DMA2_Stream3->CR |= (	DMA_SxCR_CHSEL_0 | DMA_SxCR_CHSEL_1 |	// (12)
-							DMA_SxCR_MINC	 |						// (13)
-							DMA_SxCR_DIR_0	 |						// (14)
-							DMA_SxCR_PFCTRL	 						// (15)
-						);
+  DMA2_Stream3->CR |= (	DMA_SxCR_CHSEL_0 | DMA_SxCR_CHSEL_1 |		// (12)
+			DMA_SxCR_MINC	 |				// (13)
+			DMA_SxCR_DIR_0	 |				// (14)
+			DMA_SxCR_PFCTRL	 				// (15)
+  );
 
-	DMA2_Stream3->PAR = &SPI1->DR;									// (16)
+  DMA2_Stream3->PAR = &SPI1->DR;					// (16)
+
+  initFlag = pdTRUE;
 }
 
 /****************************************************************************************************
@@ -850,34 +908,34 @@ static void _init_DMA( void )
 ****************************************************************************************************/
 static void DMAEnable( uint8_t channelNumber, uint8_t *data, uint32_t numOfTransfer)
 {
-	switch (channelNumber)
-	{
-	case DMA1_FMPI2C1_TX_EN:
-		DMA1_Stream5->M0AR = *data;					// (1)
-		DMA1_Stream5->NDTR = numOfTransfer;			// (2)
-		DMA1_Stream5->CR |= (	DMA_SxCR_EN 	|	// (3)
-								DMA_SxCR_TCIE		// (4)
-							);
-		break;
-	case DMA2_UART1_TX_EN:
-		DMA2_Stream7->M0AR = *data;					// (5)
-		DMA2_Stream7->NDTR = numOfTransfer;			// (6)
-		DMA2_Stream7->CR |= (	DMA_SxCR_EN		|	// (7)
-								DMA_SxCR_TCIE		// (8)
-							);
-		break;
-	case DMA2_SPI1_TX_EN:
-		DMA2_Stream3->M0AR = *data;					// (9)
-		DMA2_Stream3->NDTR = numOfTransfer;			// (10)
-		DMA2_Stream3->CR |= (	DMA_SxCR_EN		|	// (11)
-								DMA_SxCR_TCIE		// (12)
-							);
-		break;
-	default:
-		break;
+  _init_DMA();
+  switch (channelNumber)
+  {
+    case DMA1_FMPI2C1_TX_EN:
+      DMA1_Stream5->M0AR = *data;			// (1)
+      DMA1_Stream5->NDTR = numOfTransfer;		// (2)
+      DMA1_Stream5->CR |= (	DMA_SxCR_EN 	|	// (3)
+				DMA_SxCR_TCIE		// (4)
+      );
+      break;
+    case DMA2_UART1_TX_EN:
+      DMA2_Stream7->M0AR = *data;			// (5)
+      DMA2_Stream7->NDTR = numOfTransfer;		// (6)
+      DMA2_Stream7->CR |= (	DMA_SxCR_EN	|	// (7)
+				DMA_SxCR_TCIE		// (8)
+      );
+      break;
+    case DMA2_SPI1_TX_EN:
+      DMA2_Stream3->M0AR = *data;			// (9)
+      DMA2_Stream3->NDTR = numOfTransfer;		// (10)
+      DMA2_Stream3->CR |= (	DMA_SxCR_EN	|	// (11)
+				DMA_SxCR_TCIE		// (12)
+      );
+      break;
+    default:
+      break;
 
-	}
-
+  }
 }
 
 /****************************************************************************************************
@@ -900,42 +958,42 @@ static void DMAEnable( uint8_t channelNumber, uint8_t *data, uint32_t numOfTrans
 ****************************************************************************************************/
 static void DMADisable( uint8_t channelNumber )
 {
-	switch (channelNumber)
-	{
-	case DMA1_FMPI2C1_TX_DIS:
-		DMA1_Stream5->CR &= ~DMA_SxCR_EN;		// (1)
-		break;
-	case DMA2_UART1_TX_DIS:
-		DMA2_Stream7->CR &= ~DMA_SxCR_EN;		// (2)
-		break;
-	case DMA2_SPI1_TX_DIS:
-		DMA2_Stream3->CR &= ~DMA_SxCR_EN;		// (3)
-		break;
-	default:
-		break;
+  switch (channelNumber)
+  {
+    case DMA1_FMPI2C1_TX_DIS:
+      DMA1_Stream5->CR &= ~DMA_SxCR_EN;		// (1)
+      break;
+    case DMA2_UART1_TX_DIS:
+      DMA2_Stream7->CR &= ~DMA_SxCR_EN;		// (2)
+      break;
+    case DMA2_SPI1_TX_DIS:
+      DMA2_Stream3->CR &= ~DMA_SxCR_EN;		// (3)
+      break;
+    default:
+      break;
 
-	}
+  }
 }
 
-/*			Analog-to-digital converter	1						*/
+/*			Analog-to-digital converter	1				*/
 static void _init_ADC1( void )
 {
 
 }
 
-/*			Analog-to-digital converter	2						*/
+/*			Analog-to-digital converter	2				*/
 static void _init_ADC2( void )
 {
 
 }
 
-/*			Analog-to-digital converter	3						*/
+/*			Analog-to-digital converter	3				*/
 static void _init_ADC3( void )
 {
 
 }
 
-/*			Digital-to-analog converter							*/
+/*			Digital-to-analog converter					*/
 
 /****************************************************************************************************
 *   @Brief Description: Initialize and turn the DAC on.
@@ -957,25 +1015,40 @@ static void _init_ADC3( void )
 ****************************************************************************************************/
 static void _init_DAC( void )
 {
-	//There is not much of configuration, but the DAC will trigger by software.
-	DAC1->CR |= DAC_CR_EN1;					// (1)
-	DAC1->DHR12R1 = 0;						// (2)
-	DAC1->SWTRIGR |= DAC_SWTRIGR_SWTRIG1;	// (3)
+  static bool initFlag = pdFALSE;
+  if(initFlag == pdTRUE)
+    {
+      return;
+    }
+
+  //There is not much of configuration, but the DAC will trigger by software.
+  DAC1->CR |= DAC_CR_EN1;		// (1)
+  DAC1->DHR12R1 = 0;			// (2)
+  DAC1->SWTRIGR |= DAC_SWTRIGR_SWTRIG1;	// (3)
+
+  initFlag = pdTRUE;
 }
 
-/*			Advanced-control timers (TIM1)						*/
+/*			Advanced-control timers (TIM1)					*/
 static void _init_TIM1( void )
 {
+  static bool initFlag = pdFALSE;
+  if(initFlag == pdTRUE)
+    {
+      return;
+    }
+  /* start of code!  */
 
+  initFlag = pdTRUE;
 }
 
-/*			General-purpose timers (TIMER2)						*/
+/*			General-purpose timers (TIMER2)					*/
 static void _init_TIM2( void )
 {
 
 }
 
-/*			General-purpose timers (TIMER3)						*/
+/*			General-purpose timers (TIMER3)					*/
 
 /****************************************************************************************************
 *   @Brief Description: Init TIM3
@@ -995,12 +1068,19 @@ static void _init_TIM2( void )
 *	(5) Initializing with 0 as compare value. Technically turning it off.
 *	(6) Only counter overflow/underflow will generate an update request
 *	(7) Update Interrupt Enable.
+*	(1) Creating semaphore for TIM3
 *************************************************************************************************
 *	Revision History (Description (author, date: yyyy/mm/dd))
 *
 ****************************************************************************************************/
 static void _init_TIM3( void )
 {
+  static bool initFlag = pdFALSE;
+  if(initFlag == pdTRUE)
+    {
+      return;
+    }
+
   TIM3->CCMR2 |= (TIM_CCMR2_OC3M_0 | TIM_CCMR2_OC3M_1 |		// (1)
 		  TIM_CCMR2_OC3PE				// (2)
   );
@@ -1010,6 +1090,14 @@ static void _init_TIM3( void )
   TIM3->CCR3 = 0;												// (5)
   TIM3->CR1 |= TIM_CR1_URS;					// (6)
   TIM3->DIER |= TIM_DIER_UIE;					// (7)
+
+  NVIC_SetPriority( TIM3_IRQn, TIM3_IRQ_PRIORITY);		// Set Interrupts priority.
+  NVIC_EnableIRQ(TIM3_IRQn);					// Enable Required Interrupts.
+  //check nvic grouping as well...
+
+  xBinarySemaphoreTIM3 = xSemaphoreCreateBinary();		// (1)
+
+  initFlag = pdTRUE;
 }
 
 /*			Real-time clock										*/
@@ -1049,24 +1137,38 @@ static void _init_RTC( void )
 ****************************************************************************************************/
 static void _init_FMPI2C1( void )
 {
-	//Setting the clock to 400KHz
-	FMPI2C1->TIMINGR |= (	(10 << 28) 	|				// (1)
-							(1 << 20) 	| 				// (2)
-							(1 << 16) 	| 				// (3)
-							(1 << 8) 	|				// (4)
-							(4 << 0)					// (5)
-						);
+  static bool initFlag = pdFALSE;
+  if(initFlag == pdTRUE)
+    {
+      return;
+    }
 
-	FMPI2C1->CR2 |= FMPI2C_CR2_RELOAD;					// (6)
-	FMPI2C1->CR2 |= (1 << FMPI2C_CR2_NBYTES_Pos);		// (7)
+  //Setting the clock to 400KHz
+  FMPI2C1->TIMINGR |= (	(10 << 28) 	|		// (1)
+			(1 << 20) 	| 		// (2)
+			(1 << 16) 	| 		// (3)
+			(1 << 8) 	|		// (4)
+			(4 << 0)			// (5)
+  );
 
-	//Enable interrupts
-	FMPI2C1->CR1 |= (	FMPI2C_CR1_TCIE 	| 			// (8)
-						FMPI2C_CR1_ERRIE 	| 			// (9)
-						FMPI2C_CR1_NACKIE				// (10)
-					);
+  FMPI2C1->CR2 |= FMPI2C_CR2_RELOAD;			// (6)
+  FMPI2C1->CR2 |= (1 << FMPI2C_CR2_NBYTES_Pos);		// (7)
 
-	FMPI2C1->CR1 |= FMPI2C_CR1_PE;						// (11)
+  //Enable interrupts
+  FMPI2C1->CR1 |= (	FMPI2C_CR1_TCIE 	| 	// (8)
+			FMPI2C_CR1_ERRIE 	| 	// (9)
+			FMPI2C_CR1_NACKIE		// (10)
+  );
+
+  FMPI2C1->CR1 |= FMPI2C_CR1_PE;			// (11)
+
+  NVIC_SetPriority(FMPI2C1_EV_IRQn	, FMPI2C1_EV_IRQ_PRIORITY);	// Set Interrupts priority.
+  NVIC_EnableIRQ(FMPI2C1_EV_IRQn);					// Enable Required Interrupts.
+  /check nvic grouping as well...
+
+  xBinarySemaphoreFMPI2C = xSemaphoreCreateBinary();					// (1)
+
+   initFlag = pdTRUE;
 }
 
 /*			Universal asynchronous receiver transmitter			*/
@@ -1093,12 +1195,24 @@ static void _init_FMPI2C1( void )
 ****************************************************************************************************/
 static void _init_UART1( void )
 {
+  static bool initFlag = pdFALSE;
+  if(initFlag == pdTRUE)
+    {
+      return;
+    }
+
   USART1->BRR |= (0X16 << 4);				// (1)
   USART1->CR2 |= USART_CR2_STOP_1;			// (2)
   USART1->CR3 |= USART_CR3_DMAT;			// (3)
   USART1->CR1 |= USART_CR1_TE;				// (4)
-  USART1BinarySemaphore = xSemaphoreCreateBinary();	// (1)
+  NVIC_SetPriority(USART1_IRQn, USART1_IRQ_PRIORITY);	// Set Interrupts priority.
+  NVIC_EnableIRQ(USART1_IRQn);				// Enable Required Interrupts.
+  /check nvic grouping as well...
+
+  xBinarySemaphoreUSART1 = xSemaphoreCreateBinary();	// (1)
   //xSemaphoreGive(USART1BinarySemaphore);		//once the binary semaphore is created with vSemaphore.. we should give the semaphore first.
+
+  initFlag = pdTRUE;
 }
 
 /*			Inter-IC sound										*/
@@ -1126,14 +1240,21 @@ static void _init_UART1( void )
 ****************************************************************************************************/
 static void _init_I2S( void )
 {
-	//audio freq. sample =
-	//Master mode
-	//Data format = 16-bit right justified
-	//Packet frame = ?
-	//Clock polarity = ?
+  static bool initFlag = pdFALSE;
+  if(initFlag == pdTRUE)
+    {
+      return;
+    }
+  //audio freq. sample =
+  //Master mode
+  //Data format = 16-bit right justified
+  //Packet frame = ?
+  //Clock polarity = ?
+
+  initFlag = pdTRUE;
 }
 
-/*			SPDIF receiver interface							*/
+/*			SPDIF receiver interface					*/
 
 /****************************************************************************************************
 *   @Brief Description: Init SPDIF
@@ -1158,12 +1279,20 @@ static void _init_I2S( void )
 ****************************************************************************************************/
 static void _init_SPDIF( void )
 {
-	//we need DMA
-	/*
-	 * 	Connect the SPDIFRX_IN input to an external interrupt event block in order to detect
+  static bool initFlag = pdFALSE;
+  if(initFlag == pdTRUE)
+    {
+      return;
+    }
+  //we need DMA
+  /*
+   * 	Connect the SPDIFRX_IN input to an external interrupt event block in order to detect
 		transitions of SPDIFRX_IN line. When activity is detected, then SPDIFRXEN can be
 		set to 01 or 11.
-	 */
+   */
+
+  initFlag = pdTRUE;
+  initFlag = pdTRUE;
 }
 
 /************************************     END OF THE FILE      *************************************/

@@ -55,6 +55,7 @@
 /****************************************************************************************************
 ****************************   CONST VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
+const uint32_t LED_IND_DELAY = 1000;			// This is 1000 milliseconds
 
 /****************************************************************************************************
 ***********************     STATIC/LOCAL FUNCTIONS DECLARATION      *********************************
@@ -111,7 +112,36 @@ int main(void)
     }
 }
 
+/*************************************************************************************************
+*	@Detailed Description: (Do numbering and tag the number to each part of code)
+*	(1) Decrement the ledIndCnt by 1. (it'll be decrement 1 every 1 millisecond).
+*	(2) Check if the ledIndCnt got 0?
+*	(3) Update the ledIndCnt value to the preset delay time
+*	(4) If the output was set.
+*	(5) Then clear it
+*	(6) Otherwise set it (kind of toggling)
+*************************************************************************************************
+*	Revision History (Description (author, date: yyyy/mm/dd))
+*
+****************************************************************************************************/
+void defaultTask( void )
+{
+  static uint32_t ledIndCnt = LED_IND_DELAY;	// This is a counter to toggle the LED once it's it's underflowed.
 
+  ledIndCnt--;					// (1)
+  if(ledIndCnt == 0)				// (2)
+    {
+      ledIndCnt = LED_IND_DELAY;		// (3)
+      if(READ_BIT(LED_IND_PORT, LED_IND_PIN))	// (4)
+	{
+	  CLEAR_BIT(LED_IND_PORT, LED_IND_PIN);	// (5)
+  	}
+      else
+	{
+  	  SET_BIT( LED_IND_PORT, LED_IND_PIN);	// (6)
+  	}
+    }
+}
 
 /***************************************************************************************************/
 /**********************************                             ************************************/

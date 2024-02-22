@@ -52,7 +52,6 @@
 ****************************   GLOB. VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
 
-SemaphoreHandle_t TIM3BinarySemaphore = pdFALSE;		//The semaphore has been created in this .c file so it's the original variable.
 
 /****************************************************************************************************
 ****************************   CONST VARIABLES DECLARATION    ***************************************
@@ -85,7 +84,6 @@ struct ws2812_color{											// Creating a structure of RGB (8/8/8) for WS2812
 *	Function Return Type:	void
 *************************************************************************************************
 *	@Detailed Description: (Do numbering and tag the number to each part of code)
-*	(1) Creating semaphore for TIM3
 *	(1) Initializing the structure variables with defined reset values.
 *	(2) Creating an infinite loop to run the color patterns and the task executes.
 *	(3) Shift the color Red to the left and add a constant to the value.
@@ -106,9 +104,6 @@ void _init_WS2812( void *pvParameters )
   uint8_t cnt = 0;								// A counter for counting the ws2812 pixel indexes.
   struct ws2812_color ws2812_pixel[WS2812_MAX_PIXEL_ONBOARD];			// Creating 7 pixels of ws2812.
   __IO uint32_t ws2812Pixel[WS2812_MAX_PIXEL_ONBOARD];
-
-  TIM3BinarySemaphore = xSemaphoreCreateBinary();							// (1)
-  //xSemaphoreGive(TIM3BinarySemaphore);		//once the binary semaphore is created with vSemaphore.. we should give the semaphore first.
 
   // (1)
   for(cnt = 0; cnt < WS2812_MAX_PIXEL_ONBOARD; ++cnt){
@@ -164,7 +159,6 @@ void _init_WS2812( void *pvParameters )
 *	(8) Check if the 23rd bits is one
 *	(9) Then updating TIM3 CCR value with WS2812_T1H constant
 *	(10) Otherwise the 23rd bit is zero and we'll update TIM3 register with WS2812_T0H value
-*	(11) Waiting the ISR triggers and give back us the semaphore so we'll upload new value to TIM3 register.
 *	(12) Creating a loop to send out 40 zero bits (It'll create a 50 microseconds delay as of a reset signal)
 *	(13) Updating the TIM3 register with zero
 *	(14) Waiting to give back the semaphore that we've taken.
@@ -195,14 +189,6 @@ int8_t WS2812UpdatePixels( __IO uint32_t *colors, uint32_t numOfPixels)
 	  else
 	    {
 	      TIM3UpdateCCR3( WS2812_T0H );					// (10)
-	    }
-
-	  while(1)
-	    {
-	      if(xSemaphoreTake( TIM3BinarySemaphore, portMAX_DELAY))		// (11)
-		{
-		  break;
-		}
 	    }
 	}
     }

@@ -17,12 +17,13 @@ Blender firmware project todo list.
     - Writing C code for the main super-loop block diagram
     - 
     - 
-    - 
-    - 
-    - 
-    - 
-    - 
-    - 
+    - Doing UART + DMA driver
+    - Doing DMX
+    - Doing TIM3 + DMA
+    - Doing WS2812
+    - Doing I2C + DMA
+    - Doing SSD1306 Driver
+    - Doing FreeRTOS
     - 
     - 
     - 

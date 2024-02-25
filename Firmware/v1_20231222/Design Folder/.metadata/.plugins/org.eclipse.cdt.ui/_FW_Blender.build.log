@@ -1,23 +1,86 @@
-01:39:04 **** Incremental Build of configuration Debug for project _FW_Blender ****
+19:00:08 **** Build of configuration Debug for project _FW_Blender ****
 make -j20 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc -o "_FW_Blender.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\Projects\STP\Blender\Firmware\v1_20231222\Design Folder\_FW_Blender\STM32F446RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="_FW_Blender.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: _FW_Blender.elf
- 
-arm-none-eabi-size  _FW_Blender.elf 
-arm-none-eabi-objdump -h -S _FW_Blender.elf  > "_FW_Blender.list"
-   text	   data	    bss	    dec	    hex	filename
-   7020	     96	  18464	  25580	   63ec	_FW_Blender.elf
-arm-none-eabi-objcopy  -O ihex _FW_Blender.elf  "_FW_Blender.hex"
-arm-none-eabi-objcopy  -O binary _FW_Blender.elf  "_FW_Blender.bin"
-Finished building: default.size.stdout
- 
-Finished building: _FW_Blender.hex
- 
-Finished building: _FW_Blender.bin
-Finished building: _FW_Blender.list
- 
- 
+arm-none-eabi-gcc "../Drivers/Peripherals/_drv_peripherals.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Peripherals/_drv_peripherals.d" -MT"Drivers/Peripherals/_drv_peripherals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Peripherals/_drv_peripherals.o"
+arm-none-eabi-gcc "../Drivers/DMX/_drv_DMX.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/DMX/_drv_DMX.d" -MT"Drivers/DMX/_drv_DMX.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/DMX/_drv_DMX.o"
+../Drivers/Peripherals/_drv_peripherals.c: In function 'FMPI2C1DataTx':
+../Drivers/Peripherals/_drv_peripherals.c:332:33: warning: passing argument 2 of 'DMAEnable' makes pointer from integer without a cast [-Wint-conversion]
+  332 |   DMAEnable(DMA1_FMPI2C1_TX_EN, *data, buffSize);                       // (4)
+      |                                 ^~~~~
+      |                                 |
+      |                                 uint8_t {aka unsigned char}
+../Drivers/Peripherals/_drv_peripherals.c:89:56: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'uint8_t' {aka 'unsigned char'}
+   89 | static void DMAEnable( uint8_t channelNumber, uint8_t *data, uint32_t numOfTransfer);
+      |                                               ~~~~~~~~~^~~~
+../Drivers/Peripherals/_drv_peripherals.c: In function 'UART1DataTx':
+../Drivers/Peripherals/_drv_peripherals.c:414:32: warning: passing argument 2 of 'DMAEnable' makes pointer from integer without a cast [-Wint-conversion]
+  414 |   DMAEnable( DMA2_UART1_TX_EN, *data, buffSize);                        // (4)
+      |                                ^~~~~
+      |                                |
+      |                                uint8_t {aka unsigned char}
+../Drivers/Peripherals/_drv_peripherals.c:89:56: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'uint8_t' {aka 'unsigned char'}
+   89 | static void DMAEnable( uint8_t channelNumber, uint8_t *data, uint32_t numOfTransfer);
+      |                                               ~~~~~~~~~^~~~
+../Drivers/Peripherals/_drv_peripherals.c: In function '_init_DMA':
+../Drivers/Peripherals/_drv_peripherals.c:854:21: warning: assignment to 'uint32_t' {aka 'long unsigned int'} from 'volatile uint32_t *' {aka 'volatile long unsigned int *'} makes integer from pointer without a cast [-Wint-conversion]
+  854 |   DMA1_Stream5->PAR = &FMPI2C1->TXDR;                                   // (6)
+      |                     ^
+../Drivers/Peripherals/_drv_peripherals.c:866:21: warning: assignment to 'uint32_t' {aka 'long unsigned int'} from 'volatile uint32_t *' {aka 'volatile long unsigned int *'} makes integer from pointer without a cast [-Wint-conversion]
+  866 |   DMA2_Stream7->PAR = &USART1->DR;                                      // (11)
+      |                     ^
+../Drivers/Peripherals/_drv_peripherals.c:876:21: warning: assignment to 'uint32_t' {aka 'long unsigned int'} from 'volatile uint32_t *' {aka 'volatile long unsigned int *'} makes integer from pointer without a cast [-Wint-conversion]
+  876 |   DMA2_Stream3->PAR = &SPI1->DR;                                        // (16)
+      |                     ^
+At top level:
+../Drivers/Peripherals/_drv_peripherals.c:1275:13: warning: '_init_SPDIF' defined but not used [-Wunused-function]
+ 1275 | static void _init_SPDIF( void )
+      |             ^~~~~~~~~~~
+../Drivers/Peripherals/_drv_peripherals.c:1236:13: warning: '_init_I2S' defined but not used [-Wunused-function]
+ 1236 | static void _init_I2S( void )
+      |             ^~~~~~~~~
+../Drivers/Peripherals/_drv_peripherals.c:1102:13: warning: '_init_RTC' defined but not used [-Wunused-function]
+ 1102 | static void _init_RTC( void )
+      |             ^~~~~~~~~
+../Drivers/Peripherals/_drv_peripherals.c:1045:13: warning: '_init_TIM2' defined but not used [-Wunused-function]
+ 1045 | static void _init_TIM2( void )
+      |             ^~~~~~~~~~
+../Drivers/Peripherals/_drv_peripherals.c:1032:13: warning: '_init_TIM1' defined but not used [-Wunused-function]
+ 1032 | static void _init_TIM1( void )
+      |             ^~~~~~~~~~
+../Drivers/Peripherals/_drv_peripherals.c:990:13: warning: '_init_ADC3' defined but not used [-Wunused-function]
+  990 | static void _init_ADC3( void )
+      |             ^~~~~~~~~~
+../Drivers/Peripherals/_drv_peripherals.c:984:13: warning: '_init_ADC2' defined but not used [-Wunused-function]
+  984 | static void _init_ADC2( void )
+      |             ^~~~~~~~~~
+../Drivers/Peripherals/_drv_peripherals.c:978:13: warning: '_init_ADC1' defined but not used [-Wunused-function]
+  978 | static void _init_ADC1( void )
+      |             ^~~~~~~~~~
+../Drivers/Peripherals/_drv_peripherals.c:524:13: warning: '_init_PWR' defined but not used [-Wunused-function]
+  524 | static void _init_PWR( void )
+      |             ^~~~~~~~~
+../Drivers/Peripherals/_drv_peripherals.c:56:25: warning: 'semaphoreWatiTime10ms' defined but not used [-Wunused-const-variable=]
+   56 | static const TickType_t semaphoreWatiTime10ms = pdMS_TO_TICKS(10);      // 10msec delay for semaphore to get created, if it didn't happen immediately!
+      |                         ^~~~~~~~~~~~~~~~~~~~~
+../Drivers/DMX/_drv_DMX.c: In function '_init_DMX':
+../Drivers/DMX/_drv_DMX.c:127:29: error: 'xDelay500ms' undeclared (first use in this function)
+  127 |                 vTaskDelay( xDelay500ms );                                                                                                              // (10)
+      |                             ^~~~~~~~~~~
+../Drivers/DMX/_drv_DMX.c:127:29: note: each undeclared identifier is reported only once for each function it appears in
+../Drivers/DMX/_drv_DMX.c: In function 'DMXHeadUpdate':
+../Drivers/DMX/_drv_DMX.c:150:37: warning: passing argument 1 of 'UART1DataTx' makes pointer from integer without a cast [-Wint-conversion]
+  150 |         return (int8_t)UART1DataTx( *colors, numOfHead);        // (1)
+      |                                     ^~~~~~~
+      |                                     |
+      |                                     uint8_t {aka unsigned char}
+In file included from ../Core/Inc/main.h:69,
+                 from ../Drivers/DMX/_drv_DMX.h:51,
+                 from ../Drivers/DMX/_drv_DMX.c:49:
+../Drivers/Peripherals/_drv_peripherals.h:179:31: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'uint8_t' {aka 'unsigned char'}
+  179 | int32_t UART1DataTx( uint8_t *data, uint32_t buffSize);
+      |                      ~~~~~~~~~^~~~
+make: *** [Drivers/DMX/subdir.mk:19: Drivers/DMX/_drv_DMX.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j20 all" terminated with exit code 2. Build might be incomplete.
 
-01:39:05 Build Finished. 0 errors, 0 warnings. (took 438ms)
+19:00:08 Build Failed. 3 errors, 16 warnings. (took 599ms)
 

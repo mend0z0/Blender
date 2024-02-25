@@ -51,15 +51,15 @@
 /****************************************************************************************************
 ****************************   CONST VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
-const uint32_t SysTickInputClock = (90000000 / 8);			// The AHB output is 90MHz and there is an extra 1/8 multiplier.
+const uint32_t SysTickInputClock = (90000000);			// The AHB output is 90MHz and there is an extra 1/8 multiplier.
 const uint16_t DAC_CONSTANT = 40U;							// The 100% output actual constant is 40.96, but I kept it 40 for not overflowing.
 static const TickType_t semaphoreWatiTime10ms = pdMS_TO_TICKS(10);	// 10msec delay for semaphore to get created, if it didn't happen immediately!
 
-const uint32_t DMA1_Stream5_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 5;	//
-const uint32_t DMA2_Stream7_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 5;	//
-const uint32_t TIM3_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 5;		//
-const uint32_t FMPI2C1_EV_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 5;	//
-const uint32_t USART1_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 5;		//
+const uint32_t DMA1_Stream5_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 2;	//
+const uint32_t DMA2_Stream7_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 2;	//
+const uint32_t TIM3_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY;		//
+const uint32_t FMPI2C1_EV_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 2;	//
+const uint32_t USART1_IRQ_PRIORITY = configMAX_SYSCALL_INTERRUPT_PRIORITY + 2;		//
 
 /****************************************************************************************************
 ****************************   GLOB. VARIABLES DECLARATION    ***************************************
@@ -163,6 +163,8 @@ void _init_Peripherals( void ){
 	//_init_I2S();
 	//_init_SPDIF();
 	_init_SysTick();
+
+	NVIC_SetPriorityGrouping(4);
 }
 
 /*			General-purpose I/Os						*/
@@ -226,6 +228,7 @@ void DACUpdate( uint8_t dacValue)
 void TIM3Enable( void )
 {
   _init_TIM3();			// Init TIM3
+  TIM3->CCR3 = 0;
   TIM3->CNT = 0;		// (1)
   TIM3->CR1 |= TIM_CR1_CEN;	// (2)
 }
@@ -249,7 +252,7 @@ void TIM3Enable( void )
 ****************************************************************************************************/
 void TIM3Disable( void )
 {
-	TIM3->CR1 &= ~TIM_CR1_CEN;	// (1)
+  TIM3->CR1 &= ~TIM_CR1_CEN;	// (1)
 }
 
 /****************************************************************************************************
@@ -269,16 +272,16 @@ void TIM3Disable( void )
 *	Revision History (Description, author, date: yyyy/mm/dd)
 *
 ****************************************************************************************************/
-void TIM3UpdateCCR3( uint32_t ccrValue )
+bool TIM3UpdateCCR3( void )
 {
-  TIM3->CCR3 = ccrValue;					// (1)
   while(1)
     {
-      if(xSemaphoreTake( xBinarySemaphoreTIM3, portMAX_DELAY))	// (11)
+      	if(xSemaphoreTake( xBinarySemaphoreTIM3, portMAX_DELAY))	// (11)
 	{
-	  break;
+      	    break;
 	}
     }
+  return pdFALSE;
 }
 
 /*			Real-time clock							*/
@@ -414,7 +417,7 @@ int32_t UART1DataTx( uint8_t *data, uint32_t buffSize)
 
   while(1)
     {
-      if(xSemaphoreTake( USART1BinarySemaphore, portMAX_DELAY))		// (7)
+      if(xSemaphoreTake( xBinarySemaphoreUSART1, portMAX_DELAY))		// (7)
 	{
 	  DMADisable( DMA2_UART1_TX_DIS );				// (8)
 	  if((USART1->SR & USART_SR_TC) == USART_SR_TC)			// (9)
@@ -491,8 +494,7 @@ int8_t I2SDataTx( uint32_t *data)
 ****************************************************************************************************/
 static void _init_SysTick( void )
 {
-	SysTick_Config(SysTickInputClock / 1000);		// (1)
-	NVIC_EnableIRQ(SysTick_IRQn);				// Enable Interrupts.
+	SysTick_Config(SysTickInputClock / 8000);		// (1)
 }
 
 
@@ -769,7 +771,7 @@ static void _init_GPIO( void )
 
   GPIOB->OSPEEDR |= (	GPIO_OSPEEDR_OSPEED3_0	|						// (29)
 			GPIO_OSPEEDR_OSPEED5_0	|						// (30)
-			GPIO_OSPEEDR_OSPEED0_0	|						// (31)
+			GPIO_OSPEEDR_OSPEED0_0	| GPIO_OSPEEDR_OSPEED0_1 |			// (31)
 			GPIO_OSPEEDR_OSPEED1_0	|						// (32)
 			GPIO_OSPEEDR_OSPEED7_0							// (33)
   );
@@ -852,7 +854,6 @@ static void _init_DMA( void )
   DMA1_Stream5->PAR = &FMPI2C1->TXDR;					// (6)
   NVIC_SetPriority(DMA1_Stream5_IRQn	, DMA1_Stream5_IRQ_PRIORITY);	// Set Interrupts priority.
   NVIC_EnableIRQ(DMA1_Stream5_IRQn);					// Enable Required Interrupts.
-  /check nvic grouping as well...
 
   xBinarySemaphoreDMA1Stream5 = xSemaphoreCreateBinary();		//
 
@@ -863,10 +864,8 @@ static void _init_DMA( void )
   );
 
   DMA2_Stream7->PAR = &USART1->DR;					// (11)
-  NVIC_SetPriority(DMA2_Stream7_IRQn	, DMA2_Stream67_IRQ_PRIORITY);	// Set Interrupts priority.
+  NVIC_SetPriority(DMA2_Stream7_IRQn	, DMA2_Stream7_IRQ_PRIORITY);	// Set Interrupts priority.
   NVIC_EnableIRQ(DMA2_Stream7_IRQn);					// Enable Required Interrupts.
-  /check nvic grouping as well...
-
 
   DMA2_Stream3->CR |= (	DMA_SxCR_CHSEL_0 | DMA_SxCR_CHSEL_1 |		// (12)
 			DMA_SxCR_MINC	 |				// (13)
@@ -1062,7 +1061,7 @@ static void _init_TIM2( void )
 *************************************************************************************************
 *	@Detailed Description: (Do numbering and tag the number to each part of code)
 *	(1) Toggle - OC1REF toggles when TIMx_CNT=TIMx_CCR1
-*	(2) Preload register on TIMx_CCR1 enabled.
+*	(2) Preload register on TIMx_CCR3 enabled.
 *	(3) Capture/Compare 3 output enable.
 *	(4) Fclk = 45MHz, then 56 will make a signal with overall period of 1.25 usec.
 *	(5) Initializing with 0 as compare value. Technically turning it off.
@@ -1086,14 +1085,13 @@ static void _init_TIM3( void )
   );
 
   TIM3->CCER |= TIM_CCER_CC3E;					// (3)
-  TIM3->ARR = 56;												// (4)
+  TIM3->ARR = 28;												// (4)
   TIM3->CCR3 = 0;												// (5)
-  TIM3->CR1 |= TIM_CR1_URS;					// (6)
+  TIM3->CR1 |= TIM_CR1_URS | TIM_CR1_ARPE;			// (6)
   TIM3->DIER |= TIM_DIER_UIE;					// (7)
 
   NVIC_SetPriority( TIM3_IRQn, TIM3_IRQ_PRIORITY);		// Set Interrupts priority.
   NVIC_EnableIRQ(TIM3_IRQn);					// Enable Required Interrupts.
-  //check nvic grouping as well...
 
   xBinarySemaphoreTIM3 = xSemaphoreCreateBinary();		// (1)
 
@@ -1164,7 +1162,6 @@ static void _init_FMPI2C1( void )
 
   NVIC_SetPriority(FMPI2C1_EV_IRQn	, FMPI2C1_EV_IRQ_PRIORITY);	// Set Interrupts priority.
   NVIC_EnableIRQ(FMPI2C1_EV_IRQn);					// Enable Required Interrupts.
-  /check nvic grouping as well...
 
   xBinarySemaphoreFMPI2C = xSemaphoreCreateBinary();					// (1)
 
@@ -1201,16 +1198,14 @@ static void _init_UART1( void )
       return;
     }
 
-  USART1->BRR |= (0X16 << 4);				// (1)
+  USART1->BRR |= (0x16 << 4);				// (1)
   USART1->CR2 |= USART_CR2_STOP_1;			// (2)
   USART1->CR3 |= USART_CR3_DMAT;			// (3)
   USART1->CR1 |= USART_CR1_TE;				// (4)
   NVIC_SetPriority(USART1_IRQn, USART1_IRQ_PRIORITY);	// Set Interrupts priority.
   NVIC_EnableIRQ(USART1_IRQn);				// Enable Required Interrupts.
-  /check nvic grouping as well...
 
   xBinarySemaphoreUSART1 = xSemaphoreCreateBinary();	// (1)
-  //xSemaphoreGive(USART1BinarySemaphore);		//once the binary semaphore is created with vSemaphore.. we should give the semaphore first.
 
   initFlag = pdTRUE;
 }

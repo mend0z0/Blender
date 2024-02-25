@@ -148,7 +148,7 @@ void TIM3Disable( void );
 *	Function Parameters:	uint32_t ccrValue
 *	Function Return Type:	void
 *	************************************************************************************************/
-void TIM3UpdateCCR3( uint32_t ccrValue );
+bool TIM3UpdateCCR3( void );
 
 /*			Inter-integrated circuit (I2C) interface			*/
 

@@ -48,21 +48,25 @@
 *****************************************************************************************************/
 #include "_drv_ws2812.h"
 
-/****************************************************************************************************
-****************************   GLOB. VARIABLES DECLARATION    ***************************************
-*****************************************************************************************************/
-
 
 /****************************************************************************************************
 ****************************   CONST VARIABLES DECLARATION    ***************************************
 *****************************************************************************************************/
-static const TickType_t xDelay100ms = pdMS_TO_TICKS( 100UL );	// Defining a 100 milliseconds delay
+static const TickType_t xDelay500ms = pdMS_TO_TICKS( 500UL );	// Defining a 100 milliseconds delay
 
 struct ws2812_color{											// Creating a structure of RGB (8/8/8) for WS2812 pixels.
  			uint8_t red;
  			uint8_t green;
  			uint8_t blue;
 };
+
+/****************************************************************************************************
+****************************   GLOB. VARIABLES DECLARATION    ***************************************
+*****************************************************************************************************/
+
+__IO uint8_t ws2812ColorBits[WS2812_NO_COLOR_BITS];
+__IO uint8_t ws2812ColorBitIndexCnt = 0;
+struct ws2812_color ws2812_pixel[WS2812_MAX_PIXEL_ONBOARD];			// Creating 7 pixels of ws2812.
 
 /****************************************************************************************************
 ***********************     STATIC/LOCAL FUNCTIONS DECLARATION      *********************************
@@ -102,7 +106,6 @@ struct ws2812_color{											// Creating a structure of RGB (8/8/8) for WS2812
 void _init_WS2812( void *pvParameters )
 {
   uint8_t cnt = 0;								// A counter for counting the ws2812 pixel indexes.
-  struct ws2812_color ws2812_pixel[WS2812_MAX_PIXEL_ONBOARD];			// Creating 7 pixels of ws2812.
   __IO uint32_t ws2812Pixel[WS2812_MAX_PIXEL_ONBOARD];
 
   // (1)
@@ -137,7 +140,7 @@ void _init_WS2812( void *pvParameters )
 
       WS2812UpdatePixels( ws2812Pixel, WS2812_MAX_PIXEL_ONBOARD);				// (10)
 
-      vTaskDelay( xDelay100ms );								// (11)
+      vTaskDelay( xDelay500ms );								// (11)
     }
 }
 
@@ -171,7 +174,8 @@ void _init_WS2812( void *pvParameters )
 int8_t WS2812UpdatePixels( __IO uint32_t *colors, uint32_t numOfPixels)
 {
   uint32_t ledIndexCnt = 0;
-  uint8_t colorBitCnt = 0;
+  uint8_t colorBitIndexCnt = 0;
+  bool tim3UpdateStatus = 0;
   __IO uint32_t tempColor = 0;
 
   TIM3Enable();									// (4)
@@ -180,29 +184,27 @@ int8_t WS2812UpdatePixels( __IO uint32_t *colors, uint32_t numOfPixels)
     {
       tempColor = *(colors + ledIndexCnt);					// (6)
 
-      for(colorBitCnt = 0; colorBitCnt < WS2812_COLOR_BITS; ++colorBitCnt)	// (7)
+      for(colorBitIndexCnt = 0; colorBitIndexCnt < WS2812_NO_COLOR_BITS; ++colorBitIndexCnt)	// (7)
 	{
 	  if((tempColor & (1 << 23)) == (1 << 23))				// (8)
 	    {
-	      TIM3UpdateCCR3( WS2812_T1H );					// (9)
+	      ws2812ColorBits[colorBitIndexCnt] = WS2812_T1H;					// (9)
 	    }
 	  else
 	    {
-	      TIM3UpdateCCR3( WS2812_T0H );					// (10)
+	      ws2812ColorBits[colorBitIndexCnt] = WS2812_T1H;					// (10)
 	    }
+	  tempColor = (tempColor << 1);
 	}
+      TIM3UpdateCCR3();
     }
-  for(colorBitCnt = 0; colorBitCnt < WS2812_RES; ++colorBitCnt)			// (12)
+  for(colorBitIndexCnt = 0; colorBitIndexCnt < WS2812_RES; ++colorBitIndexCnt)			// (12)
     {
-      TIM3UpdateCCR3( WS2812_TRES );						// (13)
-
-      while(1)
-	{
-	  if(xSemaphoreTake( TIM3BinarySemaphore, portMAX_DELAY))		// (14)
-	    {
-	      break;
-	    }
-	}
+      for(colorBitIndexCnt = 0; colorBitIndexCnt < WS2812_NO_COLOR_BITS; ++colorBitIndexCnt)	// (7)
+      	{
+	  ws2812ColorBits[colorBitIndexCnt] = 0;
+      	}
+      TIM3UpdateCCR3();						// (13)
     }
 
   TIM3Disable();								// (15)

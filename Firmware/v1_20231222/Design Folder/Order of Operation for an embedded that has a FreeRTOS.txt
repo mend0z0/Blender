@@ -1,0 +1,7 @@
+1- Init power
+2- init CLOCK & systick
+3- Init GPIOs (just direction)
+4- Enable global interrupts
+4- Init default task (a blinking LED)
+5- Init other tasks... (Enable the interrupt in the tasks so each task will init its own peripheral)
+6- Run scheduler

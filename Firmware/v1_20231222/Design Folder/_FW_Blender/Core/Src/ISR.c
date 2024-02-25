@@ -60,6 +60,9 @@ extern SemaphoreHandle_t xBinarySemaphoreTIM3;			// The semaphore has been creat
 extern SemaphoreHandle_t xBinarySemaphoreFMPI2C;		//
 extern SemaphoreHandle_t xBinarySemaphoreUSART1;		//
 
+extern __IO uint8_t ws2812ColorBits[WS2812_NO_COLOR_BITS];
+extern __IO uint8_t ws2812ColorBitIndexCnt;
+
 /****************************************************************************************************
 ***********************     STATIC/LOCAL FUNCTIONS DECLARATION      *********************************
 *****************************************************************************************************/
@@ -271,9 +274,15 @@ void TIM1_IRQHandler( void )
 void TIM3_IRQHandler( void ){
   BaseType_t xHigherPriorityTaskWoken = pdFALSE;
   TIM3->SR &= ~TIM_SR_UIF;							// (1)
-  xSemaphoreGiveFromISR( xBinarySemaphoreTIM3, &xHigherPriorityTaskWoken);	// (2)
-  /* Yield if xHigherPriorityTaskWoken is true.  The actual macro used here is port specific. */
-  portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
+  TIM3->CCR3 = ws2812ColorBits[ws2812ColorBitIndexCnt];					// (1)
+  ws2812ColorBitIndexCnt++;
+  if(ws2812ColorBitIndexCnt == WS2812_NO_COLOR_BITS)
+    {
+      ws2812ColorBitIndexCnt = 0;
+      xSemaphoreGiveFromISR( xBinarySemaphoreTIM3, &xHigherPriorityTaskWoken);	// (2)
+      /* Yield if xHigherPriorityTaskWoken is true.  The actual macro used here is port specific. */
+      portYIELD_FROM_ISR( xHigherPriorityTaskWoken );
+    }
 }
 
 /*			Real-time clock										*/

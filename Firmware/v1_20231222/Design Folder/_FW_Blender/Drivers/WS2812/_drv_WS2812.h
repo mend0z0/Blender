@@ -59,11 +59,11 @@
 /****************************************************************************************************
 ****************************   DEFINED VARIABLES DECLARATION    *************************************
 *****************************************************************************************************/
-#define	WS2812_COLOR_BITS				24U
-#define	WS2812_T0H						18U		// (0.40us)
-#define	WS2812_T1H						36U		// (0.80us)
-#define	WS2812_TRES						0U		// (0 uS)
-#define	WS2812_RES						40U		// It's the number of bits. RESET signal = 50 uSec (1.25 us * 40 = 50 uSeconds)
+#define	WS2812_NO_COLOR_BITS			24U
+#define	WS2812_T0H				9U		// (0.40us)
+#define	WS2812_T1H				18U		// (0.80us)
+#define	WS2812_TRES				0U		// (0 uS)
+#define	WS2812_RES				40U		// It's the number of bits. RESET signal = 50 uSec (1.25 us * 40 = 50 uSeconds)
 
 #define	WS2812_RESET_VALUE_RED			1U		//
 #define	WS2812_RESET_VALUE_GREEN		1U		//

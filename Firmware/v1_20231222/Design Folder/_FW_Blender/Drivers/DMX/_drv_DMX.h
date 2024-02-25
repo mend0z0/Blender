@@ -58,15 +58,15 @@
 ****************************   DEFINED VARIABLES DECLARATION    *************************************
 *****************************************************************************************************/
 
-#define	DMX_RESET_VALUE_R		1U		// Reset value for the color R that the variable will be set with
-#define	DMX_RESET_VALUE_G		1U		// Reset value for the color G that the variable will be set with
-#define	DMX_RESET_VALUE_B		1U		// Reset value for the color B that the variable will be set with
+#define	DMX_RESET_VALUE_R	1U		// Reset value for the color R that the variable will be set with
+#define	DMX_RESET_VALUE_G	1U		// Reset value for the color G that the variable will be set with
+#define	DMX_RESET_VALUE_B	1U		// Reset value for the color B that the variable will be set with
 
 #define	DMX_CONSTANT_VALUE_R	0x01	// Constant value for the color R to be added to the variable value
 #define	DMX_CONSTANT_VALUE_G	0x02	// Constant value for the color G to be added to the variable value
 #define	DMX_CONSTANT_VALUE_B	0x04	// Constant value for the color B to be added to the variable value
 
-#define	DMX_MAX_HEAD			7U		// Maximum number of DMX receivers (Head light)
+#define	DMX_MAX_HEAD		2U		// Maximum number of DMX receivers (Head light)
 
 
 /****************************************************************************************************

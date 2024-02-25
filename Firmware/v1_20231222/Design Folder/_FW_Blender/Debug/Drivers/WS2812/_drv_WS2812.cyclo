@@ -1,2 +1,0 @@
-../Drivers/WS2812/_drv_WS2812.c:106:6:_init_WS2812	3
-../Drivers/WS2812/_drv_WS2812.c:174:8:WS2812UpdatePixels	6

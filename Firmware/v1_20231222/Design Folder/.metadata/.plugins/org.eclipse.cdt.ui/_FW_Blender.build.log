@@ -1,86 +1,23 @@
-19:00:08 **** Build of configuration Debug for project _FW_Blender ****
-make -j20 all 
-arm-none-eabi-gcc "../Drivers/Peripherals/_drv_peripherals.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/Peripherals/_drv_peripherals.d" -MT"Drivers/Peripherals/_drv_peripherals.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/Peripherals/_drv_peripherals.o"
-arm-none-eabi-gcc "../Drivers/DMX/_drv_DMX.c" -mcpu=cortex-m4 -std=gnu11 -g -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../OS/FreeRTOS/Source/include -I../OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU -I../OS/FreeRTOS/Source/portable/MemMang -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/WS2812 -I../Drivers/VGA -I../Drivers/Toslink -I../Drivers/SSD1306 -I../Drivers/Peripherals -I../Drivers/PCM1754 -I../Drivers/PAM8003 -I../Drivers/DMX -I../App/Test -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Drivers/DMX/_drv_DMX.d" -MT"Drivers/DMX/_drv_DMX.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/DMX/_drv_DMX.o"
-../Drivers/Peripherals/_drv_peripherals.c: In function 'FMPI2C1DataTx':
-../Drivers/Peripherals/_drv_peripherals.c:332:33: warning: passing argument 2 of 'DMAEnable' makes pointer from integer without a cast [-Wint-conversion]
-  332 |   DMAEnable(DMA1_FMPI2C1_TX_EN, *data, buffSize);                       // (4)
-      |                                 ^~~~~
-      |                                 |
-      |                                 uint8_t {aka unsigned char}
-../Drivers/Peripherals/_drv_peripherals.c:89:56: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'uint8_t' {aka 'unsigned char'}
-   89 | static void DMAEnable( uint8_t channelNumber, uint8_t *data, uint32_t numOfTransfer);
-      |                                               ~~~~~~~~~^~~~
-../Drivers/Peripherals/_drv_peripherals.c: In function 'UART1DataTx':
-../Drivers/Peripherals/_drv_peripherals.c:414:32: warning: passing argument 2 of 'DMAEnable' makes pointer from integer without a cast [-Wint-conversion]
-  414 |   DMAEnable( DMA2_UART1_TX_EN, *data, buffSize);                        // (4)
-      |                                ^~~~~
-      |                                |
-      |                                uint8_t {aka unsigned char}
-../Drivers/Peripherals/_drv_peripherals.c:89:56: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'uint8_t' {aka 'unsigned char'}
-   89 | static void DMAEnable( uint8_t channelNumber, uint8_t *data, uint32_t numOfTransfer);
-      |                                               ~~~~~~~~~^~~~
-../Drivers/Peripherals/_drv_peripherals.c: In function '_init_DMA':
-../Drivers/Peripherals/_drv_peripherals.c:854:21: warning: assignment to 'uint32_t' {aka 'long unsigned int'} from 'volatile uint32_t *' {aka 'volatile long unsigned int *'} makes integer from pointer without a cast [-Wint-conversion]
-  854 |   DMA1_Stream5->PAR = &FMPI2C1->TXDR;                                   // (6)
-      |                     ^
-../Drivers/Peripherals/_drv_peripherals.c:866:21: warning: assignment to 'uint32_t' {aka 'long unsigned int'} from 'volatile uint32_t *' {aka 'volatile long unsigned int *'} makes integer from pointer without a cast [-Wint-conversion]
-  866 |   DMA2_Stream7->PAR = &USART1->DR;                                      // (11)
-      |                     ^
-../Drivers/Peripherals/_drv_peripherals.c:876:21: warning: assignment to 'uint32_t' {aka 'long unsigned int'} from 'volatile uint32_t *' {aka 'volatile long unsigned int *'} makes integer from pointer without a cast [-Wint-conversion]
-  876 |   DMA2_Stream3->PAR = &SPI1->DR;                                        // (16)
-      |                     ^
-At top level:
-../Drivers/Peripherals/_drv_peripherals.c:1275:13: warning: '_init_SPDIF' defined but not used [-Wunused-function]
- 1275 | static void _init_SPDIF( void )
-      |             ^~~~~~~~~~~
-../Drivers/Peripherals/_drv_peripherals.c:1236:13: warning: '_init_I2S' defined but not used [-Wunused-function]
- 1236 | static void _init_I2S( void )
-      |             ^~~~~~~~~
-../Drivers/Peripherals/_drv_peripherals.c:1102:13: warning: '_init_RTC' defined but not used [-Wunused-function]
- 1102 | static void _init_RTC( void )
-      |             ^~~~~~~~~
-../Drivers/Peripherals/_drv_peripherals.c:1045:13: warning: '_init_TIM2' defined but not used [-Wunused-function]
- 1045 | static void _init_TIM2( void )
-      |             ^~~~~~~~~~
-../Drivers/Peripherals/_drv_peripherals.c:1032:13: warning: '_init_TIM1' defined but not used [-Wunused-function]
- 1032 | static void _init_TIM1( void )
-      |             ^~~~~~~~~~
-../Drivers/Peripherals/_drv_peripherals.c:990:13: warning: '_init_ADC3' defined but not used [-Wunused-function]
-  990 | static void _init_ADC3( void )
-      |             ^~~~~~~~~~
-../Drivers/Peripherals/_drv_peripherals.c:984:13: warning: '_init_ADC2' defined but not used [-Wunused-function]
-  984 | static void _init_ADC2( void )
-      |             ^~~~~~~~~~
-../Drivers/Peripherals/_drv_peripherals.c:978:13: warning: '_init_ADC1' defined but not used [-Wunused-function]
-  978 | static void _init_ADC1( void )
-      |             ^~~~~~~~~~
-../Drivers/Peripherals/_drv_peripherals.c:524:13: warning: '_init_PWR' defined but not used [-Wunused-function]
-  524 | static void _init_PWR( void )
-      |             ^~~~~~~~~
-../Drivers/Peripherals/_drv_peripherals.c:56:25: warning: 'semaphoreWatiTime10ms' defined but not used [-Wunused-const-variable=]
-   56 | static const TickType_t semaphoreWatiTime10ms = pdMS_TO_TICKS(10);      // 10msec delay for semaphore to get created, if it didn't happen immediately!
-      |                         ^~~~~~~~~~~~~~~~~~~~~
-../Drivers/DMX/_drv_DMX.c: In function '_init_DMX':
-../Drivers/DMX/_drv_DMX.c:127:29: error: 'xDelay500ms' undeclared (first use in this function)
-  127 |                 vTaskDelay( xDelay500ms );                                                                                                              // (10)
-      |                             ^~~~~~~~~~~
-../Drivers/DMX/_drv_DMX.c:127:29: note: each undeclared identifier is reported only once for each function it appears in
-../Drivers/DMX/_drv_DMX.c: In function 'DMXHeadUpdate':
-../Drivers/DMX/_drv_DMX.c:150:37: warning: passing argument 1 of 'UART1DataTx' makes pointer from integer without a cast [-Wint-conversion]
-  150 |         return (int8_t)UART1DataTx( *colors, numOfHead);        // (1)
-      |                                     ^~~~~~~
-      |                                     |
-      |                                     uint8_t {aka unsigned char}
-In file included from ../Core/Inc/main.h:69,
-                 from ../Drivers/DMX/_drv_DMX.h:51,
-                 from ../Drivers/DMX/_drv_DMX.c:49:
-../Drivers/Peripherals/_drv_peripherals.h:179:31: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'uint8_t' {aka 'unsigned char'}
-  179 | int32_t UART1DataTx( uint8_t *data, uint32_t buffSize);
-      |                      ~~~~~~~~~^~~~
-make: *** [Drivers/DMX/subdir.mk:19: Drivers/DMX/_drv_DMX.o] Error 1
-make: *** Waiting for unfinished jobs....
-"make -j20 all" terminated with exit code 2. Build might be incomplete.
+22:32:10 **** Clean-only build of configuration Debug for project _FW_Blender ****
+make -j20 clean 
+rm -rf ./OS/FreeRTOS/Source/portable/MemMang/heap_4.cyclo ./OS/FreeRTOS/Source/portable/MemMang/heap_4.d ./OS/FreeRTOS/Source/portable/MemMang/heap_4.o ./OS/FreeRTOS/Source/portable/MemMang/heap_4.su
+rm -rf ./OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.cyclo ./OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.d ./OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.o ./OS/FreeRTOS/Source/portable/GCC/ARM_CM4_MPU/port.su
+rm -rf ./OS/FreeRTOS/Source/croutine.cyclo ./OS/FreeRTOS/Source/croutine.d ./OS/FreeRTOS/Source/croutine.o ./OS/FreeRTOS/Source/croutine.su ./OS/FreeRTOS/Source/event_groups.cyclo ./OS/FreeRTOS/Source/event_groups.d ./OS/FreeRTOS/Source/event_groups.o ./OS/FreeRTOS/Source/event_groups.su ./OS/FreeRTOS/Source/list.cyclo ./OS/FreeRTOS/Source/list.d ./OS/FreeRTOS/Source/list.o ./OS/FreeRTOS/Source/list.su ./OS/FreeRTOS/Source/queue.cyclo ./OS/FreeRTOS/Source/queue.d ./OS/FreeRTOS/Source/queue.o ./OS/FreeRTOS/Source/queue.su ./OS/FreeRTOS/Source/stream_buffer.cyclo ./OS/FreeRTOS/Source/stream_buffer.d ./OS/FreeRTOS/Source/stream_buffer.o ./OS/FreeRTOS/Source/stream_buffer.su ./OS/FreeRTOS/Source/task.cyclo ./OS/FreeRTOS/Source/task.d ./OS/FreeRTOS/Source/task.o ./OS/FreeRTOS/Source/task.su ./OS/FreeRTOS/Source/timers.cyclo ./OS/FreeRTOS/Source/timers.d ./OS/FreeRTOS/Source/timers.o ./OS/FreeRTOS/Source/timers.su
+rm -rf ./Drivers/WS2812/_drv_WS2812.cyclo ./Drivers/WS2812/_drv_WS2812.d ./Drivers/WS2812/_drv_WS2812.o ./Drivers/WS2812/_drv_WS2812.su
+rm -rf ./Drivers/VGA/_drv_VGA.cyclo ./Drivers/VGA/_drv_VGA.d ./Drivers/VGA/_drv_VGA.o ./Drivers/VGA/_drv_VGA.su
+rm -rf ./Drivers/Toslink/_drv_Toslink.cyclo ./Drivers/Toslink/_drv_Toslink.d ./Drivers/Toslink/_drv_Toslink.o ./Drivers/Toslink/_drv_Toslink.su
+rm -rf ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.su ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.cyclo ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.d ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.o ./Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.su
+rm -rf ./Drivers/SSD1306/_drv_SSD1306.cyclo ./Drivers/SSD1306/_drv_SSD1306.d ./Drivers/SSD1306/_drv_SSD1306.o ./Drivers/SSD1306/_drv_SSD1306.su
+rm -rf ./Drivers/Peripherals/_drv_peripherals.cyclo ./Drivers/Peripherals/_drv_peripherals.d ./Drivers/Peripherals/_drv_peripherals.o ./Drivers/Peripherals/_drv_peripherals.su
+rm -rf ./Drivers/PCM1754/_drv_PCM1754.cyclo ./Drivers/PCM1754/_drv_PCM1754.d ./Drivers/PCM1754/_drv_PCM1754.o ./Drivers/PCM1754/_drv_PCM1754.su
+rm -rf ./Drivers/PAM8003/_drv_PAM8003.cyclo ./Drivers/PAM8003/_drv_PAM8003.d ./Drivers/PAM8003/_drv_PAM8003.o ./Drivers/PAM8003/_drv_PAM8003.su
+rm -rf ./Drivers/DMX/_drv_DMX.cyclo ./Drivers/DMX/_drv_DMX.d ./Drivers/DMX/_drv_DMX.o ./Drivers/DMX/_drv_DMX.su
+rm -rf ./Core/Startup/startup_stm32f446rctx.d ./Core/Startup/startup_stm32f446rctx.o
+rm -rf ./Core/Src/ISR.cyclo ./Core/Src/ISR.d ./Core/Src/ISR.o ./Core/Src/ISR.su ./Core/Src/main.cyclo ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/main.su ./Core/Src/stm32f4xx_hal_msp.cyclo ./Core/Src/stm32f4xx_hal_msp.d ./Core/Src/stm32f4xx_hal_msp.o ./Core/Src/stm32f4xx_hal_msp.su ./Core/Src/syscalls.cyclo ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/syscalls.su ./Core/Src/sysmem.cyclo ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/sysmem.su ./Core/Src/system_stm32f4xx.cyclo ./Core/Src/system_stm32f4xx.d ./Core/Src/system_stm32f4xx.o ./Core/Src/system_stm32f4xx.su
+rm -rf ./Core/Code\ Template\ Source.cyclo ./Core/Code\ Template\ Source.d ./Core/Code\ Template\ Source.o ./Core/Code\ Template\ Source.su
+rm -rf ./App/Test/_app_test.cyclo ./App/Test/_app_test.d ./App/Test/_app_test.o ./App/Test/_app_test.su
+rm -rf _FW_Blender.bin _FW_Blender.elf _FW_Blender.hex _FW_Blender.list _FW_Blender.map default.size.stdout
+ 
 
-19:00:08 Build Failed. 3 errors, 16 warnings. (took 599ms)
+22:32:11 Build Finished. 0 errors, 0 warnings. (took 226ms)
 

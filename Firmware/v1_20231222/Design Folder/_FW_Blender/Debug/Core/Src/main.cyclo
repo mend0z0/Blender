@@ -1,3 +1,0 @@
-../Drivers/CMSIS/Include/core_cm4.h:1684:22:__NVIC_EnableIRQ	2
-../Core/Src/main.c:72:5:main	1
-../Core/Src/main.c:141:6:defaultTask	2

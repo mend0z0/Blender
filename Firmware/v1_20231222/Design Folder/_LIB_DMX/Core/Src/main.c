@@ -102,7 +102,7 @@ int main(void)
 
 static void _init_RCC( void )
 {
-  /*
+
   ////--------------Enabling the HSE
   RCC->CR |= RCC_CR_HSEON;				// (1)
   while((RCC->CR & RCC_CR_HSERDY) == 0)			// (2)
@@ -114,13 +114,12 @@ static void _init_RCC( void )
   RCC->PLLCFGR |= RCC_PLLCFGR_PLLSRC;			// (3)
 
   // Fosc_in = 16 MHz
-  // PLLM = 6
-  // PLLN = 120
-  // PLLP = 2
-  // Fpll = (16 * (240 / 6)) / 4 = 160 MHz
+    // PLLM = 10
+    // PLLN = 200
+    // PLLP = 2
+    // Fpll = (16 * (240 / 6)) / 4 = 160 MHz
 
-  RCC->PLLCFGR |= 0x06 | (0xF0 << 6);
-  RCC->PLLCFGR |= RCC_PLLCFGR_PLLP_0;	// DIVIDE BY 4
+    RCC->PLLCFGR |= 0x0A | (0xC8 << 6);
 
   RCC->PLLCFGR |= RCC_PLLCFGR_PLLR_1;			// (5)
 
@@ -141,7 +140,7 @@ static void _init_RCC( void )
     {
       //maybe add a time out later
     }
-*/
+
   RCC->AHB1ENR |= (	RCC_AHB1ENR_GPIOAEN |		// (13)
 			RCC_AHB1ENR_GPIOBEN |		// (14)
 			RCC_AHB1ENR_GPIOCEN |		// (15)
@@ -203,6 +202,10 @@ static void _init_GPIO( void )
 			GPIO_OSPEEDR_OSPEED1_0	|						// (32)
 			GPIO_OSPEEDR_OSPEED7_0							// (33)
   );
+
+  GPIOA->PUPDR |= GPIO_PUPDR_PUPDR9_1;	// internal pull down resistor
+
+
   /*		AFRL REGs		*/
   GPIOA->AFR[0] |= (	GPIO_AFRL_AFSEL3_0   |							// (34)
 			GPIO_AFRL_AFSEL5_0	 						// (35)
@@ -239,17 +242,13 @@ static void _init_DMA( void )
       return;				// simply return from the function
     }
 
-  DMA2_Stream7->CR |= DMA_SxCR_CHSEL_2	|				// (7)
-		      DMA_SxCR_MINC	|				// (8)
-		      DMA_SxCR_DIR_0	|				// (9)
-		      DMA_SxCR_TCIE	|
-		      DMA_SxCR_PL_0	| DMA_SxCR_PL_1; 				// (10)
+  DMA2_Stream7->CR |= DMA_SxCR_CHSEL_2	|			// (7)
+		      DMA_SxCR_MINC	|			// (8)
+		      DMA_SxCR_DIR_0	|			// (9)
+		      DMA_SxCR_PL_0	| DMA_SxCR_PL_1; 	// (10)
 
   DMA2_Stream7->PAR = (uint32_t)&USART1->DR;
   DMA2_Stream7->M0AR = &dmx_ch_1.startCode;		// (11)
-
-  //NVIC_SetPriority( DMA2_Stream7_IRQn, 0);	// Set Interrupts priority.
-  //NVIC_EnableIRQ( DMA2_Stream7_IRQn);					// Enable Required Interrupts.
 
   DMA2_Stream7->CR &= ~DMA_SxCR_EN;
 
@@ -343,9 +342,9 @@ void _init_DMX( void )
   for(uint8_t i = 0; i < 10; ++i)
     {
       //	(1)
-      dmx_ch_1.dmx_head[cnt].colorRed = (dmx_ch_1.dmx_head[cnt].colorRed << 1) | DMX_CONSTANT_VALUE_R;	// (3)
+      dmx_ch_1.dmx_head[cnt].colorRed = (dmx_ch_1.dmx_head[cnt].colorRed << 2) | DMX_CONSTANT_VALUE_R;	// (3)
       dmx_ch_1.dmx_head[cnt].colorGreen = (dmx_ch_1.dmx_head[cnt].colorGreen << 1) | DMX_CONSTANT_VALUE_G;	// (4)
-      dmx_ch_1.dmx_head[cnt].colorBlue = (dmx_ch_1.dmx_head[cnt].colorBlue << 1) | DMX_CONSTANT_VALUE_B;	// (5)
+      dmx_ch_1.dmx_head[cnt].colorBlue = (dmx_ch_1.dmx_head[cnt].colorBlue << 4) | DMX_CONSTANT_VALUE_B;	// (5)
 
       //dmx_ch_1.dmx_head[cnt].colorRed = 0XFF;	// (3)
       //dmx_ch_1.dmx_head[cnt].colorGreen = 0;	// (4)
@@ -367,13 +366,13 @@ void _init_DMX( void )
 int8_t DMXHeadUpdate( uint32_t numOfHead)
 {
   CLEAR_BIT( GPIOA->MODER, GPIO_MODER_MODER9_1 );
-  SET_BIT( GPIOA->MODER, GPIO_MODER_MODER9_0 );
+  //SET_BIT( GPIOA->MODER, GPIO_MODER_MODER9_0 );
 
-  CLEAR_BIT( GPIOA->ODR, GPIO_ODR_OD9 );
-  for(uint16_t cnt = 0; cnt < 250; ++cnt);
+  //CLEAR_BIT( GPIOA->ODR, GPIO_ODR_OD9 );
+  for(uint16_t cnt = 0; cnt < 200; ++cnt);
 
   SET_BIT( GPIOA->MODER, GPIO_MODER_MODER9_1 );
-  CLEAR_BIT( GPIOA->MODER, GPIO_MODER_MODER9_0 );
+  //CLEAR_BIT( GPIOA->MODER, GPIO_MODER_MODER9_0 );
 
   return UART1DataTx(numOfHead);	// (1)
 }

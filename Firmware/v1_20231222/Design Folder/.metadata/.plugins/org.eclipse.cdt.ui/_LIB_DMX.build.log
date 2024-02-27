@@ -1,13 +1,13 @@
-02:37:35 **** Incremental Build of configuration Debug for project _LIB_DMX ****
+23:18:39 **** Incremental Build of configuration Debug for project _LIB_DMX ****
 make -j20 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=c99 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c: In function '_init_DMA':
-../Core/Src/main.c:249:22: warning: assignment to 'uint32_t' {aka 'long unsigned int'} from 'uint8_t *' {aka 'unsigned char *'} makes integer from pointer without a cast [-Wint-conversion]
-  249 |   DMA2_Stream7->M0AR = &dmx_ch_1.startCode;             // (11)
+../Core/Src/main.c:251:22: warning: assignment to 'uint32_t' {aka 'long unsigned int'} from 'uint8_t *' {aka 'unsigned char *'} makes integer from pointer without a cast [-Wint-conversion]
+  251 |   DMA2_Stream7->M0AR = &dmx_ch_1.startCode;             // (11)
       |                      ^
 At top level:
-../Core/Src/main.c:269:13: warning: 'DMADisable' defined but not used [-Wunused-function]
-  269 | static void DMADisable( void )
+../Core/Src/main.c:268:13: warning: 'DMADisable' defined but not used [-Wunused-function]
+  268 | static void DMADisable( void )
       |             ^~~~~~~~~~
 arm-none-eabi-gcc -o "_LIB_DMX.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\Projects\STP\Blender\Firmware\v1_20231222\Design Folder\_LIB_DMX\STM32F446RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="_LIB_DMX.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: _LIB_DMX.elf
@@ -15,11 +15,11 @@ Finished building target: _LIB_DMX.elf
 arm-none-eabi-size  _LIB_DMX.elf 
 arm-none-eabi-objdump -h -S _LIB_DMX.elf  > "_LIB_DMX.list"
    text	   data	    bss	    dec	    hex	filename
-   2260	     12	   1596	   3868	    f1c	_LIB_DMX.elf
+   2388	     12	   1596	   3996	    f9c	_LIB_DMX.elf
 Finished building: default.size.stdout
  
 Finished building: _LIB_DMX.list
  
 
-02:37:36 Build Finished. 0 errors, 2 warnings. (took 388ms)
+23:18:40 Build Finished. 0 errors, 2 warnings. (took 390ms)
 

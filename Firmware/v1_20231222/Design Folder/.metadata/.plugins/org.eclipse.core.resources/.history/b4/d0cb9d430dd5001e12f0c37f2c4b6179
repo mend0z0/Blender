@@ -1,0 +1,297 @@
+
+#include "main.h"
+#include "stdbool.h"
+
+#define	LED_IND_PIN	GPIO_ODR_OD2
+#define	LED_IND_PORT	GPIOD->ODR
+
+#define	EXT_LDO_EN_PIN	GPIO_ODR_OD0
+#define	EXT_LDO_EN_PORT	GPIOC->ODR
+
+#define FMPI2C_BUFF_SIZE	128
+
+__IO uint8_t fmp12cBuffer[FMPI2C_BUFF_SIZE];
+
+static void _init_RCC( void );
+static void _init_GPIO( void );
+int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize);
+
+int main(void)
+{
+  _init_RCC();
+  _init_GPIO();
+
+  SET_BIT( EXT_LDO_EN_PORT, EXT_LDO_EN_PIN);	//Enable the LDO power to turn the modules on
+
+  while (1)
+    {
+      if(READ_BIT(LED_IND_PORT, LED_IND_PIN))	// (4)
+	{
+	  CLEAR_BIT(LED_IND_PORT, LED_IND_PIN);	// (5)
+    	}
+      else
+  	{
+    	  SET_BIT( LED_IND_PORT, LED_IND_PIN);	// (6)
+    	}
+      for(uint32_t i = 0; i < 1800000; ++i);
+    }
+}
+
+static void _init_RCC( void )
+{
+
+  ////--------------Enabling the HSE
+  RCC->CR |= RCC_CR_HSEON;				// (1)
+  while((RCC->CR & RCC_CR_HSERDY) == 0)			// (2)
+    {
+      //maybe add a time out later
+    }
+
+  ////--------------Configuration for PLLs
+  RCC->PLLCFGR |= RCC_PLLCFGR_PLLSRC;			// (3)
+
+  // Fosc_in = 16 MHz
+    // PLLM = 10
+    // PLLN = 200
+    // PLLP = 2
+    // Fpll = (16 * (240 / 6)) / 4 = 160 MHz
+
+    RCC->PLLCFGR |= 0x0A | (0xC8 << 6);
+
+  RCC->PLLCFGR |= RCC_PLLCFGR_PLLR_1;			// (5)
+
+
+  RCC->CR |= RCC_CR_PLLON;				// (6)
+
+  while((RCC->CR & RCC_CR_PLLRDY) == 0)			// (7)
+    {
+      //maybe add a time out later
+    }
+
+  RCC->CFGR |= RCC_CFGR_HPRE_3;				// 80MHz
+  RCC->CFGR |= RCC_CFGR_PPRE1_0 | RCC_CFGR_PPRE1_2; 	// 40MHz
+  RCC->CFGR |= RCC_CFGR_PPRE2_2;			// 80MHz
+
+  RCC->CFGR |= RCC_CFGR_SW_1;				// (8)
+  while((RCC->CFGR & RCC_CFGR_SWS_1) != RCC_CFGR_SWS_1)	// (9)
+    {
+      //maybe add a time out later
+    }
+
+  RCC->AHB1ENR |= (	RCC_AHB1ENR_GPIOAEN |		// (13)
+			RCC_AHB1ENR_GPIOBEN |		// (14)
+			RCC_AHB1ENR_GPIOCEN |		// (15)
+			RCC_AHB1ENR_GPIODEN		// (16)
+  );
+
+  RCC->AHB1ENR |= (	RCC_AHB1ENR_DMA1EN	| 	// (17)
+			RCC_AHB1ENR_DMA2EN		// (18)
+  );
+
+  RCC->APB2ENR |= RCC_APB2ENR_USART1EN;			// (27)
+}
+
+static void _init_GPIO( void )
+{
+  /*		MODER REGs		*/
+  GPIOA->MODER |= (	GPIO_MODER_MODER4_0  | GPIO_MODER_MODER4_1 |				// (1)
+			GPIO_MODER_MODER6_0  |							// (2)
+			GPIO_MODER_MODER0_0  | GPIO_MODER_MODER0_1 |  				// (3)
+			GPIO_MODER_MODER1_0  | GPIO_MODER_MODER1_1 |  				// (4)
+			GPIO_MODER_MODER2_0  | GPIO_MODER_MODER2_1 |  				// (5)
+			GPIO_MODER_MODER9_1  |							// (6)
+			GPIO_MODER_MODER10_1 |							// (7)
+			GPIO_MODER_MODER3_1  |							// (8)
+			GPIO_MODER_MODER5_1  |							// (9)
+			GPIO_MODER_MODER15_1							// (10)
+  );
+
+  GPIOB->MODER |= (	GPIO_MODER_MODER13_0 |							// (11)
+			GPIO_MODER_MODER14_0 |							// (12)
+			GPIO_MODER_MODER15_0 |							// (13)
+			GPIO_MODER_MODER3_1  |							// (14)
+			GPIO_MODER_MODER5_1  |							// (15)
+			GPIO_MODER_MODER0_1  |							// (16)
+			GPIO_MODER_MODER1_1  |							// (17)
+			GPIO_MODER_MODER7_1	 						// (18)
+  );
+
+  GPIOC->MODER |= (	GPIO_MODER_MODER0_0  |							// (19)
+			GPIO_MODER_MODER8_0  |							// (20)
+			GPIO_MODER_MODER9_0  |							// (21)
+			GPIO_MODER_MODER4_1  |							// (22)
+			GPIO_MODER_MODER6_1	 |						// (23)
+			GPIO_MODER_MODER7_1							// (24)
+  );
+
+  GPIOD->MODER |= GPIO_MODER_MODER2_0;								// (25)
+
+  /*		OSPEEDR	REGs	*/
+  GPIOA->OSPEEDR |= (	GPIO_OSPEEDR_OSPEED3_0	|						// (26)
+			GPIO_OSPEEDR_OSPEED5_0	|						// (27)
+			GPIO_OSPEEDR_OSPEED15_0	|
+			GPIO_OSPEEDR_OSPEED9_0  | GPIO_OSPEEDR_OSPEED9_1
+  );
+
+  GPIOB->OSPEEDR |= (	GPIO_OSPEEDR_OSPEED3_0	|						// (29)
+			GPIO_OSPEEDR_OSPEED5_0	|						// (30)
+			GPIO_OSPEEDR_OSPEED0_0	| GPIO_OSPEEDR_OSPEED0_1 |			// (31)
+			GPIO_OSPEEDR_OSPEED1_0	|						// (32)
+			GPIO_OSPEEDR_OSPEED7_0							// (33)
+  );
+
+  GPIOA->PUPDR |= GPIO_PUPDR_PUPDR9_1;	// internal pull down resistor
+
+
+  /*		AFRL REGs		*/
+  GPIOA->AFR[0] |= (	GPIO_AFRL_AFSEL3_0   |							// (34)
+			GPIO_AFRL_AFSEL5_0	 						// (35)
+  );
+
+  GPIOA->AFR[1] |= (	(GPIO_AFRH_AFSEL9_0  | GPIO_AFRH_AFSEL9_1 | GPIO_AFRH_AFSEL9_2) |	// (36)
+			(GPIO_AFRH_AFSEL10_0 | GPIO_AFRH_AFSEL10_1 | GPIO_AFRH_AFSEL10_2) |	// (37)
+			(GPIO_AFRH_AFSEL15_0 | GPIO_AFRH_AFSEL15_2)				// (38)
+  );
+
+  GPIOB->AFR[0] |= (	(GPIO_AFRL_AFSEL3_0 | GPIO_AFRL_AFSEL3_2) |				// (39)
+			(GPIO_AFRL_AFSEL5_0 | GPIO_AFRL_AFSEL5_2) |				// (40)
+			GPIO_AFRL_AFSEL0_1 	|						// (41)
+			GPIO_AFRL_AFSEL1_1 	|						// (42)
+			GPIO_AFRL_AFSEL7_3							// (43)
+  );
+
+  GPIOC->AFR[0] |= (	GPIO_AFRL_AFSEL6_2	|						// (44)
+			GPIO_AFRL_AFSEL7_2							// (45)
+  );
+
+  /*	RESET VALUE	*/
+  GPIOA->ODR = 0;																				// (46)
+  GPIOB->ODR = 0;																				// (47)
+  GPIOC->ODR = 0;																				// (48)
+  GPIOD->ODR = 0;																				// (49)
+}
+
+static void _init_DMA( void )
+{
+  static bool initFlag = false;	// To check if it's already initialized!
+  if(initFlag == true)		// if it's been initialized
+    {
+      return;				// simply return from the function
+    }
+
+  DMA1_Stream5->CR |= (	DMA_SxCR_CHSEL_1 |			// (2)
+  			DMA_SxCR_MINC	 |			// (3)
+  			DMA_SxCR_DIR_0	 |			// (4)
+			DMA_SxCR_PL_0	 | DMA_SxCR_PL_1 |	// Set the priority very high
+			DMA_SxCR_CIRC	 |			// Enabling circular mode
+  			DMA_SxCR_PFCTRL				// (5)
+  );
+
+  DMA1_Stream5->PAR = &FMPI2C1->TXDR;				// (6)
+  DMA1_Stream5->M0AR = &fmp12cBuffer[0];			// (11)
+  DMA1_Stream5->NDTR = FMPI2C_BUFF_SIZE;
+
+  NVIC_SetPriority(DMA1_Stream5_IRQn, 1);			// Set Interrupts priority.
+  NVIC_EnableIRQ(DMA1_Stream5_IRQn);				// Enable Required Interrupts.
+
+  DMA1->HIFCR |= DMA_HIFCR_CTCIF5;				// clearing the DMA flag before enabling the DMA
+
+  DMA1_Stream5->CR |= DMA_SxCR_EN;
+
+  initFlag = true;
+}
+
+static void _init_FMPI2C( void )
+{
+  static bool initFlag = pdFALSE;
+  if(initFlag == pdTRUE)
+    {
+      return;
+    }
+
+  //Setting the clock to 400KHz
+  FMPI2C1->TIMINGR |= (	(10 << 28) 	|		// (1)
+			(1 << 20) 	| 		// (2)
+			(1 << 16) 	| 		// (3)
+			(1 << 8) 	|		// (4)
+			(4 << 0)			// (5)
+  );
+
+  FMPI2C1->CR2 |= FMPI2C_CR2_RELOAD;				// The transfer is not completed after the NBYTES data transfer (NBYTES is reloaded). TCR flag is set when NBYTES data are transferred, stretching SCL low
+  FMPI2C1->CR2 |= (FMPI2C_BUFF_SIZE << FMPI2C_CR2_NBYTES_Pos);	// The number of bytes to be transmitted/received is programmed there. Note: Changing these bits when the START bit is set is not allowed.
+
+  //Enable interrupts
+  FMPI2C1->CR1 |= (	FMPI2C_CR1_TXDMAEN	|	// DMA mode enabled for transmission
+			FMPI2C_CR1_TCIE 	| 	// Transfer Complete interrupt enabled
+			FMPI2C_CR1_ERRIE 	| 	// Error detection interrupts enabled
+			FMPI2C_CR1_NACKIE	|	// Not acknowledge (NACKF) received interrupts enabled
+			FMPI2C_CR1_TXIE
+  );
+
+  NVIC_SetPriority( FMPI2C1_EV_IRQn, 1);		// Set Interrupts priority.
+  NVIC_EnableIRQ( FMPI2C1_EV_IRQn );			// Enable Required Interrupts.
+
+  _init_DMA();
+
+  FMPI2C1->CR1 |= FMPI2C_CR1_PE;			// (11)
+
+  initFlag = pdTRUE;
+}
+
+int32_t FMPI2C1DataTx( uint8_t slaveAddr, uint8_t *data, uint32_t buffSize)
+{
+  __IO int32_t status = 0;
+  uint8_t buffCnt = 0;
+
+  _init_FMPI2C1();
+
+  if(buffSize <= FMPI2C_BUFF_SIZE)
+    {
+      for(buffCnt = 0; buffCnt < buffSize; ++buffCnt)
+	{
+	  fmp12cBuffer[cnt] = *(data + cnt);
+	}
+    }
+
+
+  FMPI2C1->CR2 |= ((slaveAddr & 0X7F) << 1);	// Slave address (master mode)
+  FMPI2C1->CR2 &= ~FMPI2C_CR2_RD_WRN;		// Transfer direction (master mode)
+  FMPI2C1->CR2 |= FMPI2C_CR2_START;		// Start generation
+
+
+  while(1)
+    {
+      if(xSemaphoreTake( xBinarySemaphoreFMPI2C, portMAX_DELAY ))		// (10)
+	{
+	  xSemaphoreGiveFromISR( xBinarySemaphoreDMA1Stream5, &xHigherPriorityTaskWoken);	// This is to inactive the taken semaphore
+	  DMADisable( DMA1_FMPI2C1_TX_DIS );					// (11)
+	  if((FMPI2C1->ISR & FMPI2C_ISR_NACKF) == FMPI2C_ISR_NACKF)
+	    {
+	      FMPI2C1->ICR |= FMPI2C_ICR_NACKCF;		 		// (13)
+	      status = FMPI2C_ERROR_NACK;				 	// (14)
+	    }
+	  else
+	    {
+	      status = FMPI2C_ERROR_UNKNOWN;					// (18)
+	    }
+	  break;
+	}
+      else if(xSemaphoreTake( xBinarySemaphoreDMA1Stream5, portMAX_DELAY ))	// (xx)
+	{
+	  xSemaphoreGiveFromISR( xBinarySemaphoreFMPI2C, &xHigherPriorityTaskWoken);	// This is to inactive the taken semaphore
+	  DMADisable( DMA1_FMPI2C1_TX_DIS );					// (11)
+	  if((DMA1->HISR & DMA_HISR_TCIF5) == DMA_HISR_TCIF5)
+	    {
+	      DMA1->HIFCR |= DMA_HIFCR_CTCIF5;					// (16)
+	      status = (int32_t)buffSize;					// (17)
+	    }
+	  else
+	    {
+	      status = FMPI2C_ERROR_UNKNOWN;					// (18)
+	    }
+	  break;
+	}
+    }
+
+  return status;													// (19)
+}

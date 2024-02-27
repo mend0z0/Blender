@@ -1,0 +1,23 @@
+11:09:13 **** Incremental Build of configuration Debug for project _LIB_SSD1306 ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F446xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:201:13: warning: 'DMADisable' defined but not used [-Wunused-function]
+  201 | static void DMADisable( void )
+      |             ^~~~~~~~~~
+../Core/Src/main.c:191:13: warning: 'DMAEnable' defined but not used [-Wunused-function]
+  191 | static void DMAEnable(uint16_t numOfTransfer )
+      |             ^~~~~~~~~
+arm-none-eabi-gcc -o "_LIB_SSD1306.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\Projects\STP\Blender\Firmware\v1_20231222\Design Folder\_LIB_SSD1306\STM32F446RCTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="_LIB_SSD1306.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: _LIB_SSD1306.elf
+ 
+arm-none-eabi-size  _LIB_SSD1306.elf 
+arm-none-eabi-objdump -h -S _LIB_SSD1306.elf  > "_LIB_SSD1306.list"
+   text	   data	    bss	    dec	    hex	filename
+   1384	     12	   1572	   2968	    b98	_LIB_SSD1306.elf
+Finished building: default.size.stdout
+ 
+Finished building: _LIB_SSD1306.list
+ 
+
+11:09:14 Build Finished. 0 errors, 2 warnings. (took 496ms)
+

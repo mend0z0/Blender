@@ -1,1 +1,1 @@
-## This readme file explains the folder structure.
+## Firmware Directory folder structures.

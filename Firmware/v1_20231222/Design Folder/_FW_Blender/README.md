@@ -1,1 +1,1 @@
-## Firmware Directory folder structures.
+## Firmware Directory Structure.

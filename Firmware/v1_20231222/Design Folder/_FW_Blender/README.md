@@ -1,0 +1,1 @@
+## This readme file explains the folder structure.

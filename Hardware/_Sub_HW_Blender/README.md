@@ -6,7 +6,8 @@ Blender hardware project version history
 
 - __v1_20230918 :__ first release.
 
-| ## Features - __MCU :__ STM32F446RCT6 - __Inputs :__ VGA Input, S/PDIF - __Outputs :__ DMX, WS2812, SPEAKER, Display (OLED) - __Board Osc. Freq. :__ 160 MHz - __Working Voltage :__ 3.3 VDC - __Current Consumption :__  TBD - __Board Dimensions :__ 50*50 mm | hello? |
+| ## Features
+- __MCU :__ STM32F446RCT6 - __Inputs :__ VGA Input, S/PDIF - __Outputs :__ DMX, WS2812, SPEAKER, Display (OLED) - __Board Osc. Freq. :__ 160 MHz - __Working Voltage :__ 3.3 VDC - __Current Consumption :__  TBD - __Board Dimensions :__ 50*50 mm | hello? |
 |:--:|:--:| 
 | Features | *3D View - v1-2023/09/18* |
 

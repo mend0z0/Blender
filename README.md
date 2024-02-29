@@ -21,7 +21,7 @@ __Digital Signal Processing (DSP)__
 - Can be installed in-line.
 - On board speaker and WS2812 for troubleshooting.
 
-## Tech
+## Technology
 
 ### Hardware
 

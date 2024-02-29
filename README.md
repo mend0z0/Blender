@@ -25,7 +25,7 @@ __Digital Signal Processing (DSP)__
 
 | <H3>Hardware</H3> | <H3>Firmware</H3> | <H3>Mechanical</H3> |
 |:--:| :--: | :--:| 
-| <br><P style="align:left; font-size:4px;">**MCU:** STM32F446RCT6</br><br>**Connection:** S/PDIF, VGA, DMX, I2S</br><br>**PCB Layers:** 4Layer/s (None-controlled Impedance)</br><br>**CAD:** KiCAD</br> | <br><P align="left">**OS:** FreeRTOS</br><br>**Programming Language:** C</br><br>**IDE:** STM32CubeIDE</br><br></br> | <br><P align="left">**CAD:** Solid Edge</br><br>**Manufacturing Method:** 3D Printing</br><br></br><br></br> |
+| <br><P style="align:left; font:4px;">**MCU:** STM32F446RCT6</br><br>**Connection:** S/PDIF, VGA, DMX, I2S</br><br>**PCB Layers:** 4Layer/s (None-controlled Impedance)</br><br>**CAD:** KiCAD</br> | <br><P align="left">**OS:** FreeRTOS</br><br>**Programming Language:** C</br><br>**IDE:** STM32CubeIDE</br><br></br> | <br><P align="left">**CAD:** Solid Edge</br><br>**Manufacturing Method:** 3D Printing</br><br></br><br></br> |
 
 ## Block Diagram
 

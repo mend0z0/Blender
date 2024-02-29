@@ -56,7 +56,6 @@ __Digital Signal Processing (DSP)__
 
 ![_BLENDER](https://github.com/mend0z0)
 
-
 ## Demo
 
 Not ready yet...
@@ -64,7 +63,6 @@ Not ready yet...
 ## Author
 
 - [@Siavash Taher Parvar](https://www.linkedin.com/in/mend0z0)
-
 
 ## Support
 

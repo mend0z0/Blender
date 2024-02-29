@@ -26,7 +26,7 @@ __Digital Signal Processing (DSP)__
 ### Hardware
 
 - **MCU:** STM32F446RCT6
-- **Connection:** S/PDIF, VGA, DMX, I2S
+- **Connection:** S/PDIF, VGA, DMX, I2S, Addressable LEDs (PWM)
 - **PCB Layers:** 4Layer/s (None-controlled Impedance)
 - **CAD:** KiCAD
 

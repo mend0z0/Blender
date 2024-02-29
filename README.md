@@ -61,11 +61,6 @@ __Digital Signal Processing (DSP)__
 
 Not ready yet...
 
-## LOGO
-
-![Logo](https://github.com/mend0z0/Blender/blob/main/LOGO.png)
-
-
 ## Author
 
 - [@Siavash Taher Parvar](https://www.linkedin.com/in/mend0z0)
@@ -74,4 +69,8 @@ Not ready yet...
 ## Support
 
 [Support Link](https://github.com/sponsors/mend0z0)
+
+![Logo](https://github.com/mend0z0/Blender/blob/main/LOGO.png)
+
+
 

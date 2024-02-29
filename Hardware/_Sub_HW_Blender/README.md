@@ -15,5 +15,5 @@ Blender hardware project version history
 - __Working Voltage :__ 3.3 VDC
 - __Current Consumption :__  TBD
 - __Board Dimensions :__ 50*50 mm | ![_3DView_v1_20230918](https://github.com/mend0z0/Blender/blob/main/Hardware/_Sub_HW_Blender/v1_20230918/Released%20Folder/v1.0%20-%2020230918/Media%20Content/Picture/_3DView_Blender_v1.0.png) | 
-|:--:|:--:| 
-| | *3D View - v1-2023/09/18* |
+|:--|--:| 
+| Features | *3D View - v1-2023/09/18* |

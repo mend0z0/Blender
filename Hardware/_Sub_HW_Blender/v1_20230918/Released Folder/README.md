@@ -5,7 +5,7 @@ Blender Hardware project revision history
 ## Roadmap
 
 - #### __v1.0_20230918 :__ 
-    - The first release.
+	The first release.
 
 #### Hardware CAD View
 

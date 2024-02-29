@@ -68,7 +68,7 @@ Not ready yet...
 
 ## Support
 
-[Support Link](https://github.com/sponsors/mend0z0)
+- [Support Link](https://github.com/sponsors/mend0z0)
 
 ![Logo](https://github.com/mend0z0/Blender/blob/main/LOGO.png)
 

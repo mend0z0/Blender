@@ -21,11 +21,25 @@ __Digital Signal Processing (DSP)__
 - Can be installed in-line.
 - On board speaker and WS2812 for troubleshooting.
 
-## Tech Stack
+## Tech
 
-| <H4>Hardware</H4> | <H4>Firmware</H4> | <H4>Mechanical</H4> |
-|:--:| :--: | :--:| 
-| <br><P align="left">**MCU:** STM32F446RCT6</br><br>**Connection:** S/PDIF, VGA, DMX, I2S</br><br>**PCB Layers:** 4Layer/s (None-controlled Impedance)</br><br>**CAD:** KiCAD</br> | <br><P align="left">**OS:** FreeRTOS</br><br>**Programming Language:** C</br><br>**IDE:** STM32CubeIDE</br><br></br> | <br><P align="left">**CAD:** Solid Edge</br><br>**Manufacturing Method:** 3D Printing</br><br></br><br></br> |
+### Hardware
+
+- **MCU:** STM32F446RCT6
+- **Connection:** S/PDIF, VGA, DMX, I2S
+- **PCB Layers:** 4Layer/s (None-controlled Impedance)
+- **CAD:** KiCAD
+
+### Firmware
+
+- **OS:** FreeRTOS
+- **Programming Language:** C
+- **IDE:** STM32CubeIDE
+
+### Mechanical
+
+- **CAD:** Solid Edge
+- **Manufacturing Method:** 3D Printing
 
 ## Block Diagram
 
@@ -35,13 +49,12 @@ __Digital Signal Processing (DSP)__
 ![Firmware](https://github.com/mend0z0/Blender/blob/main/Document/Block%20Diagrams/_FBD_FW_Blender_v1.0.svg)
 
 
-## Screenshots
+## Glamour Shots
 
-### Assembled Hardware
+| ![_ASMView_Top](https://github.com/mend0z0/Blender/blob/main/Document/Tests/Assembled%20Hardware/Assembled%20PCB/_ASMView_Top_Blender_v1.0.jpeg) | ![_ASMView_Bottom](https://github.com/mend0z0/Blender/blob/main/Document/Tests/Assembled%20Hardware/Assembled%20PCB/_ASMView_Bottom_Blender_v1.0.jpeg) | ![](https://github.com/mend0z0) | ![](https://github.com/mend0z0) |
+|:--:| :--:| :--:| :--: |
+| PCB Top View | PCB Bottom View | Enclosure View | Application View |
 
-![_ASMView_Top](https://github.com/mend0z0/Blender/blob/main/Document/Tests/Assembled%20Hardware/Assembled%20PCB/_ASMView_Top_Blender_v1.0.jpeg)
-
-![_ASMView_Bottom](https://github.com/mend0z0/Blender/blob/main/Document/Tests/Assembled%20Hardware/Assembled%20PCB/_ASMView_Bottom_Blender_v1.0.jpeg)
 
 ### Final Device
 

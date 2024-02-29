@@ -63,7 +63,7 @@ __Digital Signal Processing (DSP)__
 
 ## Demo
 
-Insert gif or link to demo, it'll be my youtube channel
+Not ready yet...
 
 ## LOGO
 

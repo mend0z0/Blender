@@ -6,7 +6,7 @@ Blender hardware project version history
 
 - __v1_20230918 :__ first release.
 
-|## Features
+| ## Features
 
 - __MCU :__ STM32F446RCT6
 - __Inputs :__ VGA Input, S/PDIF

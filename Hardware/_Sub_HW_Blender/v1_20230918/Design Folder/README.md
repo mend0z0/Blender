@@ -18,7 +18,7 @@ Blender hardware project v1 todo list.
     - Very important, changing the MOSFET gate circuit to a pulldown resistor and a PNP transistor. (Next revision)
     - Modifying prog pins according to the programmer. (Next revision)
     - Placing the logo in a better and visible spot. (Next revision)
-    - 
+    - Remove all the resistors for WS2812 (or make it like 10ohm or 0ohm)
     - 
     - 
     - 

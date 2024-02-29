@@ -10,7 +10,7 @@
 - __Outputs :__ DMX, WS2812, SPEAKER, Display (OLED) 
 - __Board Osc. Freq. :__ 180 MHz
 - __Working Voltage :__ 3.3 VDC
-- __Current Consumption :__ 
+- __Current Consumption :__  TBD
 - __Board Dimensions :__ 50*50 mm
 
 ## Block Diagram (Latest Version)

@@ -8,14 +8,12 @@
 - __MCU :__ STM32F446RCT6
 - __Inputs :__ VGA Input, S/PDIF
 - __Outputs :__ DMX, WS2812, SPEAKER, Display (OLED) 
-- __Board Osc. Freq. :__ 180 MHz
+- __Board Osc. Freq. :__ 160 MHz
 - __Working Voltage :__ 3.3 VDC
 - __Current Consumption :__  TBD
 - __Board Dimensions :__ 50*50 mm
 
-## Block Diagram (Latest Version)
 
-![Hardware](https://github.com/mend0z0/Blender/blob/main/Document/Block%20Diagrams/_FBD_HW_Blender_v1.0.svg)
 
 ### 3D View (Latest Version and Release)
 

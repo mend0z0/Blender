@@ -23,23 +23,9 @@ __Digital Signal Processing (DSP)__
 
 ## Tech Stack
 
-### Hardware
-
-- **MCU:** STM32F446RCT6
-- **Connection:** S/PDIF, VGA, DMX, I2S
-- **PCB Layers:** 4Layer/s (None-controlled Impedance)
-- **CAD:** KiCAD
-
-### Firmware
-
-- **OS:** FreeRTOS
-- **Programming Language:** C
-- **IDE:** STM32CubeIDE
-
-### Mechanical
-
-- **CAD:** Solid Edge
-- **Manufacturing Method:** 3D Printing
+| <H3>Hardware</H3> | <H3>Firmware</H3> | <H3>Mechanical</H3> |
+|:--:| :--:| :--:| 
+| <br><P align="left">**MCU:** STM32F446RCT6</br><br>**Connection:** S/PDIF, VGA, DMX, I2S</br><br>**PCB Layers:** 4Layer/s (None-controlled Impedance)</br><br>**CAD:** KiCAD</br> | <br><P align="left">**OS:** FreeRTOS</br><br>**Programming Language:** C</br><br>**IDE:** STM32CubeIDE</br> | <br><P align="left">**CAD:** Solid Edge</br><br>**Manufacturing Method:** 3D Printing</br> |
 
 ## Block Diagram
 

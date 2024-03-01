@@ -1,0 +1,15 @@
+#Board Spec
+- __MCU :__ STM32F446RCT6
+- __Inputs :__ VGA Input, S/PDIF
+- __Outputs :__ DMX, WS2812, SPEAKER, Display (OLED) 
+- __Board Osc. Freq. :__ 160 MHz
+- __Working Voltage :__ 3.3 VDC
+- __Current Consumption :__  TBD
+
+
+#Board Statistics
+- __Component Total: 217
+- __Total Pad: 858
+- __Total Vias: 146 
+- __Board Layers: 4 Layers (Non-impedance Controlled)
+- __Board Dimensions :__ 49.66 * 49.66 mm2

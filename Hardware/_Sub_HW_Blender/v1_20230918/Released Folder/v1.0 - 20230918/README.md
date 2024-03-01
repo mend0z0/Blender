@@ -1,4 +1,4 @@
-## This readme file explains the folder structure of this released version.
+### This readme file explains the folder structure of this released version.
 
 #### 1. Board Assembly: Any document that is related to assembly will be in this folder
 

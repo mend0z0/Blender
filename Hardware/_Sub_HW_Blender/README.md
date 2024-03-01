@@ -4,7 +4,8 @@ Blender hardware project version history
 
 ## Roadmap
 
-- __v1_20230918 :__ first release.
+- __v1_20230918 :__ 
+	The first version.
 
 | 3D View - v1.0 | Features |
 |:--:|:--:| 

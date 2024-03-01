@@ -1,11 +1,7 @@
-# Version History
-
-Blender hardware project version history
-
-## Roadmap
+## Version History Roadmap
 
 - __v1_20230918 :__ 
-	The first version.
+	- It's the first version.
 
 | 3D View - v1.0 | Features |
 |:--:|:--:| 
